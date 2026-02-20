@@ -1,0 +1,11 @@
+[build]
+builder = "railpack"
+
+[deploy]
+startCommand = "cd cms && npm start"
+healthcheckPath = "/api/health"
+restartPolicyType = "on_failure"
+
+[[services]]
+name = "cms"
+source = "cms"

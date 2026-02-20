@@ -1,4 +1,7 @@
 [service]
-name = "grafix-cms-starter"
+name = "gordijn-studio-cms"
 root = "."
 start = "npm start"
+
+[build]
+builder = "railpack"
