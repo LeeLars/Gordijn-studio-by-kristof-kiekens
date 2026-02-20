@@ -1,5 +1,5 @@
 {
-  "name": "grafix-cms-starter",
+  "name": "gordijn-studio-cms",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -7,11 +7,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "cloudinary": "^1.41.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.0",
     "express": "^4.19.0",
     "pg": "^8.11.0",
-    "cloudinary": "^1.41.0"
+    "resend": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.0"

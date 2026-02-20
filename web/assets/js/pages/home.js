@@ -32,19 +32,55 @@
         });
     }
 
-    // Contact formulier basis handling
+    // Contact formulier met API integratie
     var form = document.getElementById('contactForm');
     if (form) {
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
+
             var btn = form.querySelector('.btn');
-            btn.textContent = 'Verzonden!';
-            btn.style.background = 'var(--color-primary)';
+            var originalText = btn.textContent;
+            btn.textContent = 'Versturen...';
+            btn.disabled = true;
+
+            try {
+                var data = {
+                    naam: document.getElementById('naam').value,
+                    email: document.getElementById('email').value,
+                    telefoon: document.getElementById('telefoon').value,
+                    bericht: document.getElementById('bericht').value
+                };
+
+                var API_BASE = window.location.hostname === 'localhost'
+                    ? 'http://localhost:3000/api'
+                    : 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api';
+
+                var response = await fetch(API_BASE + '/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                var result = await response.json();
+
+                if (result.success) {
+                    btn.textContent = 'Verzonden!';
+                    btn.style.background = 'var(--color-primary)';
+                    form.reset();
+                } else {
+                    throw new Error(result.error || 'Er ging iets mis');
+                }
+            } catch (err) {
+                console.error(err);
+                btn.textContent = 'Fout - probeer opnieuw';
+                btn.style.background = '#c0392b';
+            }
+
             setTimeout(function () {
-                btn.textContent = 'Verstuur';
+                btn.textContent = originalText;
                 btn.style.background = '';
-                form.reset();
-            }, 2500);
+                btn.disabled = false;
+            }, 3000);
         });
     }
 })();
