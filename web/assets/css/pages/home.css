@@ -1,5 +1,97 @@
 /* Gordijn Studio – Home pagina styles */
 
+/* ── LOADING SCREEN ── */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-logo {
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+}
+
+.loading-logo svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Statische logo tekst */
+.logo-main path {
+    opacity: 0;
+    animation: fadeInLogo 0.6s ease forwards;
+}
+
+.logo-main path:nth-child(1) { animation-delay: 0.1s; }
+.logo-main path:nth-child(2) { animation-delay: 0.2s; }
+.logo-main path:nth-child(3) { animation-delay: 0.3s; }
+.logo-main path:nth-child(4) { animation-delay: 0.4s; }
+.logo-main path:nth-child(5) { animation-delay: 0.5s; }
+.logo-main path:nth-child(6) { animation-delay: 0.6s; }
+.logo-main path:nth-child(7) { animation-delay: 0.7s; }
+.logo-main path:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes fadeInLogo {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Schrijfeffect voor by Kristof Kiekens */
+.logo-script {
+    opacity: 0;
+    animation: fadeInScript 0.3s ease forwards;
+    animation-delay: 1s;
+}
+
+@keyframes fadeInScript {
+    to { opacity: 1; }
+}
+
+.script-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: writeStroke 2.5s ease-in-out forwards;
+    fill: none;
+}
+
+.script-path:nth-child(1) { animation-delay: 1.2s; }
+.script-path:nth-child(2) { animation-delay: 1.4s; }
+.script-path:nth-child(3) { animation-delay: 1.6s; }
+.script-path:nth-child(4) { animation-delay: 1.8s; }
+.script-path:nth-child(5) { animation-delay: 2.0s; }
+.script-path:nth-child(6) { animation-delay: 2.2s; }
+.script-path:nth-child(7) { animation-delay: 2.4s; }
+.script-path:nth-child(8) { animation-delay: 2.6s; }
+
+@keyframes writeStroke {
+    0% {
+        stroke-dashoffset: 1000;
+        fill: none;
+    }
+    70% {
+        stroke-dashoffset: 0;
+        fill: none;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        fill: white;
+    }
+}
+
 /* ── HERO ── */
 .hero {
     position: relative;
