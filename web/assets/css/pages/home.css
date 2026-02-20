@@ -4,23 +4,67 @@
 .loading-screen {
     position: fixed;
     inset: 0;
-    background: #000000;
     z-index: 9999;
+    pointer-events: all;
+}
+
+.loading-screen.done {
+    pointer-events: none;
+}
+
+/* Zwarte helften die uit elkaar schuiven */
+.loading-panel-top,
+.loading-panel-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: #000000;
+    z-index: 2;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.loading-panel-top {
+    top: 0;
+}
+
+.loading-panel-bottom {
+    bottom: 0;
+}
+
+.loading-screen.split .loading-panel-top {
+    transform: translateY(-100%);
+}
+
+.loading-screen.split .loading-panel-bottom {
+    transform: translateY(100%);
+}
+
+/* Logo container - zit achter de panelen */
+.loading-logo-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    background: #000000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-.loading-screen.fade-out {
+.loading-screen.show-logo .loading-logo-wrap {
+    opacity: 1;
+}
+
+.loading-screen.split .loading-logo-wrap {
     opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    transition: opacity 0.6s ease 0.4s;
 }
 
 .loading-logo {
     width: 90%;
-    max-width: 800px;
+    max-width: 700px;
     position: relative;
 }
 
@@ -30,52 +74,57 @@
     display: block;
 }
 
-/* Statische logo tekst */
+/* Statische logo tekst - GORDIJN STUDIO */
 .logo-main path {
     opacity: 0;
-    animation: fadeInLogo 0.6s ease forwards;
 }
 
-.logo-main path:nth-child(1) { animation-delay: 0.1s; }
-.logo-main path:nth-child(2) { animation-delay: 0.2s; }
-.logo-main path:nth-child(3) { animation-delay: 0.3s; }
-.logo-main path:nth-child(4) { animation-delay: 0.4s; }
-.logo-main path:nth-child(5) { animation-delay: 0.5s; }
-.logo-main path:nth-child(6) { animation-delay: 0.6s; }
-.logo-main path:nth-child(7) { animation-delay: 0.7s; }
-.logo-main path:nth-child(8) { animation-delay: 0.8s; }
+.loading-screen.show-logo .logo-main path {
+    animation: fadeInLogo 0.5s ease forwards;
+}
+
+.loading-screen.show-logo .logo-main path:nth-child(1) { animation-delay: 0.1s; }
+.loading-screen.show-logo .logo-main path:nth-child(2) { animation-delay: 0.15s; }
+.loading-screen.show-logo .logo-main path:nth-child(3) { animation-delay: 0.2s; }
+.loading-screen.show-logo .logo-main path:nth-child(4) { animation-delay: 0.25s; }
+.loading-screen.show-logo .logo-main path:nth-child(5) { animation-delay: 0.3s; }
+.loading-screen.show-logo .logo-main path:nth-child(6) { animation-delay: 0.35s; }
+.loading-screen.show-logo .logo-main path:nth-child(7) { animation-delay: 0.4s; }
+.loading-screen.show-logo .logo-main path:nth-child(8) { animation-delay: 0.45s; }
 
 @keyframes fadeInLogo {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Schrijfeffect voor by Kristof Kiekens */
 .logo-script {
     opacity: 0;
-    animation: fadeInScript 0.3s ease forwards;
-    animation-delay: 1s;
 }
 
-@keyframes fadeInScript {
-    to { opacity: 1; }
+.loading-screen.show-script .logo-script {
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .script-path {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: writeStroke 2.5s ease-in-out forwards;
     fill: none;
 }
 
-.script-path:nth-child(1) { animation-delay: 1.2s; }
-.script-path:nth-child(2) { animation-delay: 1.4s; }
-.script-path:nth-child(3) { animation-delay: 1.6s; }
-.script-path:nth-child(4) { animation-delay: 1.8s; }
-.script-path:nth-child(5) { animation-delay: 2.0s; }
-.script-path:nth-child(6) { animation-delay: 2.2s; }
-.script-path:nth-child(7) { animation-delay: 2.4s; }
-.script-path:nth-child(8) { animation-delay: 2.6s; }
+.loading-screen.show-script .script-path {
+    animation: writeStroke 2s ease-in-out forwards;
+}
+
+.loading-screen.show-script .script-path:nth-child(1) { animation-delay: 0s; }
+.loading-screen.show-script .script-path:nth-child(2) { animation-delay: 0.15s; }
+.loading-screen.show-script .script-path:nth-child(3) { animation-delay: 0.3s; }
+.loading-screen.show-script .script-path:nth-child(4) { animation-delay: 0.45s; }
+.loading-screen.show-script .script-path:nth-child(5) { animation-delay: 0.6s; }
+.loading-screen.show-script .script-path:nth-child(6) { animation-delay: 0.75s; }
+.loading-screen.show-script .script-path:nth-child(7) { animation-delay: 0.9s; }
+.loading-screen.show-script .script-path:nth-child(8) { animation-delay: 1.05s; }
 
 @keyframes writeStroke {
     0% {

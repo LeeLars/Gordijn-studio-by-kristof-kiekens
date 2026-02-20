@@ -1,19 +1,33 @@
 // Gordijn Studio - Home pagina logica
 
 (function () {
-    // Loading screen verbergen na animatie
+    // Loading screen animatie sequentie
     var loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) {
-        // Totaal animatie duur: ~5 seconden (laatste path begint bij 2.6s + animatie duur 2.5s)
+        // Stap 1: Na 300ms - toon logo (achter zwarte panelen)
         setTimeout(function () {
-            loadingScreen.classList.add('fade-out');
-            // Verwijder uit DOM na fade out
+            loadingScreen.classList.add('show-logo');
+        }, 300);
+
+        // Stap 2: Na 1s - start schrijfeffect
+        setTimeout(function () {
+            loadingScreen.classList.add('show-script');
+        }, 1000);
+
+        // Stap 3: Na 3.5s - split de zwarte panelen open
+        setTimeout(function () {
+            loadingScreen.classList.add('split');
+        }, 3500);
+
+        // Stap 4: Na 5s - verwijder loading screen uit DOM
+        setTimeout(function () {
+            loadingScreen.classList.add('done');
             setTimeout(function () {
                 if (loadingScreen && loadingScreen.parentNode) {
                     loadingScreen.parentNode.removeChild(loadingScreen);
                 }
-            }, 800);
-        }, 5500);
+            }, 500);
+        }, 5000);
     }
 
     // Scroll-in animaties via IntersectionObserver
