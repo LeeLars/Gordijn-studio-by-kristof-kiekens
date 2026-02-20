@@ -5,67 +5,56 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    pointer-events: all;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-.loading-screen.done {
-    pointer-events: none;
-}
-
-/* Zwarte helften die uit elkaar schuiven */
+/* Twee zwarte panelen bovenop de logo-laag */
 .loading-panel-top,
 .loading-panel-bottom {
     position: absolute;
     left: 0;
     right: 0;
-    height: 50%;
-    background: #000000;
-    z-index: 2;
-    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+    height: 50.1%;
+    background: #000;
+    z-index: 3;
 }
 
-.loading-panel-top {
-    top: 0;
+.loading-panel-top { top: 0; }
+.loading-panel-bottom { bottom: 0; }
+
+/* Phase 2: panelen schuiven open */
+.loading-screen.phase-split .loading-panel-top {
+    animation: panelUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
-.loading-panel-bottom {
-    bottom: 0;
+.loading-screen.phase-split .loading-panel-bottom {
+    animation: panelDown 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
-.loading-screen.split .loading-panel-top {
-    transform: translateY(-100%);
+@keyframes panelUp {
+    to { transform: translateY(-100%); }
 }
 
-.loading-screen.split .loading-panel-bottom {
-    transform: translateY(100%);
+@keyframes panelDown {
+    to { transform: translateY(100%); }
 }
 
-/* Logo container - zit achter de panelen */
+/* Logo wrapper - altijd zichtbaar achter panelen */
 .loading-logo-wrap {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #000000;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.loading-screen.show-logo .loading-logo-wrap {
-    opacity: 1;
-}
-
-.loading-screen.split .loading-logo-wrap {
-    opacity: 0;
-    transition: opacity 0.6s ease 0.4s;
 }
 
 .loading-logo {
     width: 90%;
-    max-width: 700px;
-    position: relative;
+    max-width: 800px;
 }
 
 .loading-logo svg {
@@ -74,70 +63,56 @@
     display: block;
 }
 
-/* Statische logo tekst - GORDIJN STUDIO */
-.logo-main path {
-    opacity: 0;
+/* GORDIJN STUDIO tekst - direct zichtbaar wit */
+.logo-main text {
+    fill: white;
+    opacity: 1;
 }
 
-.loading-screen.show-logo .logo-main path {
-    animation: fadeInLogo 0.5s ease forwards;
-}
-
-.loading-screen.show-logo .logo-main path:nth-child(1) { animation-delay: 0.1s; }
-.loading-screen.show-logo .logo-main path:nth-child(2) { animation-delay: 0.15s; }
-.loading-screen.show-logo .logo-main path:nth-child(3) { animation-delay: 0.2s; }
-.loading-screen.show-logo .logo-main path:nth-child(4) { animation-delay: 0.25s; }
-.loading-screen.show-logo .logo-main path:nth-child(5) { animation-delay: 0.3s; }
-.loading-screen.show-logo .logo-main path:nth-child(6) { animation-delay: 0.35s; }
-.loading-screen.show-logo .logo-main path:nth-child(7) { animation-delay: 0.4s; }
-.loading-screen.show-logo .logo-main path:nth-child(8) { animation-delay: 0.45s; }
-
-@keyframes fadeInLogo {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Schrijfeffect voor by Kristof Kiekens */
+/* by Kristof Kiekens - schrijfeffect van links naar rechts */
 .logo-script {
     opacity: 0;
 }
 
-.loading-screen.show-script .logo-script {
+.loading-screen.phase-write .logo-script {
     opacity: 1;
-    transition: opacity 0.3s ease;
 }
 
 .script-path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
     fill: none;
+    stroke: white;
 }
 
-.loading-screen.show-script .script-path {
-    animation: writeStroke 2s ease-in-out forwards;
+.loading-screen.phase-write .script-path {
+    animation: writeText 2.5s ease forwards;
 }
 
-.loading-screen.show-script .script-path:nth-child(1) { animation-delay: 0s; }
-.loading-screen.show-script .script-path:nth-child(2) { animation-delay: 0.15s; }
-.loading-screen.show-script .script-path:nth-child(3) { animation-delay: 0.3s; }
-.loading-screen.show-script .script-path:nth-child(4) { animation-delay: 0.45s; }
-.loading-screen.show-script .script-path:nth-child(5) { animation-delay: 0.6s; }
-.loading-screen.show-script .script-path:nth-child(6) { animation-delay: 0.75s; }
-.loading-screen.show-script .script-path:nth-child(7) { animation-delay: 0.9s; }
-.loading-screen.show-script .script-path:nth-child(8) { animation-delay: 1.05s; }
-
-@keyframes writeStroke {
+@keyframes writeText {
     0% {
-        stroke-dashoffset: 1000;
-        fill: none;
+        stroke-dashoffset: 500;
+        fill: rgba(255,255,255,0);
     }
-    70% {
+    80% {
         stroke-dashoffset: 0;
-        fill: none;
+        fill: rgba(255,255,255,0);
     }
     100% {
         stroke-dashoffset: 0;
-        fill: white;
+        fill: rgba(255,255,255,1);
+    }
+}
+
+/* Phase 3: hele loading screen verdwijnt */
+.loading-screen.phase-fade {
+    animation: fadeOutScreen 0.8s ease forwards;
+}
+
+@keyframes fadeOutScreen {
+    to {
+        opacity: 0;
+        visibility: hidden;
     }
 }
 

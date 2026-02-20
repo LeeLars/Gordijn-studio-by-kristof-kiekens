@@ -1,33 +1,34 @@
 // Gordijn Studio - Home pagina logica
 
 (function () {
-    // Loading screen animatie sequentie
-    var loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-        // Stap 1: Na 300ms - toon logo (achter zwarte panelen)
+    // Loading screen animatie sequentie:
+    // 1. Zwart scherm (0.5s)
+    // 2. Panelen schuiven open, onthullen logo (0.5s -> 1.7s)
+    // 3. Schrijfeffect "by Kristof Kiekens" (2s -> 4.5s)
+    // 4. Hele scherm fadet uit (5s -> 5.8s)
+    var ls = document.getElementById('loading-screen');
+    if (ls) {
+        // Phase 1: Na 0.5s - panelen schuiven open, logo wordt zichtbaar
         setTimeout(function () {
-            loadingScreen.classList.add('show-logo');
-        }, 300);
+            ls.classList.add('phase-split');
+        }, 500);
 
-        // Stap 2: Na 1s - start schrijfeffect
+        // Phase 2: Na 2s - schrijfeffect start (panelen zijn dan open)
         setTimeout(function () {
-            loadingScreen.classList.add('show-script');
-        }, 1000);
+            ls.classList.add('phase-write');
+        }, 2000);
 
-        // Stap 3: Na 3.5s - split de zwarte panelen open
+        // Phase 3: Na 5s - alles fadet uit
         setTimeout(function () {
-            loadingScreen.classList.add('split');
-        }, 3500);
-
-        // Stap 4: Na 5s - verwijder loading screen uit DOM
-        setTimeout(function () {
-            loadingScreen.classList.add('done');
-            setTimeout(function () {
-                if (loadingScreen && loadingScreen.parentNode) {
-                    loadingScreen.parentNode.removeChild(loadingScreen);
-                }
-            }, 500);
+            ls.classList.add('phase-fade');
         }, 5000);
+
+        // Cleanup: verwijder uit DOM
+        setTimeout(function () {
+            if (ls.parentNode) {
+                ls.parentNode.removeChild(ls);
+            }
+        }, 6000);
     }
 
     // Scroll-in animaties via IntersectionObserver
