@@ -26,23 +26,14 @@
                     var parser = new DOMParser();
                     var doc = parser.parseFromString(svgText, 'image/svg+xml');
                     var paths = doc.querySelectorAll('path');
-                    paths.forEach(function (p) {
+                    paths.forEach(function (p, idx) {
                         var clone = p.cloneNode(true);
                         clone.removeAttribute('fill-opacity');
                         clone.removeAttribute('fill');
+                        clone.style.transitionDelay = (idx * 0.12) + 's';
                         svgEl.appendChild(clone);
                     });
-                    // Bereken path lengths en stel CSS variabelen in
-                    requestAnimationFrame(function () {
-                        var allPaths = svgEl.querySelectorAll('path');
-                        allPaths.forEach(function (path, idx) {
-                            var len = Math.ceil(path.getTotalLength());
-                            path.style.strokeDasharray = len;
-                            path.style.strokeDashoffset = len;
-                            path.style.transitionDelay = (idx * 0.12) + 's';
-                        });
-                        startAnimation();
-                    });
+                    startAnimation();
                 })
                 .catch(function () {
                     startAnimation();
