@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gordijn Studio by Kristof Kiekens — Luxe raamdecoratie op maat</title>
-    <meta name="description" content="Exclusieve gordijnen en raamdecoratie op maat. 30 jaar vakmanschap. Persoonlijk advies bij u thuis in regio Vlaanderen." />
+    <title>Gordijnstudio Christophe Kiekens — Verfijnde raamdecoratie op maat</title>
+    <meta name="description" content="Verfijnde gordijnen en raamdecoratie op maat. 30 jaar vakmanschap. Persoonlijk advies bij u thuis." />
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/pages/home.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Surana&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Suranna&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
@@ -35,354 +35,224 @@
     <header class="site-header" id="header">
         <nav class="nav">
             <a href="#hero" class="logo">
-                <img src="../assets/images/Logo - Crème transparant.png" alt="Gordijn Studio" class="logo-img" />
+                <img src="../assets/images/Logo - Crème transparant.png" alt="Gordijnstudio Christophe Kiekens" class="logo-img" />
             </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#aanbod">Aanbod</a></li>
+                <li><a href="#ervaring">Over</a></li>
+                <li><a href="#werkwijze">Werkwijze</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <a href="#contact" class="nav-cta-btn">Afspraak maken</a>
 
             <button class="menu-toggle" id="menuToggle" aria-label="Menu">
                 <span class="hamburger"></span>
             </button>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#aanbod">Aanbod</a></li>
-                <li><a href="#werkwijze">Werkwijze</a></li>
-                <li><a href="#over-ons">Over</a></li>
-                <li><a href="#contact" class="nav-cta-sticky">Afspraak maken</a></li>
-            </ul>
         </nav>
     </header>
 
     <main>
 
         <!-- HERO -->
-        <section class="hero-lecrance" id="hero">
-            <div class="hero-bg-lecrance" data-parallax="0.2">
-                <img src="../assets/images/overgordijn.jpg" alt="Lichtdoorlatende gordijnen in zacht ochtendlicht" />
+        <section class="hero" id="hero">
+            <div class="hero-bg" data-parallax="0.15">
+                <img src="../assets/images/vouwgordijn.jpg" alt="Lichtdoorlatende gordijnen in zacht ochtendlicht" />
             </div>
-            <div class="hero-overlay-soft"></div>
-            
-            <div class="hero-content-lecrance">
-                <h1 class="hero-title-surana" data-reveal>
-                    Gordijnstudio bij<br>Christophe Kiekens
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="line">Gordijnstudio</span>
+                    <span class="line">Christophe Kiekens</span>
                 </h1>
-                <div class="hero-quote-box" data-reveal>
-                    <p class="hero-subtitle-surana">Waar verfijning en maatwerk samenkomen.<br>Persoonlijk geadviseerd bij u thuis.</p>
-                </div>
-                <div class="hero-actions" data-reveal>
-                    <a href="#contact" class="btn-primary-surana">Maak een afspraak</a>
-                    <a href="#aanbod" class="btn-text-surana">Ontdek ons aanbod</a>
+                <p class="hero-sub">Waar verfijning en maatwerk samenkomen.<br>Persoonlijk geadviseerd bij u thuis.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn-primary">Maak een afspraak</a>
+                    <a href="#aanbod" class="btn-text-link">Ontdek ons aanbod</a>
                 </div>
             </div>
-            
+
             <div class="scroll-indicator">
-                <span class="scroll-text">Scroll</span>
-                <div class="line"></div>
+                <div class="scroll-line"></div>
             </div>
         </section>
 
-        <!-- INTRO / MANIFESTO -->
-        <section class="manifesto-section" id="intro">
-            <div class="container-lecrance">
-                <div class="manifesto-content">
-                    <h2 class="manifesto-text font-heading">
-                        Bij Gordijnstudio Christophe Kiekens draait alles om sfeer, licht en verfijning.
-                    </h2>
-                    <p class="manifesto-sub font-body">
-                        Met oog voor detail en gevoel voor interieur begeleiden wij u persoonlijk bij de keuze van uw raamdecoratie.
-                        Alles wordt op maat gemaakt en zorgvuldig afgewerkt.
-                    </p>
+        <!-- INTRO -->
+        <section class="intro-section" id="intro">
+            <div class="container">
+                <div class="intro-content">
+                    <p class="intro-text">Bij Gordijnstudio Christophe Kiekens draait alles om sfeer, licht en verfijning. Met oog voor detail en gevoel voor interieur begeleiden wij u persoonlijk bij de keuze van uw raamdecoratie.</p>
+                    <p class="intro-accent">Alles wordt op maat gemaakt en zorgvuldig afgewerkt.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PARALLAX MIRROR SCROLL -->
-        <section class="parallax-mirror-section" id="parallaxMirror">
-            <div class="parallax-container">
-                <div class="parallax-layer parallax-layer--1" data-speed="0.3">
-                    <img src="../assets/images/vouwgordijn.jpg" alt="Vouwgordijn detail" />
-                </div>
-                <div class="parallax-layer parallax-layer--2" data-speed="0.5">
-                    <img src="../assets/images/overgordijn.jpg" alt="Overgordijn textuur" />
-                </div>
-                <div class="parallax-layer parallax-layer--3" data-speed="0.7">
-                    <img src="../assets/images/rolgordijnen.jpg" alt="Rolgordijn detail" />
-                </div>
-                <div class="parallax-overlay">
-                    <div class="parallax-text">
-                        <h2>Vakmanschap<br>in elk detail</h2>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FEATURED PROJECTS / PROPERTIES -->
-        <section class="properties-lecrance" id="projecten">
-            <div class="container-lecrance">
-                <div class="section-header-lecrance">
-                    <span class="section-num">01</span>
-                    <div class="header-content">
-                        <p class="section-label-lecrance">Geselecteerde projecten</p>
-                        <h2 class="section-title-lecrance">Recente realisaties</h2>
-                    </div>
+        <!-- AANBOD -->
+        <section class="aanbod-section" id="aanbod">
+            <div class="container">
+                <div class="aanbod-header">
+                    <span class="section-line"></span>
+                    <h2>Ons aanbod</h2>
                 </div>
 
-                <div class="properties-grid-lecrance">
-                    <article class="property-item property-item--featured">
-                        <a href="#contact" class="property-link">
-                            <div class="property-visual">
-                                <img src="../assets/images/overgordijn.jpg" alt="Villa Brugge" />
-                                <div class="property-meta">
-                                    <span class="property-loc">Brugge</span>
-                                    <span class="property-year">2024</span>
-                                </div>
-                            </div>
-                            <div class="property-caption">
-                                <h3>Villa Brugge</h3>
-                                <p>Luxe linnen overgordijnen met handgeplooide headers</p>
-                            </div>
-                        </a>
-                    </article>
-
-                    <article class="property-item">
-                        <a href="#contact" class="property-link">
-                            <div class="property-visual">
-                                <img src="../assets/images/paneelgordijn.jpg" alt="Penthouse Knokke" />
-                                <div class="property-meta">
-                                    <span class="property-loc">Knokke</span>
-                                    <span class="property-year">2024</span>
-                                </div>
-                            </div>
-                            <div class="property-caption">
-                                <h3>Penthouse Knokke</h3>
-                                <p>Minimalistische Japanse panelen</p>
-                            </div>
-                        </a>
-                    </article>
-
-                    <article class="property-item">
-                        <a href="#contact" class="property-link">
-                            <div class="property-visual">
-                                <img src="../assets/images/horizontaal hout.jpg" alt="Kantoor Oostende" />
-                                <div class="property-meta">
-                                    <span class="property-loc">Oostende</span>
-                                    <span class="property-year">2023</span>
-                                </div>
-                            </div>
-                            <div class="property-caption">
-                                <h3>Kantoor Oostende</h3>
-                                <p>Americano houten jaloezieën</p>
-                            </div>
-                        </a>
-                    </article>
-
-                    <article class="property-item property-item--wide">
-                        <a href="#contact" class="property-link">
-                            <div class="property-visual">
-                                <img src="../assets/images/rolgordijnen.jpg" alt="Appartement Gent" />
-                                <div class="property-meta">
-                                    <span class="property-loc">Gent</span>
-                                    <span class="property-year">2023</span>
-                                </div>
-                            </div>
-                            <div class="property-caption">
-                                <h3>Appartement Gent</h3>
-                                <p>Elektrische rolgordijnen met smart home integratie</p>
-                            </div>
-                        </a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- AANBOD / OFFER -->
-        <section class="offer-section" id="aanbod">
-            <div class="container-lecrance">
-                <div class="offer-grid">
-                    <!-- Rolgordijnen -->
-                    <div class="offer-card">
-                        <div class="offer-visual">
-                            <img src="../assets/images/rolgordijnen.jpg" alt="Rolgordijnen op maat" />
+                <div class="aanbod-grid">
+                    <article class="aanbod-item">
+                        <div class="aanbod-img">
+                            <img src="../assets/images/rolgordijnen.jpg" alt="Rolgordijnen" />
                         </div>
-                        <div class="offer-info">
-                            <h3 class="offer-title font-heading">Rolgordijnen</h3>
-                            <p class="offer-desc font-body">Strak, stijlvol en perfect geïntegreerd in uw interieur.</p>
+                        <div class="aanbod-info">
+                            <h3>Rolgordijnen</h3>
+                            <p>Strak, stijlvol en perfect geintegreerd in uw interieur.</p>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Lamellen -->
-                    <div class="offer-card">
-                        <div class="offer-visual">
+                    <article class="aanbod-item">
+                        <div class="aanbod-img">
                             <img src="../assets/images/verticale jaloezie.jpg" alt="Lamellen" />
                         </div>
-                        <div class="offer-info">
-                            <h3 class="offer-title font-heading">Lamellen</h3>
-                            <p class="offer-desc font-body">Functioneel en elegant, ideaal voor grote raampartijen.</p>
+                        <div class="aanbod-info">
+                            <h3>Lamellen</h3>
+                            <p>Functioneel en elegant, ideaal voor grote raampartijen.</p>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Shutters (using horizontal hout as placeholder if shutter img missing, or generic wood) -->
-                    <div class="offer-card">
-                        <div class="offer-visual">
-                            <img src="../assets/images/horizontaal hout.jpg" alt="Shutters en houten jaloezieën" />
+                    <article class="aanbod-item">
+                        <div class="aanbod-img">
+                            <img src="../assets/images/horizontaal hout.jpg" alt="Shutters" />
                         </div>
-                        <div class="offer-info">
-                            <h3 class="offer-title font-heading">Shutters</h3>
-                            <p class="offer-desc font-body">Tijdloze klasse met karakter.</p>
+                        <div class="aanbod-info">
+                            <h3>Shutters</h3>
+                            <p>Tijdloze klasse met karakter.</p>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Overgordijnen -->
-                    <div class="offer-card offer-card-large">
-                        <div class="offer-visual">
-                            <img src="../assets/images/overgordijn.jpg" alt="Overgordijnen luxe" />
+                    <article class="aanbod-item">
+                        <div class="aanbod-img">
+                            <img src="../assets/images/overgordijn.jpg" alt="Overgordijnen" />
                         </div>
-                        <div class="offer-info">
-                            <h3 class="offer-title font-heading">Overgordijnen</h3>
-                            <p class="offer-desc font-body">Warmte, textuur en een luxueuze uitstraling.</p>
+                        <div class="aanbod-info">
+                            <h3>Overgordijnen</h3>
+                            <p>Warmte, textuur en een luxueuze uitstraling.</p>
                         </div>
-                    </div>
+                    </article>
 
-                    <!-- Voilgordijnen -->
-                    <div class="offer-card offer-card-large">
-                        <div class="offer-visual">
+                    <article class="aanbod-item">
+                        <div class="aanbod-img">
                             <img src="../assets/images/vouwgordijn.jpg" alt="Voilgordijnen" />
                         </div>
-                        <div class="offer-info">
-                            <h3 class="offer-title font-heading">Voilgordijnen</h3>
-                            <p class="offer-desc font-body">Zacht gefilterd licht en pure verfijning.</p>
+                        <div class="aanbod-info">
+                            <h3>Voilgordijnen</h3>
+                            <p>Zacht gefilterd licht en pure verfijning.</p>
                         </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 30 JAAR ERVARING -->
+        <section class="ervaring-section" id="ervaring">
+            <div class="container">
+                <div class="ervaring-grid">
+                    <div class="ervaring-visual">
+                        <img src="../assets/images/paneelgordijn.jpg" alt="Christophe Kiekens vakmanschap" />
+                    </div>
+                    <div class="ervaring-content">
+                        <span class="section-line"></span>
+                        <h2>30 jaar<br>vakmanschap</h2>
+                        <p>Met meer dan 30 jaar ervaring in het vak weet Christophe als geen ander hoe belangrijk licht, stofkeuze en afwerking zijn.</p>
+                        <p>U krijgt persoonlijk advies, afgestemd op uw woning en uw stijl.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ABOUT / CRAFTSMANSHIP -->
-        <section class="craft-section" id="over-ons">
-            <div class="craft-visual" data-parallax="0.15">
-                <img src="../assets/images/rolgordijnen.jpg" alt="Vakmanschap" />
-            </div>
-            <div class="craft-content">
-                <div class="section-header-lecrance">
-                    <span class="section-num">03</span>
-                    <p class="section-label-lecrance">Over ons</p>
+        <!-- HOE WERKT HET -->
+        <section class="werkwijze-section" id="werkwijze">
+            <div class="container">
+                <div class="werkwijze-header">
+                    <span class="section-line"></span>
+                    <h2>Persoonlijk advies<br>bij u thuis</h2>
                 </div>
-                <h2 class="craft-title">30 jaar<br>vakmanschap</h2>
-                <div class="craft-text">
-                    <p>Al meer dan dertig jaar helpen wij klanten bij het vinden van de perfecte raamdecoratie. Niet met standaardoplossingen, maar met maatwerk dat past bij uw interieur, uw lichtinval, en uw levensstijl.</p>
-                    <p>Elk project begint met een huisbezoek. We nemen stalen mee, bekijken de ruimte, en bespreken uw wensen. Pas daarna maken we een offerte op maat.</p>
+
+                <div class="stappen">
+                    <div class="stap">
+                        <span class="stap-num">01</span>
+                        <p>U maakt een afspraak.</p>
+                    </div>
+                    <div class="stap">
+                        <span class="stap-num">02</span>
+                        <p>Christophe komt bij u langs met stalen en inspiratie.</p>
+                    </div>
+                    <div class="stap">
+                        <span class="stap-num">03</span>
+                        <p>Samen kiezen we de perfecte oplossing.</p>
+                    </div>
+                    <div class="stap">
+                        <span class="stap-num">04</span>
+                        <p>Alles wordt professioneel op maat gemaakt en geplaatst.</p>
+                    </div>
                 </div>
-                <div class="craft-stats">
-                    <div class="stat">
-                        <span class="stat-num">30+</span>
-                        <span class="stat-label">Jaar ervaring</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-num">2000+</span>
-                        <span class="stat-label">Projecten</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-num">100%</span>
-                        <span class="stat-label">Maatwerk</span>
-                    </div>
+
+                <div class="werkwijze-extra">
+                    <p>Zonder showroombezoek.<br>Zonder keuzestress.<br>Volledig afgestemd op uw interieur.</p>
+                    <a href="#contact" class="btn-primary">Plan uw afspraak</a>
                 </div>
             </div>
         </section>
 
-        <!-- PROCESS -->
-        <section class="process-section" id="werkwijze">
-            <div class="container-lecrance">
-                <div class="section-header-lecrance section-header--center">
-                    <span class="section-num">04</span>
-                    <h2 class="section-title-lecrance">Hoe werkt het?</h2>
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Laat uw interieur spreken</h2>
+                    <p>Maak vandaag nog een afspraak en ontdek hoe verfijnde raamdecoratie uw woning transformeert.</p>
+                    <a href="#contact" class="btn-primary">Afspraak maken</a>
                 </div>
-
-                <div class="process-steps">
-                    <div class="process-step">
-                        <span class="process-num">01</span>
-                        <h3>Kennismaking</h3>
-                        <p>We plannen een afspraak bij u thuis. U vertelt uw wensen, wij brengen stalen mee.</p>
-                    </div>
-                    <div class="process-step">
-                        <span class="process-num">02</span>
-                        <h3>Advies op maat</h3>
-                        <p>Samen kiezen we de perfecte stoffen, kleuren en systemen voor uw interieur.</p>
-                    </div>
-                    <div class="process-step">
-                        <span class="process-num">03</span>
-                        <h3>Productie</h3>
-                        <p>Elk gordijn wordt in ons atelier handgemaakt, met aandacht voor elk detail.</p>
-                    </div>
-                    <div class="process-step">
-                        <span class="process-num">04</span>
-                        <h3>Plaatsing</h3>
-                        <p>Wij komen alles netjes plaatsen en zorgen dat het perfect hangt.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA / FULLBLEED -->
-        <section class="cta-lecrance">
-            <div class="cta-bg-lecrance" data-parallax="0.2">
-                <img src="../assets/images/paneelgordijn.jpg" alt="Maak een afspraak" />
-            </div>
-            <div class="cta-overlay-lecrance"></div>
-            <div class="cta-content-lecrance">
-                <p class="cta-kicker">Start uw project</p>
-                <h2>Laat uw interieur<br>tot leven komen</h2>
-                <a href="#contact" class="btn-lecrance btn-lecrance--light">Maak een afspraak</a>
             </div>
         </section>
 
         <!-- CONTACT -->
-        <section class="contact-lecrance" id="contact">
-            <div class="container-lecrance">
-                <div class="contact-grid-lecrance">
-                    <div class="contact-info-lecrance">
-                        <div class="section-header-lecrance">
-                            <span class="section-num">05</span>
-                            <p class="section-label-lecrance">Contact</p>
-                        </div>
-                        <h2 class="contact-title">Laten we<br>kennismaken</h2>
-                        
-                        <div class="contact-details-lecrance">
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <span class="section-line"></span>
+                        <h2>Afspraak maken</h2>
+                        <p class="contact-sub">Vul onderstaand formulier in en wij nemen zo snel mogelijk contact met u op.</p>
+
+                        <div class="contact-details">
                             <div class="contact-item">
-                                <span class="contact-label">Bel ons</span>
-                                <a href="tel:+32473625313" class="contact-value">0473 62 53 13</a>
+                                <span class="contact-label">Telefoon</span>
+                                <a href="tel:+32473625313">0473 62 53 13</a>
                             </div>
                             <div class="contact-item">
-                                <span class="contact-label">Mail ons</span>
-                                <a href="mailto:info@kristofkiekens.be" class="contact-value">info@kristofkiekens.be</a>
-                            </div>
-                            <div class="contact-item">
-                                <span class="contact-label">Bezoek ons</span>
-                                <span class="contact-value">Brugge & omstreken<br>Thuisbezoek op afspraak</span>
+                                <span class="contact-label">E-mail</span>
+                                <a href="mailto:info@kristofkiekens.be">info@kristofkiekens.be</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="contact-form-lecrance">
-                        <form id="contactForm">
-                            <div class="form-row">
-                                <div class="form-field-lecrance">
-                                    <label for="naam">Naam</label>
-                                    <input type="text" id="naam" name="naam" required />
-                                </div>
-                                <div class="form-field-lecrance">
-                                    <label for="telefoon">Telefoon</label>
-                                    <input type="tel" id="telefoon" name="telefoon" required />
-                                </div>
-                            </div>
-                            <div class="form-field-lecrance">
-                                <label for="email">E-mail</label>
-                                <input type="email" id="email" name="email" required />
-                            </div>
-                            <div class="form-field-lecrance">
-                                <label for="bericht">Uw wensen</label>
-                                <textarea id="bericht" name="bericht" rows="4"></textarea>
-                            </div>
-                            <button type="submit" class="btn-submit">Verstuur aanvraag</button>
-                        </form>
-                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-field">
+                            <label for="naam">Naam</label>
+                            <input type="text" id="naam" name="naam" required />
+                        </div>
+                        <div class="form-field">
+                            <label for="telefoon">Telefoon</label>
+                            <input type="tel" id="telefoon" name="telefoon" required />
+                        </div>
+                        <div class="form-field">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required />
+                        </div>
+                        <div class="form-field">
+                            <label for="voorkeur">Voorkeurmoment</label>
+                            <input type="text" id="voorkeur" name="voorkeur" placeholder="Bv. weekdag voormiddag" />
+                        </div>
+                        <button type="submit" class="btn-primary btn-submit">Verstuur aanvraag</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -390,33 +260,33 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer-lecrance">
-        <div class="container-lecrance">
-            <div class="footer-grid">
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
                 <div class="footer-brand">
-                    <img src="../assets/images/Logo - Crème transparant.png" alt="Gordijn Studio" class="footer-logo" />
-                    <p class="footer-tagline">Luxe raamdecoratie sinds 1994</p>
-                </div>
-                
-                <div class="footer-nav">
-                    <a href="#projecten">Projecten</a>
-                    <a href="#aanbod">Collectie</a>
-                    <a href="#over-ons">Over</a>
-                    <a href="#contact">Contact</a>
+                    <img src="../assets/images/Logo - Crème transparant.png" alt="Gordijnstudio Christophe Kiekens" class="footer-logo-img" />
                 </div>
 
-                <div class="footer-contact">
+                <div class="footer-links">
                     <a href="tel:+32473625313">0473 62 53 13</a>
                     <a href="mailto:info@kristofkiekens.be">info@kristofkiekens.be</a>
                 </div>
-            </div>
-            
-            <div class="footer-bottom-lecrance">
-                <p class="footer-copy">© 2026 Gordijn Studio by Kristof Kiekens — BE 0600.782.960</p>
-                <div class="footer-meta">
-                    <span>Gemaakt door <a href="https://grafixstudio.io/" target="_blank" rel="noopener">Grafix Studio</a></span>
-                    <a href="https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/cms/" class="cms-link" target="_blank" rel="noopener" title="CMS">CMS</a>
+
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
                 </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Gordijnstudio Christophe Kiekens</p>
+                <span class="footer-sep">|</span>
+                <span>Gemaakt door <a href="https://grafixstudio.io/" target="_blank" rel="noopener">Grafix Studio</a></span>
+                <a href="https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/cms/" class="cms-link" target="_blank" rel="noopener" title="CMS">CMS</a>
             </div>
         </div>
     </footer>
