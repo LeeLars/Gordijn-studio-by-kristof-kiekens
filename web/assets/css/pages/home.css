@@ -950,18 +950,7 @@
     letter-spacing: 0.1em;
 }
 
-/* ── REVEAL ANIMATIONS ── */
-[data-reveal] {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-[data-reveal].revealed {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* ── REVEAL ANIMATIONS (handled by GSAP) ── */
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {

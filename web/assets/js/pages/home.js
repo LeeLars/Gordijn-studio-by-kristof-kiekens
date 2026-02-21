@@ -67,32 +67,7 @@
         }
     }
 
-    // Reveal animaties via IntersectionObserver
-    var revealElements = document.querySelectorAll('[data-reveal]');
-
-    if ('IntersectionObserver' in window) {
-        var revealObserver = new IntersectionObserver(
-            function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        revealObserver.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
-        );
-
-        revealElements.forEach(function (el) {
-            revealObserver.observe(el);
-        });
-    } else {
-        revealElements.forEach(function (el) {
-            el.classList.add('revealed');
-        });
-    }
-
-    // Parallax en animaties worden nu afgehandeld door GSAP (zie gsap-animations.js)
+    // Alle reveal/scroll animaties worden afgehandeld door GSAP (zie gsap-animations.js)
 
     // Contact formulier met API integratie
     var form = document.getElementById('contactForm');
@@ -100,7 +75,7 @@
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            var btn = form.querySelector('.btn');
+            var btn = form.querySelector('.btn-submit');
             var originalText = btn.textContent;
             btn.textContent = 'Versturen...';
             btn.disabled = true;
