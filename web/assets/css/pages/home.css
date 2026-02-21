@@ -295,14 +295,15 @@
     margin: 0;
 }
 
-/* ── STICKY REVEAL ── */
-.sticky-reveal-section {
-    height: 250vh;
+/* ── PARALLAX MIRROR SCROLL ── */
+.parallax-mirror-section {
     position: relative;
-    background: var(--color-white);
+    height: 150vh;
+    overflow: hidden;
+    background: var(--color-text);
 }
 
-.sticky-reveal-track {
+.parallax-container {
     position: sticky;
     top: 0;
     height: 100vh;
@@ -312,27 +313,86 @@
     overflow: hidden;
 }
 
-.sticky-reveal-frame {
-    width: 100%;
-    height: 100%;
+.parallax-layer {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    will-change: transform, opacity;
+    transition: transform 0.1s linear, opacity 0.3s ease;
 }
 
-.sticky-reveal-mask {
-    width: 100%;
-    height: 100%;
-    clip-path: inset(30%);
-    transition: clip-path 0.1s linear;
-    will-change: clip-path;
-}
-
-.sticky-reveal-mask img {
+.parallax-layer img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+}
+
+/* Layer 1: Achtergrond - langzaam, groot */
+.parallax-layer--1 {
+    z-index: 1;
+    opacity: 0.4;
+    transform: scale(1.2);
+}
+
+/* Layer 2: Midden - medium snelheid, weerspiegeling effect */
+.parallax-layer--2 {
+    z-index: 2;
+    opacity: 0;
+    transform: scale(1.1) translateY(50px);
+    mix-blend-mode: overlay;
+}
+
+/* Layer 3: Voorgrond - snel, scherp */
+.parallax-layer--3 {
+    z-index: 3;
+    opacity: 0;
+    transform: scale(1.05) translateY(100px);
+    clip-path: polygon(20% 0%, 80% 0%, 60% 100%, 40% 100%);
+}
+
+.parallax-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 26, 0.3) 0%,
+        rgba(26, 26, 26, 0.6) 50%,
+        rgba(26, 26, 26, 0.3) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.parallax-text {
+    text-align: center;
+    color: var(--color-white);
+    z-index: 5;
+}
+
+.parallax-text h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Animatie states tijdens scroll */
+.parallax-mirror-section.scrolling .parallax-layer--2 {
+    opacity: 0.6;
+    transform: scale(1.1) translateY(0);
+}
+
+.parallax-mirror-section.scrolling .parallax-layer--3 {
+    opacity: 0.8;
+    transform: scale(1.05) translateY(0);
 }
 
 /* ── SECTION HEADERS LECRANCE ── */
@@ -1009,7 +1069,15 @@
         text-align: center;
     }
     
-    .sticky-reveal-frame {
-        padding: 1rem;
+    .parallax-mirror-section {
+        height: 100vh;
+    }
+    
+    .parallax-layer--3 {
+        clip-path: none;
+    }
+    
+    .parallax-text h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
     }
 }

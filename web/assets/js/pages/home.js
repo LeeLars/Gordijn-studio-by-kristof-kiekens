@@ -92,20 +92,19 @@
         });
     }
 
-    // Parallax scroll effect & Sticky Circle Reveal
+    // Parallax scroll effect & Parallax Mirror animatie
     var parallaxElements = document.querySelectorAll('[data-parallax]');
-    var stickySection = document.querySelector('.sticky-circle-section');
-    var stickyMask = document.querySelector('.sticky-circle-mask');
+    var parallaxMirrorSection = document.querySelector('.parallax-mirror-section');
+    var parallaxLayers = document.querySelectorAll('.parallax-layer');
 
-    if (parallaxElements.length > 0 || stickySection) {
-        var lastScrollY = 0;
+    if (parallaxElements.length > 0 || parallaxMirrorSection) {
         var ticking = false;
 
         function updateScroll() {
             var windowH = window.innerHeight;
             var scrollY = window.scrollY;
 
-            // Parallax logic
+            // Parallax logic voor hero/cta/craft images
             parallaxElements.forEach(function (el) {
                 var speed = parseFloat(el.getAttribute('data-parallax')) || 0.2;
                 var rect = el.getBoundingClientRect();
@@ -116,41 +115,59 @@
                 }
             });
 
-            // Sticky Circle Logic
-            if (stickySection && stickyMask) {
-                var rect = stickySection.getBoundingClientRect();
-                var sectionHeight = stickySection.offsetHeight;
-                var trackHeight = windowH; // Hoogte van de sticky track
+            // Parallax Mirror Logic - meerdere layers met verschillende snelheden
+            if (parallaxMirrorSection && parallaxLayers.length > 0) {
+                var rect = parallaxMirrorSection.getBoundingClientRect();
+                var sectionHeight = parallaxMirrorSection.offsetHeight;
                 
-                // Bereken progress: 0 aan begin, 1 aan eind van scroll
-                // We willen animeren terwijl de sectie in beeld is
-                // Start animatie als sectie top 0 bereikt (sticky start)
+                // Bereken scroll progress binnen de sectie
                 var progress = 0;
                 
                 if (rect.top <= 0 && rect.bottom >= windowH) {
-                    // We zitten in de sticky zone
                     var scrollableDistance = sectionHeight - windowH;
                     var scrolled = -rect.top;
                     progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+                    parallaxMirrorSection.classList.add('scrolling');
                 } else if (rect.top > 0) {
                     progress = 0;
+                    parallaxMirrorSection.classList.remove('scrolling');
                 } else {
                     progress = 1;
+                    parallaxMirrorSection.classList.add('scrolling');
                 }
 
-                // Cirkel grootte: van 15% naar 150% (om scherm volledig te vullen)
-                var minSize = 15;
-                var maxSize = 150;
-                var currentSize = minSize + (maxSize - minSize) * progress;
-                
-                stickyMask.style.clipPath = 'circle(' + currentSize + '% at 50% 50%)';
+                // Animeer elke layer met verschillende snelheden
+                parallaxLayers.forEach(function (layer) {
+                    var speed = parseFloat(layer.getAttribute('data-speed')) || 0.5;
+                    var layerProgress = progress * speed;
+                    
+                    // Layer 1: Achtergrond beweegt langzaam omhoog
+                    if (layer.classList.contains('parallax-layer--1')) {
+                        var translateY = -layerProgress * 100;
+                        layer.style.transform = 'scale(1.2) translateY(' + translateY + 'px)';
+                        layer.style.opacity = 0.4 + (progress * 0.2);
+                    }
+                    
+                    // Layer 2: Midden layer fade in en beweegt
+                    if (layer.classList.contains('parallax-layer--2')) {
+                        var translateY = 50 - (layerProgress * 100);
+                        layer.style.transform = 'scale(1.1) translateY(' + translateY + 'px)';
+                        layer.style.opacity = progress * 0.6;
+                    }
+                    
+                    // Layer 3: Voorgrond layer fade in en beweegt snel
+                    if (layer.classList.contains('parallax-layer--3')) {
+                        var translateY = 100 - (layerProgress * 150);
+                        layer.style.transform = 'scale(1.05) translateY(' + translateY + 'px)';
+                        layer.style.opacity = progress * 0.8;
+                    }
+                });
             }
 
             ticking = false;
         }
 
         window.addEventListener('scroll', function () {
-            lastScrollY = window.scrollY;
             if (!ticking) {
                 window.requestAnimationFrame(updateScroll);
                 ticking = true;
