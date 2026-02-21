@@ -624,7 +624,35 @@
     color: var(--color-primary);
 }
 
-/* ── IMAGE PLACEHOLDER ── */
+/* ── IMAGE STYLING ── */
+.hero-bg img,
+.sticky-image,
+.aanbod-card-img img,
+.split-image img,
+.cta-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.aanbod-card-img {
+    height: 420px;
+}
+
+.aanbod-card-img img {
+    transition: transform 0.8s ease;
+}
+
+.aanbod-card:hover .aanbod-card-img img {
+    transform: scale(1.05);
+}
+
+.sticky-image {
+    object-position: center;
+}
+
+/* ── IMAGE PLACEHOLDER (Fallback) ── */
 .image-placeholder {
     width: 100%;
     height: 100%;
