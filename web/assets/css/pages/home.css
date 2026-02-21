@@ -69,12 +69,12 @@
 .loading-script {
     width: 70%;
     margin-top: 0.5rem;
-    opacity: 0;
-    transition: opacity 1s ease;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .loading-screen.phase-write .loading-script {
-    opacity: 1;
+    clip-path: inset(0 0 0 0);
 }
 
 .script-img {
