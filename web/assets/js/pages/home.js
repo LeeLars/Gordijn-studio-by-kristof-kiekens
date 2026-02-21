@@ -39,7 +39,7 @@
                             var len = Math.ceil(path.getTotalLength());
                             path.style.strokeDasharray = len;
                             path.style.strokeDashoffset = len;
-                            path.style.transitionDelay = (idx * 0.15) + 's, ' + (2.2 + idx * 0.15) + 's';
+                            path.style.transitionDelay = (idx * 0.12) + 's';
                         });
                         startAnimation();
                     });

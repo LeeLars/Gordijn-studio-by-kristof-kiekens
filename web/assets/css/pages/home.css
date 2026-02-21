@@ -67,9 +67,10 @@
 }
 
 .loading-script {
-    width: 65%;
+    width: 70%;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
+    margin-top: 0.5rem;
 }
 
 .loading-screen.phase-write .loading-script {
@@ -86,8 +87,8 @@
 .logo-script path {
     fill: rgba(255,255,255,0.5);
     stroke: white;
-    stroke-width: 1.5;
-    transition: stroke-dashoffset 3s cubic-bezier(0.65, 0, 0.35, 1);
+    stroke-width: 2;
+    transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .loading-screen.phase-write .logo-script path {
