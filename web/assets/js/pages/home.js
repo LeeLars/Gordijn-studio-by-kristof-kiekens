@@ -67,35 +67,60 @@
         }
     }
 
-    // Scroll-in animaties via IntersectionObserver
-    var fadeElements = document.querySelectorAll(
-        '.intro-content, .aanbod-item, .ervaring-grid, .stap, .stappen-extra, .cta-content, .contact-info, .contact-form-wrapper'
-    );
-
-    fadeElements.forEach(function (el) {
-        el.classList.add('fade-in');
-    });
+    // Reveal animaties via IntersectionObserver
+    var revealElements = document.querySelectorAll('[data-reveal]');
 
     if ('IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(
+        var revealObserver = new IntersectionObserver(
             function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
                     }
                 });
             },
-            { threshold: 0.15 }
+            { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
         );
 
-        fadeElements.forEach(function (el) {
-            observer.observe(el);
+        revealElements.forEach(function (el) {
+            revealObserver.observe(el);
         });
     } else {
-        fadeElements.forEach(function (el) {
-            el.classList.add('visible');
+        revealElements.forEach(function (el) {
+            el.classList.add('revealed');
         });
+    }
+
+    // Parallax scroll effect
+    var parallaxElements = document.querySelectorAll('[data-parallax]');
+    if (parallaxElements.length > 0) {
+        var lastScrollY = 0;
+        var ticking = false;
+
+        function updateParallax() {
+            parallaxElements.forEach(function (el) {
+                var speed = parseFloat(el.getAttribute('data-parallax')) || 0.2;
+                var rect = el.getBoundingClientRect();
+                var windowH = window.innerHeight;
+
+                if (rect.bottom > 0 && rect.top < windowH) {
+                    var offset = (rect.top - windowH / 2) * speed;
+                    el.style.transform = 'translateY(' + offset + 'px) scale(1.1)';
+                }
+            });
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function () {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        updateParallax();
     }
 
     // Contact formulier met API integratie
