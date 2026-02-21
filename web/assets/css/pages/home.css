@@ -69,6 +69,18 @@
 .loading-script {
     width: 70%;
     margin-top: 0.5rem;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.loading-screen.phase-write .loading-script {
+    opacity: 1;
+}
+
+.script-img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .logo-script {
