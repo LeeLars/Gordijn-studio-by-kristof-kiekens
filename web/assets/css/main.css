@@ -426,23 +426,71 @@ a:hover {
     width: 100%;
 }
 
-.footer-copy {
+.footer-legal p {
     font-size: 0.75rem;
-    margin: 0;
+    margin: 0 0 0.4rem;
     opacity: 0.5;
 }
 
-.footer-privacy {
-    font-size: 0.75rem;
+.legal-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
 }
 
-.footer-privacy a {
+.legal-links a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
+    transition: color var(--transition);
 }
 
-.footer-privacy a:hover {
+.legal-links a:hover {
     color: var(--color-white);
+}
+
+.legal-links .separator {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.5rem;
+}
+
+.footer-creator {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-creator a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.footer-creator a:hover {
+    color: var(--color-white);
+}
+
+.creator-separator {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.5rem;
+}
+
+.cms-lock-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color var(--transition);
+}
+
+.cms-lock-link:hover {
+    color: var(--color-white);
+}
+
+.cms-lock-link svg {
+    display: block;
 }
 
 /* ── RESPONSIVE ── */
@@ -479,5 +527,23 @@ a:hover {
 
     .section-title {
         font-size: 1.8rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .footer-legal {
+        text-align: center;
+    }
+
+    .legal-links {
+        justify-content: center;
+    }
+
+    .footer-creator {
+        justify-content: center;
     }
 }

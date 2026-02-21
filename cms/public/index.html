@@ -3,19 +3,200 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grafix CMS – Admin</title>
+    <title>CMS – Gordijn Studio by Kristof Kiekens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/cms/assets/css/admin.css" />
 </head>
 <body>
-    <main class="admin">
-        <h1>Grafix CMS Starter</h1>
-        <p>Dit is een placeholder voor je admin interface.</p>
-        <ul>
-            <li>Maak routes en views per resource (diensten, tarieven, team, ...).</li>
-            <li>Koppel deze admin aan Cloudinary voor beeldbeheer.</li>
-            <li>Gebruik de API-routes in <code>/cms/routes/api</code> voor de frontend.</li>
-        </ul>
-    </main>
+
+    <!-- LOGIN SCREEN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h1>Gordijn Studio</h1>
+            <p class="login-sub">Content Management</p>
+            <form id="loginForm">
+                <div class="form-field">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password" />
+                </div>
+                <button type="submit" class="btn-cms">Inloggen</button>
+                <p class="login-error" id="loginError"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- CMS DASHBOARD -->
+    <div class="cms-app" id="cmsApp" style="display:none;">
+
+        <!-- HEADER -->
+        <header class="cms-header">
+            <div class="cms-header-inner">
+                <div class="cms-brand">
+                    <h2>Gordijn Studio</h2>
+                    <span>CMS</span>
+                </div>
+                <button class="btn-logout" id="btnLogout">Uitloggen</button>
+            </div>
+        </header>
+
+        <main class="cms-main">
+
+            <!-- CONTACTGEGEVENS -->
+            <section class="cms-section">
+                <div class="cms-section-header">
+                    <span class="cms-label">Contactgegevens</span>
+                    <h3>Bedrijfsinformatie</h3>
+                </div>
+                <form id="contactSettingsForm" class="cms-form">
+                    <div class="cms-form-grid">
+                        <div class="form-field">
+                            <label for="settTelefoon">Telefoon</label>
+                            <input type="text" id="settTelefoon" name="telefoon" />
+                        </div>
+                        <div class="form-field">
+                            <label for="settEmail">E-mail</label>
+                            <input type="email" id="settEmail" name="email" />
+                        </div>
+                        <div class="form-field">
+                            <label for="settOndernemingsnummer">Ondernemingsnummer</label>
+                            <input type="text" id="settOndernemingsnummer" name="ondernemingsnummer" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-cms">Opslaan</button>
+                    <span class="save-status" id="contactStatus"></span>
+                </form>
+            </section>
+
+            <!-- AFBEELDINGEN -->
+            <section class="cms-section">
+                <div class="cms-section-header">
+                    <span class="cms-label">Afbeeldingen</span>
+                    <h3>Website foto's beheren</h3>
+                    <p class="cms-hint">Klik op een afbeelding om deze te wijzigen. Aanbevolen formaat: minimaal 1600px breed, JPG.</p>
+                </div>
+
+                <div class="cms-images-grid">
+                    <div class="cms-image-card" data-key="hero">
+                        <div class="cms-image-preview" id="preview-hero">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Hero</strong>
+                            <span>Hoofdafbeelding bovenaan</span>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="hero" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="stickyCircle">
+                        <div class="cms-image-preview" id="preview-stickyCircle">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Cirkel Reveal</strong>
+                            <span>Sfeerbeeld na intro</span>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="stickyCircle" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="overOns">
+                        <div class="cms-image-preview" id="preview-overOns">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Over Ons</strong>
+                            <span>Portret / vakmanschap</span>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="overOns" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="cta">
+                        <div class="cms-image-preview" id="preview-cta">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>CTA Sectie</strong>
+                            <span>Sfeerbeeld onderaan</span>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="cta" />
+                    </div>
+                </div>
+
+                <div class="cms-section-header cms-mt">
+                    <h4>Aanbod afbeeldingen</h4>
+                </div>
+
+                <div class="cms-images-grid">
+                    <div class="cms-image-card" data-key="aanbod.overgordijnen">
+                        <div class="cms-image-preview" id="preview-aanbod-overgordijnen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Overgordijnen</strong>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="aanbod.overgordijnen" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.vouwgordijnen">
+                        <div class="cms-image-preview" id="preview-aanbod-vouwgordijnen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Vouwgordijnen</strong>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="aanbod.vouwgordijnen" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.rolgordijnen">
+                        <div class="cms-image-preview" id="preview-aanbod-rolgordijnen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Rolgordijnen</strong>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="aanbod.rolgordijnen" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.houtenJaloezieen">
+                        <div class="cms-image-preview" id="preview-aanbod-houtenJaloezieen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Houten Jaloezieën</strong>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="aanbod.houtenJaloezieen" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.lamellen">
+                        <div class="cms-image-preview" id="preview-aanbod-lamellen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Lamellen</strong>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="aanbod.lamellen" />
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.duoRoll">
+                        <div class="cms-image-preview" id="preview-aanbod-duoRoll">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <div class="cms-image-info">
+                            <strong>Duo-Roll</strong>
+                        </div>
+                        <input type="file" accept="image/*" class="cms-file-input" data-target="aanbod.duoRoll" />
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="cms-footer">
+            <p>Gordijn Studio CMS &mdash; Gemaakt door <a href="https://grafixstudio.io/" target="_blank" rel="noopener">Grafix Studio</a></p>
+        </footer>
+    </div>
+
     <script src="/cms/assets/js/admin.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { env } from './config/env.js';
@@ -12,8 +13,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+app.use(helmet());
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(requestLogger);
 
 // API routes
