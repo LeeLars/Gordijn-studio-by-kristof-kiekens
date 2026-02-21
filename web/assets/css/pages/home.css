@@ -83,6 +83,37 @@
     display: block;
 }
 
+/* Tekenbord wisser animatie */
+.loading-wiper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #000;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.loading-screen.phase-wipe .loading-wiper {
+    animation: wiperSweep 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes wiperSweep {
+    0% {
+        width: 0;
+        left: 0;
+    }
+    50% {
+        width: 100%;
+        left: 0;
+    }
+    100% {
+        width: 100%;
+        left: 100%;
+    }
+}
+
 .logo-script {
     width: 100%;
     height: auto;

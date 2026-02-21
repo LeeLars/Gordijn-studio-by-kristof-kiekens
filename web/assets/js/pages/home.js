@@ -53,17 +53,17 @@
                 ls.classList.add('phase-write');
             }, 2200);
 
-            // Phase 3: Na 6s - alles fadet uit
+            // Phase 3: Na 5.5s - tekenbord wisser veegt alles weg
             setTimeout(function () {
-                ls.classList.add('phase-fade');
-            }, 6000);
+                ls.classList.add('phase-wipe');
+            }, 5500);
 
-            // Cleanup: verwijder uit DOM
+            // Phase 4: Na 6.7s - loading screen verwijderd uit DOM
             setTimeout(function () {
                 if (ls.parentNode) {
                     ls.parentNode.removeChild(ls);
                 }
-            }, 7000);
+            }, 6700);
         }
     }
 
