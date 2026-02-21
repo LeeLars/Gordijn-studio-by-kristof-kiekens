@@ -65,7 +65,7 @@ a:hover {
     padding: 0 1.5rem;
 }
 
-/* ── HEADER ── */
+/* ── HEADER LECRANCE ── */
 .site-header {
     background: transparent;
     position: fixed;
@@ -73,21 +73,20 @@ a:hover {
     left: 0;
     right: 0;
     z-index: 100;
-    transition: background var(--transition), box-shadow var(--transition);
+    transition: background var(--transition), backdrop-filter var(--transition);
 }
 
 .site-header.scrolled {
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    box-shadow: 0 1px 0 rgba(132, 131, 116, 0.12);
 }
 
 .nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.5rem;
-    max-width: var(--max-width);
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -99,19 +98,20 @@ a:hover {
 }
 
 .logo-img {
-    height: 45px;
+    height: 38px;
     width: auto;
     display: block;
-    transition: opacity var(--transition);
+    transition: filter var(--transition), opacity var(--transition);
 }
 
+/* White logo on transparent header */
 .site-header:not(.scrolled) .logo-img {
     filter: brightness(0) invert(1);
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -119,17 +119,19 @@ a:hover {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--color-text-light);
-    font-size: 0.85rem;
+    color: var(--color-text);
+    font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     position: relative;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
     transition: color var(--transition);
 }
 
+/* White text on transparent header */
 .site-header:not(.scrolled) .nav-links a {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .nav-links a::after {
@@ -139,22 +141,8 @@ a:hover {
     left: 0;
     width: 0;
     height: 1px;
-    background: var(--color-primary);
+    background: currentColor;
     transition: width var(--transition);
-}
-
-.site-header:not(.scrolled) .nav-links a::after {
-    background: var(--color-white);
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: var(--color-primary);
-}
-
-.site-header:not(.scrolled) .nav-links a:hover,
-.site-header:not(.scrolled) .nav-links a.active {
-    color: var(--color-white);
 }
 
 .nav-links a:hover::after,
@@ -162,39 +150,13 @@ a:hover {
     width: 100%;
 }
 
-/* Nav CTA button */
+.site-header:not(.scrolled) .nav-links a:hover {
+    color: var(--color-white);
+}
+
+/* No CTA button in nav for Lecrance style - minimal */
 .nav-cta {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    background: var(--color-primary);
-    color: var(--color-cream) !important;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    border: 1px solid var(--color-primary);
-    transition: all var(--transition);
-}
-
-.nav-cta:hover {
-    background: transparent;
-    color: var(--color-primary) !important;
-}
-
-.site-header:not(.scrolled) .nav-cta {
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.6);
-    color: var(--color-white) !important;
-}
-
-.site-header:not(.scrolled) .nav-cta:hover {
-    background: var(--color-white);
-    color: var(--color-primary) !important;
-    border-color: var(--color-white);
-}
-
-.nav-cta::after {
-    display: none !important;
+    display: none;
 }
 
 /* ── HAMBURGER MENU ── */
@@ -209,9 +171,9 @@ a:hover {
 
 .hamburger {
     display: block;
-    width: 22px;
+    width: 24px;
     height: 1.5px;
-    background: var(--color-primary);
+    background: var(--color-text);
     position: relative;
     transition: background var(--transition);
 }
@@ -227,9 +189,9 @@ a:hover {
     content: '';
     position: absolute;
     left: 0;
-    width: 22px;
+    width: 24px;
     height: 1.5px;
-    background: var(--color-primary);
+    background: var(--color-text);
     transition: transform var(--transition), background var(--transition);
 }
 
@@ -519,6 +481,7 @@ a:hover {
 
     .nav-links a {
         font-size: 1.05rem;
+        color: var(--color-text) !important;
     }
 
     .section {
