@@ -69,12 +69,6 @@
 .loading-script {
     width: 70%;
     margin-top: 0.5rem;
-    clip-path: inset(0 100% 0 0);
-    transition: clip-path 2.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.loading-screen.phase-write .loading-script {
-    clip-path: inset(0 0 0 0);
 }
 
 .logo-script {
@@ -87,6 +81,8 @@
 .logo-script path {
     fill: rgba(255,255,255,0.5);
     stroke: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 /* Phase 3: hele loading screen verdwijnt */

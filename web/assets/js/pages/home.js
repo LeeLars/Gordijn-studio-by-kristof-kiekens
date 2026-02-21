@@ -26,10 +26,11 @@
                     var parser = new DOMParser();
                     var doc = parser.parseFromString(svgText, 'image/svg+xml');
                     var paths = doc.querySelectorAll('path');
-                    paths.forEach(function (p) {
+                    paths.forEach(function (p, idx) {
                         var clone = p.cloneNode(true);
                         clone.removeAttribute('fill-opacity');
                         clone.removeAttribute('fill');
+                        clone.style.transitionDelay = (idx * 0.1) + 's';
                         svgEl.appendChild(clone);
                     });
                     startAnimation();
