@@ -1,5 +1,5 @@
 // GSAP Animaties voor Gordijn Studio
-// Alle scroll-driven en interactieve animaties
+// Veilige aanpak: content is altijd zichtbaar, GSAP voegt animatie toe als enhancement
 
 (function () {
     if (typeof gsap === 'undefined') return;
@@ -7,61 +7,41 @@
     gsap.registerPlugin(ScrollTrigger);
     if (typeof ScrollToPlugin !== 'undefined') gsap.registerPlugin(ScrollToPlugin);
 
-    // Helper: scroll-triggered reveal
-    function reveal(targets, vars) {
-        var defaults = {
-            opacity: 0,
-            y: 40,
-            duration: 1,
-            ease: 'power3.out'
-        };
-        var merged = Object.assign({}, defaults, vars);
-        var trigger = merged.scrollTriggerEl || targets;
-        delete merged.scrollTriggerEl;
-
-        merged.scrollTrigger = {
-            trigger: trigger,
-            start: merged.start || 'top 85%',
-            toggleActions: 'play none none none'
-        };
-        delete merged.start;
-
-        gsap.from(targets, merged);
-    }
+    // Markeer body zodat CSS weet dat GSAP actief is
+    document.documentElement.classList.add('gsap-ready');
 
     // ═══════════════════════════════════════
     // 1. HERO — stagger tekst reveal na loading screen
     // ═══════════════════════════════════════
-    var heroElements = document.querySelectorAll('.hero-content-lecrance > *');
-    if (heroElements.length) {
-        // Verberg hero content tot na loading screen
-        gsap.set(heroElements, { opacity: 0, y: 40 });
+    var heroTl = gsap.timeline({ paused: true });
 
-        setTimeout(function () {
-            var tl = gsap.timeline();
+    heroTl
+        .from('.hero-kicker', {
+            opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
+        })
+        .from('.hero-title-lecrance .line', {
+            opacity: 0, y: 80, duration: 1, stagger: 0.15, ease: 'power4.out'
+        }, '-=0.4')
+        .from('.hero-subtitle-lecrance', {
+            opacity: 0, y: 25, duration: 0.8, ease: 'power3.out'
+        }, '-=0.5')
+        .from('.hero-cta', {
+            opacity: 0, y: 25, duration: 0.8, ease: 'power3.out'
+        }, '-=0.4')
+        .from('.scroll-indicator', {
+            opacity: 0, duration: 0.6, ease: 'power2.out'
+        }, '-=0.2');
 
-            tl.to('.hero-kicker', {
-                opacity: 1, y: 0, duration: 0.8, ease: 'power3.out'
-            })
-            .to('.hero-title-lecrance .line', {
-                opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power4.out'
-            }, '-=0.5')
-            .to('.hero-subtitle-lecrance', {
-                opacity: 1, y: 0, duration: 0.8, ease: 'power3.out'
-            }, '-=0.6')
-            .to('.hero-cta', {
-                opacity: 1, y: 0, duration: 0.8, ease: 'power3.out'
-            }, '-=0.5')
-            .to('.scroll-indicator', {
-                opacity: 1, duration: 0.6, ease: 'power2.out'
-            }, '-=0.3');
-        }, 6800);
-
-        gsap.set('.scroll-indicator', { opacity: 0 });
+    // Start hero animatie na loading screen (of direct als er geen loading screen is)
+    var loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        setTimeout(function () { heroTl.play(); }, 6800);
+    } else {
+        heroTl.play();
     }
 
     // ═══════════════════════════════════════
-    // 2. PARALLAX — hero, cta, craft achtergrondbeelden
+    // 2. PARALLAX — achtergrondbeelden bewegen bij scroll
     // ═══════════════════════════════════════
     gsap.utils.toArray('[data-parallax]').forEach(function (el) {
         var speed = parseFloat(el.getAttribute('data-parallax')) || 0.2;
@@ -84,10 +64,6 @@
     // ═══════════════════════════════════════
     var mirror = document.querySelector('.parallax-mirror-section');
     if (mirror) {
-        var layer1 = mirror.querySelector('.parallax-layer--1');
-        var layer2 = mirror.querySelector('.parallax-layer--2');
-        var layer3 = mirror.querySelector('.parallax-layer--3');
-
         var mirrorTl = gsap.timeline({
             scrollTrigger: {
                 trigger: mirror,
@@ -97,11 +73,15 @@
             }
         });
 
-        if (layer1) mirrorTl.to(layer1, { yPercent: -15, opacity: 0.7, duration: 1 }, 0);
-        if (layer2) mirrorTl.fromTo(layer2,
+        var l1 = mirror.querySelector('.parallax-layer--1');
+        var l2 = mirror.querySelector('.parallax-layer--2');
+        var l3 = mirror.querySelector('.parallax-layer--3');
+
+        if (l1) mirrorTl.to(l1, { yPercent: -15, opacity: 0.7, duration: 1 }, 0);
+        if (l2) mirrorTl.fromTo(l2,
             { yPercent: 20, opacity: 0 },
             { yPercent: -10, opacity: 0.6, duration: 1 }, 0);
-        if (layer3) mirrorTl.fromTo(layer3,
+        if (l3) mirrorTl.fromTo(l3,
             { yPercent: 30, opacity: 0 },
             { yPercent: -20, opacity: 0.9, duration: 1 }, 0);
 
@@ -109,39 +89,41 @@
     }
 
     // ═══════════════════════════════════════
-    // 4. MANIFESTO — tekst reveal
+    // 4. MANIFESTO — tekst reveal bij scroll
     // ═══════════════════════════════════════
-    var manifesto = document.querySelector('.manifesto-content');
-    if (manifesto) {
-        reveal('.manifesto-label', { y: 20, duration: 0.6, start: 'top 85%', scrollTriggerEl: manifesto });
-        reveal('.manifesto-text', { y: 50, duration: 1.2, start: 'top 80%', scrollTriggerEl: manifesto });
-        reveal('.manifesto-signature', { y: 20, opacity: 0, duration: 0.8, delay: 0.3, start: 'top 80%', scrollTriggerEl: manifesto });
-    }
+    gsap.from('.manifesto-label', {
+        opacity: 0, y: 20, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: '.manifesto-content', start: 'top 85%' }
+    });
+    gsap.from('.manifesto-text', {
+        opacity: 0, y: 40, duration: 1.2, ease: 'power3.out',
+        scrollTrigger: { trigger: '.manifesto-content', start: 'top 80%' }
+    });
+    gsap.from('.manifesto-signature', {
+        opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out',
+        scrollTrigger: { trigger: '.manifesto-content', start: 'top 80%' }
+    });
 
     // ═══════════════════════════════════════
-    // 5. PROPERTIES — stagger kaarten
+    // 5. SECTION HEADERS — nummer + titel reveal
     // ═══════════════════════════════════════
-    var propGrid = document.querySelector('.properties-grid-lecrance');
-    if (propGrid) {
-        var propItems = gsap.utils.toArray('.property-item');
-        gsap.set(propItems, { opacity: 0, y: 60 });
+    gsap.utils.toArray('.section-header-lecrance').forEach(function (header) {
+        gsap.from(header.children, {
+            opacity: 0, y: 30, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: header, start: 'top 88%' }
+        });
+    });
 
-        ScrollTrigger.create({
-            trigger: propGrid,
-            start: 'top 80%',
-            onEnter: function () {
-                gsap.to(propItems, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.9,
-                    stagger: 0.15,
-                    ease: 'power3.out'
-                });
-            },
-            once: true
+    // ═══════════════════════════════════════
+    // 6. PROPERTIES — kaarten stagger + hover
+    // ═══════════════════════════════════════
+    var propItems = gsap.utils.toArray('.property-item');
+    if (propItems.length) {
+        gsap.from(propItems, {
+            opacity: 0, y: 60, duration: 0.9, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '.properties-grid-lecrance', start: 'top 82%' }
         });
 
-        // Hover
         propItems.forEach(function (card) {
             var img = card.querySelector('.property-visual img');
             if (!img) return;
@@ -155,29 +137,15 @@
     }
 
     // ═══════════════════════════════════════
-    // 6. COLLECTION — stagger kaarten
+    // 7. COLLECTION — kaarten stagger + hover
     // ═══════════════════════════════════════
-    var collGrid = document.querySelector('.collection-grid');
-    if (collGrid) {
-        var cards = gsap.utils.toArray('.collection-card');
-        gsap.set(cards, { opacity: 0, y: 50 });
-
-        ScrollTrigger.create({
-            trigger: collGrid,
-            start: 'top 80%',
-            onEnter: function () {
-                gsap.to(cards, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: 'power3.out'
-                });
-            },
-            once: true
+    var cards = gsap.utils.toArray('.collection-card');
+    if (cards.length) {
+        gsap.from(cards, {
+            opacity: 0, y: 50, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.collection-grid', start: 'top 82%' }
         });
 
-        // Hover
         cards.forEach(function (card) {
             var img = card.querySelector('.collection-visual img');
             var h3 = card.querySelector('h3');
@@ -194,39 +162,25 @@
     }
 
     // ═══════════════════════════════════════
-    // 7. CRAFT SECTION — split reveal + stats counter
+    // 8. CRAFT SECTION — split reveal + stats counter
     // ═══════════════════════════════════════
     var craftContent = document.querySelector('.craft-content');
     if (craftContent) {
-        var craftEls = craftContent.querySelectorAll('.section-header-lecrance, .craft-title, .craft-text, .craft-stats');
-        gsap.set(craftEls, { opacity: 0, x: -40 });
-
-        ScrollTrigger.create({
-            trigger: craftContent,
-            start: 'top 75%',
-            onEnter: function () {
-                gsap.to(craftEls, {
-                    opacity: 1,
-                    x: 0,
-                    duration: 0.9,
-                    stagger: 0.15,
-                    ease: 'power3.out'
-                });
-            },
-            once: true
+        gsap.from(craftContent.querySelectorAll('.section-header-lecrance, .craft-title, .craft-text, .craft-stats'), {
+            opacity: 0, x: -40, duration: 0.9, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: craftContent, start: 'top 75%' }
         });
 
-        // Stats counter
+        // Stats counter animatie
         gsap.utils.toArray('.stat').forEach(function (stat) {
             var numEl = stat.querySelector('.stat-num');
             if (!numEl) return;
-            var text = numEl.textContent;
+            var text = numEl.textContent.trim();
             var num = parseInt(text.replace(/\D/g, ''));
             var suffix = text.replace(/[0-9]/g, '');
             if (isNaN(num)) return;
 
             var obj = { val: 0 };
-            numEl.textContent = '0' + suffix;
 
             ScrollTrigger.create({
                 trigger: stat,
@@ -247,96 +201,52 @@
     }
 
     // ═══════════════════════════════════════
-    // 8. PROCESS STEPS — stagger + nummer animatie
+    // 9. PROCESS STEPS — stagger reveal
     // ═══════════════════════════════════════
-    var processGrid = document.querySelector('.process-steps');
-    if (processGrid) {
-        var steps = gsap.utils.toArray('.process-step');
-        gsap.set(steps, { opacity: 0, y: 40 });
-
-        ScrollTrigger.create({
-            trigger: processGrid,
-            start: 'top 80%',
-            onEnter: function () {
-                gsap.to(steps, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'power3.out'
-                });
-            },
-            once: true
+    var steps = gsap.utils.toArray('.process-step');
+    if (steps.length) {
+        gsap.from(steps, {
+            opacity: 0, y: 40, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '.process-steps', start: 'top 82%' }
         });
     }
 
     // ═══════════════════════════════════════
-    // 9. CONTACT — info + form reveal
-    // ═══════════════════════════════════════
-    var contactInfo = document.querySelector('.contact-info-lecrance');
-    if (contactInfo) {
-        gsap.set(contactInfo, { opacity: 0, y: 40 });
-        ScrollTrigger.create({
-            trigger: contactInfo,
-            start: 'top 85%',
-            onEnter: function () {
-                gsap.to(contactInfo, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' });
-            },
-            once: true
-        });
-    }
-
-    var contactForm = document.querySelector('.contact-form-lecrance');
-    if (contactForm) {
-        gsap.set(contactForm, { opacity: 0, y: 40 });
-        ScrollTrigger.create({
-            trigger: contactForm,
-            start: 'top 85%',
-            onEnter: function () {
-                gsap.to(contactForm, { opacity: 1, y: 0, duration: 0.9, delay: 0.2, ease: 'power3.out' });
-            },
-            once: true
-        });
-    }
-
-    // ═══════════════════════════════════════
-    // 10. CTA SECTION — tekst reveal
+    // 10. CTA — tekst reveal
     // ═══════════════════════════════════════
     var ctaContent = document.querySelector('.cta-content-lecrance');
     if (ctaContent) {
-        gsap.set(ctaContent.children, { opacity: 0, y: 30 });
-        ScrollTrigger.create({
-            trigger: ctaContent,
-            start: 'top 80%',
-            onEnter: function () {
-                gsap.to(ctaContent.children, {
-                    opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
-                });
-            },
-            once: true
+        gsap.from(ctaContent.children, {
+            opacity: 0, y: 30, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: ctaContent, start: 'top 80%' }
         });
     }
 
     // ═══════════════════════════════════════
-    // 11. FOOTER — reveal
+    // 11. CONTACT — info + form reveal
+    // ═══════════════════════════════════════
+    gsap.from('.contact-info-lecrance', {
+        opacity: 0, x: -30, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '.contact-grid-lecrance', start: 'top 82%' }
+    });
+    gsap.from('.contact-form-lecrance', {
+        opacity: 0, x: 30, duration: 0.9, delay: 0.15, ease: 'power3.out',
+        scrollTrigger: { trigger: '.contact-grid-lecrance', start: 'top 82%' }
+    });
+
+    // ═══════════════════════════════════════
+    // 12. FOOTER — reveal
     // ═══════════════════════════════════════
     var footerGrid = document.querySelector('.footer-grid');
     if (footerGrid) {
-        gsap.set(footerGrid.children, { opacity: 0, y: 20 });
-        ScrollTrigger.create({
-            trigger: footerGrid,
-            start: 'top 90%',
-            onEnter: function () {
-                gsap.to(footerGrid.children, {
-                    opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out'
-                });
-            },
-            once: true
+        gsap.from(footerGrid.children, {
+            opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: footerGrid, start: 'top 92%' }
         });
     }
 
     // ═══════════════════════════════════════
-    // 12. SMOOTH SCROLL — anchor links
+    // 13. SMOOTH SCROLL — anchor links
     // ═══════════════════════════════════════
     if (typeof ScrollToPlugin !== 'undefined') {
         document.querySelectorAll('a[href^="#"]').forEach(function (link) {
