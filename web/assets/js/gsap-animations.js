@@ -115,7 +115,43 @@
     });
 
     // ═══════════════════════════════════════
-    // 6. PROPERTIES — kaarten stagger + hover
+    // 6. OFFER GRID (AANBOD) — stagger kaarten
+    // ═══════════════════════════════════════
+    var offerGrid = document.querySelector('.offer-grid');
+    if (offerGrid) {
+        var offerCards = gsap.utils.toArray('.offer-card');
+        gsap.set(offerCards, { opacity: 0, y: 60 });
+
+        ScrollTrigger.create({
+            trigger: offerGrid,
+            start: 'top 80%',
+            onEnter: function () {
+                gsap.to(offerCards, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.9,
+                    stagger: 0.15,
+                    ease: 'power3.out'
+                });
+            },
+            once: true
+        });
+
+        // Hover animatie
+        offerCards.forEach(function (card) {
+            var img = card.querySelector('.offer-visual img');
+            if (!img) return;
+            card.addEventListener('mouseenter', function () {
+                gsap.to(img, { scale: 1.05, duration: 0.6, ease: 'power2.out' });
+            });
+            card.addEventListener('mouseleave', function () {
+                gsap.to(img, { scale: 1, duration: 0.6, ease: 'power2.out' });
+            });
+        });
+    }
+
+    // ═══════════════════════════════════════
+    // 7. PROPERTIES — kaarten stagger + hover
     // ═══════════════════════════════════════
     var propItems = gsap.utils.toArray('.property-item');
     if (propItems.length) {
@@ -137,7 +173,7 @@
     }
 
     // ═══════════════════════════════════════
-    // 7. COLLECTION — kaarten stagger + hover
+    // 8. COLLECTION — kaarten stagger + hover
     // ═══════════════════════════════════════
     var cards = gsap.utils.toArray('.collection-card');
     if (cards.length) {
@@ -162,7 +198,7 @@
     }
 
     // ═══════════════════════════════════════
-    // 8. CRAFT SECTION — split reveal + stats counter
+    // 9. CRAFT SECTION — split reveal + stats counter
     // ═══════════════════════════════════════
     var craftContent = document.querySelector('.craft-content');
     if (craftContent) {

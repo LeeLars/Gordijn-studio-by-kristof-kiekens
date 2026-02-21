@@ -259,52 +259,130 @@
     border-color: var(--color-text);
 }
 
-/* ── MANIFESTO SECTION ── */
+/* ── MANIFESTO SECTION (INTRO) ── */
 .manifesto-section {
     background: var(--color-white);
-    padding: 10rem 0;
+    padding: 8rem 0 6rem;
+    text-align: center;
 }
 
 .manifesto-content {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-}
-
-.manifesto-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: var(--color-primary);
-    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
 }
 
 .manifesto-text {
-    font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--color-text);
-    margin: 0 0 3rem;
-}
-
-.manifesto-signature {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.manifesto-signature .line {
-    width: 40px;
-    height: 1px;
-    background: var(--color-primary);
-}
-
-.manifesto-signature p {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-style: italic;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.3;
     color: var(--color-text);
     margin: 0;
+}
+
+.manifesto-sub {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0;
+}
+
+/* ── OFFER SECTION (AANBOD) ── */
+.offer-section {
+    background: var(--color-bg-alt);
+    padding: 6rem 0 10rem;
+}
+
+.offer-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Regular Cards (Rolgordijnen, Lamellen, Shutters) - Span 4 cols each */
+.offer-card {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Large Cards (Overgordijnen, Voilgordijnen) - Span 6 cols each */
+.offer-card-large {
+    grid-column: span 6;
+}
+
+.offer-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5; /* Portrait format for elegance */
+    overflow: hidden;
+}
+
+.offer-card-large .offer-visual {
+    aspect-ratio: 16/10; /* Landscape format for large cards */
+}
+
+.offer-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.offer-card:hover .offer-visual img {
+    transform: scale(1.05);
+}
+
+.offer-info {
+    text-align: left;
+}
+
+.offer-title {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+    color: var(--color-text);
+}
+
+.offer-desc {
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Responsive Offer Grid */
+@media (max-width: 1024px) {
+    .offer-card {
+        grid-column: span 6;
+    }
+    
+    .offer-card:nth-last-child(1), 
+    .offer-card:nth-last-child(2) {
+        grid-column: span 6;
+    }
+}
+
+@media (max-width: 768px) {
+    .offer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .offer-visual {
+        aspect-ratio: 4/3;
+    }
+    
+    .offer-card-large .offer-visual {
+        aspect-ratio: 4/3;
+    }
 }
 
 /* ── PARALLAX MIRROR SCROLL ── */
