@@ -69,7 +69,7 @@
 
     // Scroll-in animaties via IntersectionObserver
     var fadeElements = document.querySelectorAll(
-        '.about-grid, .service-card, .gallery-item, .contact-info, .contact-form-wrapper'
+        '.intro-content, .aanbod-item, .ervaring-grid, .stap, .stappen-extra, .cta-content, .contact-info, .contact-form-wrapper'
     );
 
     fadeElements.forEach(function (el) {
@@ -112,9 +112,9 @@
             try {
                 var data = {
                     naam: document.getElementById('naam').value,
-                    email: document.getElementById('email').value,
                     telefoon: document.getElementById('telefoon').value,
-                    bericht: document.getElementById('bericht').value
+                    email: document.getElementById('email').value,
+                    voorkeur: document.getElementById('voorkeur') ? document.getElementById('voorkeur').value : ''
                 };
 
                 var API_BASE = window.location.hostname === 'localhost'

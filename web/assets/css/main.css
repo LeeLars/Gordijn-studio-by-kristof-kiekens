@@ -1,17 +1,18 @@
 /* Gordijn Studio by Kristof Kiekens – globale styles */
 
 :root {
-    --color-primary: #2c3e2d;
-    --color-primary-light: #3d5a3f;
-    --color-accent: #b8956a;
-    --color-accent-light: #d4b896;
-    --color-text: #2d2d2d;
-    --color-text-light: #6b6b6b;
-    --color-bg: #faf9f7;
-    --color-bg-alt: #f0ede8;
-    --color-white: #ffffff;
-    --color-border: #e0dcd5;
-    --font-heading: 'Playfair Display', Georgia, serif;
+    --color-primary: #848374;
+    --color-primary-light: #9a9a8a;
+    --color-accent: #848374;
+    --color-accent-light: #a8a798;
+    --color-text: #1A1A1A;
+    --color-text-light: #5a5a5a;
+    --color-bg: #FFFFFF;
+    --color-bg-alt: #EEEDEA;
+    --color-cream: #EEEDEA;
+    --color-white: #FFFFFF;
+    --color-border: #d5d4cf;
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
     --max-width: 1140px;
     --transition: 0.3s ease;
@@ -33,12 +34,14 @@ body {
     line-height: 1.7;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
-    font-weight: 600;
-    line-height: 1.3;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
 }
 
 img {
@@ -48,12 +51,12 @@ img {
 }
 
 a {
-    color: var(--color-accent);
+    color: var(--color-primary);
     transition: color var(--transition);
 }
 
 a:hover {
-    color: var(--color-primary);
+    color: var(--color-text);
 }
 
 .container {
@@ -64,19 +67,19 @@ a:hover {
 
 /* ── HEADER ── */
 .site-header {
-    background: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--color-border);
+    background: transparent;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    transition: box-shadow var(--transition);
+    transition: background var(--transition), box-shadow var(--transition);
 }
 
 .site-header.scrolled {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(132, 131, 116, 0.12);
 }
 
 .nav {
@@ -97,18 +100,28 @@ a:hover {
 
 .logo-name {
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.3rem;
+    font-weight: 500;
+    font-size: 1.4rem;
     color: var(--color-primary);
+    letter-spacing: 0.03em;
+}
+
+.site-header:not(.scrolled) .logo-name {
+    color: var(--color-white);
 }
 
 .logo-sub {
     font-family: var(--font-body);
-    font-size: 0.7rem;
-    color: var(--color-accent);
-    letter-spacing: 0.1em;
+    font-size: 0.65rem;
+    color: var(--color-primary);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 400;
+    opacity: 0.7;
+}
+
+.site-header:not(.scrolled) .logo-sub {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .nav-links {
@@ -122,12 +135,16 @@ a:hover {
 .nav-links a {
     text-decoration: none;
     color: var(--color-text-light);
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
     position: relative;
     padding-bottom: 4px;
     transition: color var(--transition);
+}
+
+.site-header:not(.scrolled) .nav-links a {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .nav-links a::after {
@@ -136,9 +153,13 @@ a:hover {
     bottom: 0;
     left: 0;
     width: 0;
-    height: 1.5px;
-    background: var(--color-accent);
+    height: 1px;
+    background: var(--color-primary);
     transition: width var(--transition);
+}
+
+.site-header:not(.scrolled) .nav-links a::after {
+    background: var(--color-white);
 }
 
 .nav-links a:hover,
@@ -146,9 +167,49 @@ a:hover {
     color: var(--color-primary);
 }
 
+.site-header:not(.scrolled) .nav-links a:hover,
+.site-header:not(.scrolled) .nav-links a.active {
+    color: var(--color-white);
+}
+
 .nav-links a:hover::after,
 .nav-links a.active::after {
     width: 100%;
+}
+
+/* Nav CTA button */
+.nav-cta {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background: var(--color-primary);
+    color: var(--color-cream) !important;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: 1px solid var(--color-primary);
+    transition: all var(--transition);
+}
+
+.nav-cta:hover {
+    background: transparent;
+    color: var(--color-primary) !important;
+}
+
+.site-header:not(.scrolled) .nav-cta {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--color-white) !important;
+}
+
+.site-header:not(.scrolled) .nav-cta:hover {
+    background: var(--color-white);
+    color: var(--color-primary) !important;
+    border-color: var(--color-white);
+}
+
+.nav-cta::after {
+    display: none !important;
 }
 
 /* ── HAMBURGER MENU ── */
@@ -163,11 +224,17 @@ a:hover {
 
 .hamburger {
     display: block;
-    width: 24px;
-    height: 2px;
+    width: 22px;
+    height: 1.5px;
     background: var(--color-primary);
     position: relative;
     transition: background var(--transition);
+}
+
+.site-header:not(.scrolled) .hamburger,
+.site-header:not(.scrolled) .hamburger::before,
+.site-header:not(.scrolled) .hamburger::after {
+    background: var(--color-white);
 }
 
 .hamburger::before,
@@ -175,10 +242,10 @@ a:hover {
     content: '';
     position: absolute;
     left: 0;
-    width: 24px;
-    height: 2px;
+    width: 22px;
+    height: 1.5px;
     background: var(--color-primary);
-    transition: transform var(--transition);
+    transition: transform var(--transition), background var(--transition);
 }
 
 .hamburger::before { top: -7px; }
@@ -199,32 +266,66 @@ a:hover {
 /* ── BUTTONS ── */
 .btn {
     display: inline-block;
-    padding: 0.85rem 2rem;
+    padding: 0.9rem 2.2rem;
     border: none;
-    border-radius: 2px;
+    border-radius: 0;
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0.06em;
     text-decoration: none;
     cursor: pointer;
     transition: all var(--transition);
 }
 
 .btn-primary {
-    background: var(--color-accent);
-    color: var(--color-white);
+    background: var(--color-primary);
+    color: var(--color-cream);
+    border: 1px solid var(--color-primary);
 }
 
 .btn-primary:hover {
+    background: transparent;
+    color: var(--color-primary);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
     background: var(--color-primary);
-    color: var(--color-white);
+    color: var(--color-cream);
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-text::after {
+    content: '\2192';
+    transition: transform var(--transition);
+}
+
+.btn-text:hover::after {
+    transform: translateX(4px);
 }
 
 /* ── SECTIONS ── */
 .section {
-    padding: 5rem 0;
+    padding: 7rem 0;
 }
 
 .section-alt {
@@ -233,61 +334,130 @@ a:hover {
 
 .section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
 .section-title {
-    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 400;
     color: var(--color-primary);
     margin: 0 0 1rem;
+    letter-spacing: 0.02em;
 }
 
 .section-divider {
-    width: 60px;
-    height: 2px;
-    background: var(--color-accent);
-    margin: 0 auto 1rem;
+    width: 40px;
+    height: 1px;
+    background: var(--color-primary);
+    margin: 0 auto 1.2rem;
+    opacity: 0.4;
 }
 
 .section-subtitle {
     color: var(--color-text-light);
     font-size: 1.05rem;
     margin: 0;
+    line-height: 1.8;
 }
 
 /* ── FOOTER ── */
 .site-footer {
     background: var(--color-primary);
     color: rgba(255, 255, 255, 0.7);
-    padding: 2.5rem 0;
-    text-align: center;
+    padding: 4rem 0 2.5rem;
 }
 
 .footer-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 3rem;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
 }
 
 .footer-logo {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--color-white);
-    font-weight: 600;
+    font-weight: 400;
+    letter-spacing: 0.02em;
 }
 
 .footer-logo-sub {
-    font-size: 0.7rem;
-    color: var(--color-accent-light);
-    letter-spacing: 0.1em;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     display: block;
+    margin-top: 0.2rem;
+}
+
+.footer-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}
+
+.footer-contact li {
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.footer-contact a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.footer-contact a:hover {
+    color: var(--color-white);
+}
+
+.footer-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .footer-copy {
-    font-size: 0.8rem;
-    margin: 0.5rem 0 0;
+    font-size: 0.75rem;
+    margin: 0;
+    opacity: 0.5;
+}
+
+.footer-privacy {
+    font-size: 0.75rem;
+}
+
+.footer-privacy a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.footer-privacy a:hover {
+    color: var(--color-white);
 }
 
 /* ── RESPONSIVE ── */
