@@ -16,21 +16,21 @@
     var heroTl = gsap.timeline({ paused: true });
 
     heroTl
-        .from('.hero-kicker', {
-            opacity: 0, y: 30, duration: 0.8, ease: 'power3.out'
+        .from('.hero-content-lecrance', {
+            opacity: 0, y: 30, duration: 1, ease: 'power3.out'
         })
-        .from('.hero-title-lecrance .line', {
-            opacity: 0, y: 80, duration: 1, stagger: 0.15, ease: 'power4.out'
-        }, '-=0.4')
-        .from('.hero-subtitle-lecrance', {
-            opacity: 0, y: 25, duration: 0.8, ease: 'power3.out'
-        }, '-=0.5')
-        .from('.hero-cta', {
-            opacity: 0, y: 25, duration: 0.8, ease: 'power3.out'
-        }, '-=0.4')
+        .from('.hero-title-surana', {
+            opacity: 0, y: 50, duration: 1.2, ease: 'power3.out'
+        }, '-=0.8')
+        .from('.hero-quote-box', {
+            opacity: 0, y: 30, duration: 1, ease: 'power3.out'
+        }, '-=0.8')
+        .from('.hero-actions', {
+            opacity: 0, y: 20, duration: 0.8, ease: 'power3.out'
+        }, '-=0.6')
         .from('.scroll-indicator', {
-            opacity: 0, duration: 0.6, ease: 'power2.out'
-        }, '-=0.2');
+            opacity: 0, duration: 1, ease: 'power2.out'
+        }, '-=0.4');
 
     // Start hero animatie na loading screen (of direct als er geen loading screen is)
     var loadingScreen = document.getElementById('loading-screen');

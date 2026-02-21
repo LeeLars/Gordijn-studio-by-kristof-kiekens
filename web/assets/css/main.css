@@ -3,18 +3,18 @@
 :root {
     --color-primary: #848374;
     --color-primary-light: #9a9a8a;
-    --color-accent: #848374;
-    --color-accent-light: #a8a798;
+    --color-accent: #EEDA;
+    --color-accent-light: #F5EFE5;
     --color-text: #1A1A1A;
     --color-text-light: #5a5a5a;
     --color-bg: #FFFFFF;
-    --color-bg-alt: #EEEDEA;
-    --color-cream: #EEEDEA;
+    --color-bg-alt: #F9F8F6;
+    --color-cream: #EEDA;
     --color-white: #FFFFFF;
     --color-border: #d5d4cf;
-    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-heading: 'Surana', serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-    --max-width: 1140px;
+    --max-width: 1400px;
     --transition: 0.3s ease;
 }
 
@@ -24,6 +24,7 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
@@ -31,8 +32,8 @@ body {
     font-family: var(--font-body);
     color: var(--color-text);
     background-color: var(--color-bg);
-    line-height: 1.7;
-    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -40,9 +41,15 @@ body {
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
     font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: 0.02em;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
 }
+
+/* New Helper Classes for spacing and luxury feel */
+.text-center { text-align: center; }
+.uppercase { text-transform: uppercase; letter-spacing: 0.15em; }
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
 
 img {
     max-width: 100%;
@@ -62,7 +69,7 @@ a:hover {
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
 }
 
 /* ── HEADER LECRANCE ── */
