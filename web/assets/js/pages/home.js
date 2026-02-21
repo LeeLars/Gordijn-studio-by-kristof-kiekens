@@ -4,8 +4,8 @@
     // Loading screen animatie sequentie:
     // 1. Zwart scherm (0.6s)
     // 2. Panelen schuiven open, onthullen Logo animatie.png (0.6s -> 1.8s)
-    // 3. Schrijfeffect Logo.svg kalligrafisch (2.2s -> 5.2s)
-    // 4. Hele scherm fadet uit (5.8s -> 6.6s)
+    // 3. Fill animatie Logo.svg (mask schuift weg van L naar R) (2.2s -> 4.7s)
+    // 4. Hele scherm fadet uit (6s -> 6.8s)
     var ls = document.getElementById('loading-screen');
     if (ls) {
         // Laad de SVG en injecteer de paden
@@ -32,16 +32,7 @@
                         clone.removeAttribute('fill');
                         svgEl.appendChild(clone);
                     });
-                    requestAnimationFrame(function () {
-                        var allPaths = svgEl.querySelectorAll('path');
-                        allPaths.forEach(function (path, idx) {
-                            var len = Math.ceil(path.getTotalLength());
-                            path.style.strokeDasharray = len;
-                            path.style.strokeDashoffset = len;
-                            path.style.transitionDelay = (idx * 0.1) + 's';
-                        });
-                        startAnimation();
-                    });
+                    startAnimation();
                 })
                 .catch(function () {
                     startAnimation();
@@ -56,17 +47,12 @@
                 ls.classList.add('phase-split');
             }, 600);
 
-            // Phase 2: Na 2.2s - schrijfeffect start (stroke tekent van L naar R)
+            // Phase 2: Na 2.2s - fill animatie (mask schuift weg van L naar R)
             setTimeout(function () {
                 ls.classList.add('phase-write');
             }, 2200);
 
-            // Phase 3: Na 5s - fill vult de letters
-            setTimeout(function () {
-                ls.classList.add('phase-fill');
-            }, 5000);
-
-            // Phase 4: Na 6s - alles fadet uit
+            // Phase 3: Na 6s - alles fadet uit
             setTimeout(function () {
                 ls.classList.add('phase-fade');
             }, 6000);

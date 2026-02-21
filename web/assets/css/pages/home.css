@@ -69,8 +69,31 @@
 .loading-script {
     width: 70%;
     margin-top: 0.5rem;
+    position: relative;
+    overflow: hidden;
 }
 
+.loading-script::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    z-index: 2;
+    transform: translateX(0);
+}
+
+.loading-screen.phase-write .loading-script::before {
+    animation: revealText 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes revealText {
+    to {
+        transform: translateX(100%);
+    }
+}
 
 .logo-script {
     width: 100%;
@@ -80,21 +103,8 @@
 }
 
 .logo-script path {
-    fill: none;
-    stroke: rgba(255,255,255,0.5);
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1),
-                fill 0.8s ease;
-}
-
-.loading-screen.phase-write .logo-script path {
-    stroke-dashoffset: 0 !important;
-}
-
-.loading-screen.phase-fill .logo-script path {
     fill: rgba(255,255,255,0.5);
+    stroke: none;
 }
 
 /* Phase 3: hele loading screen verdwijnt */
@@ -378,6 +388,15 @@
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.clip-path-mask {
+    clip-path: inset(0 0 0 100%);
+    transition: clip-path 1s ease;
+}
+
+.clip-path-mask.animate {
+    clip-path: inset(0 0 0 0);
 }
 
 /* ── RESPONSIVE ── */
