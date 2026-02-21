@@ -370,6 +370,157 @@
     background-color: var(--color-primary-light); /* Fallback kleur */
 }
 
+/* ── PROPERTIES / REALISATIES - Lecrance stijl ── */
+.properties-section {
+    background: var(--color-white);
+    padding: 8rem 0;
+}
+
+.properties-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    gap: 2rem;
+}
+
+.properties-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.properties-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.properties-link:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.properties-link .arrow {
+    transition: transform 0.3s ease;
+}
+
+.properties-link:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* Properties Grid - Asymmetrical Lecrance layout */
+.properties-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 320px;
+    gap: 1.5rem;
+}
+
+.property-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    grid-column: span 4;
+}
+
+.property-card--large {
+    grid-column: span 8;
+    grid-row: span 2;
+}
+
+.property-card--wide {
+    grid-column: span 8;
+}
+
+.property-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.property-card:hover .property-image img {
+    transform: scale(1.05);
+}
+
+.property-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(26, 26, 26, 0.6) 0%,
+        rgba(26, 26, 26, 0.1) 50%,
+        transparent 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.property-card:hover .property-overlay {
+    opacity: 1;
+}
+
+.property-tag {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-white);
+    background: rgba(132, 131, 116, 0.9);
+    padding: 0.4rem 0.8rem;
+    font-weight: 500;
+}
+
+.property-info {
+    padding: 1.25rem 0 0;
+}
+
+.property-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--color-text);
+    margin: 0 0 0.3rem;
+    line-height: 1.2;
+}
+
+.property-info p {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.property-card--large .property-info h3 {
+    font-size: 1.6rem;
+}
+
+.property-card--large .property-info p {
+    font-size: 0.95rem;
+}
+
 /* ── AANBOD - Horizontale scroll ── */
 .aanbod-header {
     margin-bottom: 4rem;
@@ -754,6 +905,24 @@
     .stap:nth-child(2) {
         border-top: none;
     }
+
+    .properties-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 260px;
+    }
+
+    .property-card {
+        grid-column: span 1;
+    }
+
+    .property-card--large {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .property-card--wide {
+        grid-column: span 2;
+    }
 }
 
 @media (max-width: 768px) {
@@ -794,6 +963,39 @@
     .sticky-circle-mask {
         /* Iets grotere start-cirkel op mobiel */
         clip-path: circle(25% at 50% 50%);
+    }
+
+    .properties-section {
+        padding: 5rem 0;
+    }
+
+    .properties-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .properties-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 280px;
+        gap: 1rem;
+    }
+
+    .property-card,
+    .property-card--large,
+    .property-card--wide {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .property-card--large {
+        grid-row: span 2;
+    }
+
+    .property-overlay {
+        opacity: 1;
+        padding: 1rem;
     }
 
     .aanbod-card {
