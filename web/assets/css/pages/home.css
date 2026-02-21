@@ -48,60 +48,50 @@
     position: relative;
     z-index: 2;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
+    gap: 1rem;
+    width: 80%;
+    max-width: 600px;
 }
 
 .loading-logo {
-    width: 90%;
-    max-width: 800px;
+    width: 100%;
 }
 
-.loading-logo svg {
+.loading-logo .logo-main {
     width: 100%;
     height: auto;
     display: block;
 }
 
-/* GORDIJN STUDIO tekst - direct zichtbaar wit */
-.logo-main text {
-    fill: white;
-    opacity: 1;
-}
-
-/* by Kristof Kiekens - schrijfeffect van links naar rechts */
-.logo-script {
+.loading-script {
+    width: 65%;
     opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-.loading-screen.phase-write .logo-script {
+.loading-screen.phase-write .loading-script {
     opacity: 1;
 }
 
-.script-path {
-    stroke-dasharray: 500;
-    stroke-dashoffset: 500;
-    fill: none;
+.logo-script {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+}
+
+.logo-script path {
+    fill: rgba(255,255,255,0.5);
     stroke: white;
+    stroke-width: 1.5;
+    transition: stroke-dashoffset 3s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.loading-screen.phase-write .script-path {
-    animation: writeText 2.5s ease forwards;
-}
-
-@keyframes writeText {
-    0% {
-        stroke-dashoffset: 500;
-        fill: rgba(255,255,255,0);
-    }
-    80% {
-        stroke-dashoffset: 0;
-        fill: rgba(255,255,255,0);
-    }
-    100% {
-        stroke-dashoffset: 0;
-        fill: rgba(255,255,255,1);
-    }
+.loading-screen.phase-write .logo-script path {
+    stroke-dashoffset: 0 !important;
 }
 
 /* Phase 3: hele loading screen verdwijnt */

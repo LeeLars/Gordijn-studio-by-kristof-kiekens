@@ -2,33 +2,78 @@
 
 (function () {
     // Loading screen animatie sequentie:
-    // 1. Zwart scherm (0.5s)
-    // 2. Panelen schuiven open, onthullen logo (0.5s -> 1.7s)
-    // 3. Schrijfeffect "by Kristof Kiekens" (2s -> 4.5s)
-    // 4. Hele scherm fadet uit (5s -> 5.8s)
+    // 1. Zwart scherm (0.6s)
+    // 2. Panelen schuiven open, onthullen Logo animatie.png (0.6s -> 1.8s)
+    // 3. Schrijfeffect Logo.svg kalligrafisch (2.2s -> 5.2s)
+    // 4. Hele scherm fadet uit (5.8s -> 6.6s)
     var ls = document.getElementById('loading-screen');
     if (ls) {
-        // Phase 1: Na 0.5s - panelen schuiven open, logo wordt zichtbaar
-        setTimeout(function () {
-            ls.classList.add('phase-split');
-        }, 500);
-
-        // Phase 2: Na 2s - schrijfeffect start (panelen zijn dan open)
-        setTimeout(function () {
-            ls.classList.add('phase-write');
-        }, 2000);
-
-        // Phase 3: Na 5s - alles fadet uit
-        setTimeout(function () {
-            ls.classList.add('phase-fade');
-        }, 5000);
-
-        // Cleanup: verwijder uit DOM
-        setTimeout(function () {
-            if (ls.parentNode) {
-                ls.parentNode.removeChild(ls);
+        // Laad de SVG en injecteer de paden
+        var svgEl = ls.querySelector('.logo-script');
+        if (svgEl) {
+            var basePath = '';
+            var scripts = document.querySelectorAll('script[src]');
+            for (var i = 0; i < scripts.length; i++) {
+                var src = scripts[i].getAttribute('src');
+                if (src.indexOf('home.js') !== -1) {
+                    basePath = src.replace('js/pages/home.js', '');
+                    break;
+                }
             }
-        }, 6000);
+            fetch(basePath + 'images/Logo.svg')
+                .then(function (r) { return r.text(); })
+                .then(function (svgText) {
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(svgText, 'image/svg+xml');
+                    var paths = doc.querySelectorAll('path');
+                    paths.forEach(function (p) {
+                        var clone = p.cloneNode(true);
+                        clone.removeAttribute('fill-opacity');
+                        clone.removeAttribute('fill');
+                        svgEl.appendChild(clone);
+                    });
+                    // Bereken path lengths en stel CSS variabelen in
+                    requestAnimationFrame(function () {
+                        var allPaths = svgEl.querySelectorAll('path');
+                        allPaths.forEach(function (path, idx) {
+                            var len = Math.ceil(path.getTotalLength());
+                            path.style.strokeDasharray = len;
+                            path.style.strokeDashoffset = len;
+                            path.style.transitionDelay = (idx * 0.15) + 's, ' + (2.2 + idx * 0.15) + 's';
+                        });
+                        startAnimation();
+                    });
+                })
+                .catch(function () {
+                    startAnimation();
+                });
+        } else {
+            startAnimation();
+        }
+
+        function startAnimation() {
+            // Phase 1: Na 0.6s - panelen schuiven open, logo wordt zichtbaar
+            setTimeout(function () {
+                ls.classList.add('phase-split');
+            }, 600);
+
+            // Phase 2: Na 2.2s - schrijfeffect start (panelen zijn dan open)
+            setTimeout(function () {
+                ls.classList.add('phase-write');
+            }, 2200);
+
+            // Phase 3: Na 5.8s - alles fadet uit
+            setTimeout(function () {
+                ls.classList.add('phase-fade');
+            }, 5800);
+
+            // Cleanup: verwijder uit DOM
+            setTimeout(function () {
+                if (ls.parentNode) {
+                    ls.parentNode.removeChild(ls);
+                }
+            }, 6800);
+        }
     }
 
     // Scroll-in animaties via IntersectionObserver
