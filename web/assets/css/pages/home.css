@@ -80,14 +80,21 @@
 }
 
 .logo-script path {
-    fill: rgba(255,255,255,0.5);
-    stroke: none;
-    opacity: 0;
-    transition: opacity 0.6s ease;
+    fill: none;
+    stroke: rgba(255,255,255,0.5);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1),
+                fill 0.8s ease;
 }
 
 .loading-screen.phase-write .logo-script path {
-    opacity: 1;
+    stroke-dashoffset: 0 !important;
+}
+
+.loading-screen.phase-fill .logo-script path {
+    fill: rgba(255,255,255,0.5);
 }
 
 /* Phase 3: hele loading screen verdwijnt */

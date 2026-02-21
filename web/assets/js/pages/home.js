@@ -26,14 +26,22 @@
                     var parser = new DOMParser();
                     var doc = parser.parseFromString(svgText, 'image/svg+xml');
                     var paths = doc.querySelectorAll('path');
-                    paths.forEach(function (p, idx) {
+                    paths.forEach(function (p) {
                         var clone = p.cloneNode(true);
                         clone.removeAttribute('fill-opacity');
                         clone.removeAttribute('fill');
-                        clone.style.transitionDelay = (idx * 0.12) + 's';
                         svgEl.appendChild(clone);
                     });
-                    startAnimation();
+                    requestAnimationFrame(function () {
+                        var allPaths = svgEl.querySelectorAll('path');
+                        allPaths.forEach(function (path, idx) {
+                            var len = Math.ceil(path.getTotalLength());
+                            path.style.strokeDasharray = len;
+                            path.style.strokeDashoffset = len;
+                            path.style.transitionDelay = (idx * 0.1) + 's';
+                        });
+                        startAnimation();
+                    });
                 })
                 .catch(function () {
                     startAnimation();
@@ -48,22 +56,27 @@
                 ls.classList.add('phase-split');
             }, 600);
 
-            // Phase 2: Na 2.2s - schrijfeffect start (panelen zijn dan open)
+            // Phase 2: Na 2.2s - schrijfeffect start (stroke tekent van L naar R)
             setTimeout(function () {
                 ls.classList.add('phase-write');
             }, 2200);
 
-            // Phase 3: Na 5.8s - alles fadet uit
+            // Phase 3: Na 5s - fill vult de letters
+            setTimeout(function () {
+                ls.classList.add('phase-fill');
+            }, 5000);
+
+            // Phase 4: Na 6s - alles fadet uit
             setTimeout(function () {
                 ls.classList.add('phase-fade');
-            }, 5800);
+            }, 6000);
 
             // Cleanup: verwijder uit DOM
             setTimeout(function () {
                 if (ls.parentNode) {
                     ls.parentNode.removeChild(ls);
                 }
-            }, 6800);
+            }, 7000);
         }
     }
 
