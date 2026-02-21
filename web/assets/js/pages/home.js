@@ -92,35 +92,72 @@
         });
     }
 
-    // Parallax scroll effect
+    // Parallax scroll effect & Sticky Circle Reveal
     var parallaxElements = document.querySelectorAll('[data-parallax]');
-    if (parallaxElements.length > 0) {
+    var stickySection = document.querySelector('.sticky-circle-section');
+    var stickyMask = document.querySelector('.sticky-circle-mask');
+
+    if (parallaxElements.length > 0 || stickySection) {
         var lastScrollY = 0;
         var ticking = false;
 
-        function updateParallax() {
+        function updateScroll() {
+            var windowH = window.innerHeight;
+            var scrollY = window.scrollY;
+
+            // Parallax logic
             parallaxElements.forEach(function (el) {
                 var speed = parseFloat(el.getAttribute('data-parallax')) || 0.2;
                 var rect = el.getBoundingClientRect();
-                var windowH = window.innerHeight;
-
+                
                 if (rect.bottom > 0 && rect.top < windowH) {
                     var offset = (rect.top - windowH / 2) * speed;
                     el.style.transform = 'translateY(' + offset + 'px) scale(1.1)';
                 }
             });
+
+            // Sticky Circle Logic
+            if (stickySection && stickyMask) {
+                var rect = stickySection.getBoundingClientRect();
+                var sectionHeight = stickySection.offsetHeight;
+                var trackHeight = windowH; // Hoogte van de sticky track
+                
+                // Bereken progress: 0 aan begin, 1 aan eind van scroll
+                // We willen animeren terwijl de sectie in beeld is
+                // Start animatie als sectie top 0 bereikt (sticky start)
+                var progress = 0;
+                
+                if (rect.top <= 0 && rect.bottom >= windowH) {
+                    // We zitten in de sticky zone
+                    var scrollableDistance = sectionHeight - windowH;
+                    var scrolled = -rect.top;
+                    progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+                } else if (rect.top > 0) {
+                    progress = 0;
+                } else {
+                    progress = 1;
+                }
+
+                // Cirkel grootte: van 15% naar 150% (om scherm volledig te vullen)
+                var minSize = 15;
+                var maxSize = 150;
+                var currentSize = minSize + (maxSize - minSize) * progress;
+                
+                stickyMask.style.clipPath = 'circle(' + currentSize + '% at 50% 50%)';
+            }
+
             ticking = false;
         }
 
         window.addEventListener('scroll', function () {
             lastScrollY = window.scrollY;
             if (!ticking) {
-                window.requestAnimationFrame(updateParallax);
+                window.requestAnimationFrame(updateScroll);
                 ticking = true;
             }
         }, { passive: true });
 
-        updateParallax();
+        updateScroll();
     }
 
     // Contact formulier met API integratie
