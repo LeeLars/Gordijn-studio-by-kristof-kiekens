@@ -371,7 +371,23 @@
     var files = e.target.files;
     if (!files.length) return;
     
-    uploadToLibrary(files[0]);
+    // Validate file type
+    var file = files[0];
+    if (!file.type.startsWith('image/')) {
+      alert('Alleen afbeeldingen zijn toegestaan');
+      return;
+    }
+    
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Bestand is te groot. Maximum 10MB.');
+      return;
+    }
+    
+    uploadToLibrary(file);
+    
+    // Reset input so same file can be selected again
+    libraryUploadInput.value = '';
   });
 
   // Drag and drop
@@ -390,28 +406,66 @@
     
     var files = e.dataTransfer.files;
     if (files.length) {
-      uploadToLibrary(files[0]);
+      var file = files[0];
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Alleen afbeeldingen zijn toegestaan');
+        return;
+      }
+      
+      // Check file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        alert('Bestand is te groot. Maximum 10MB.');
+        return;
+      }
+      
+      uploadToLibrary(file);
     }
   });
 
   function uploadToLibrary(file) {
+    // Show loading state
+    uploadZone.classList.add('uploading');
+    uploadZone.style.pointerEvents = 'none';
+    
     var reader = new FileReader();
+    
+    reader.onerror = function() {
+      alert('Fout bij lezen van bestand');
+      uploadZone.classList.remove('uploading');
+      uploadZone.style.pointerEvents = '';
+    };
+    
     reader.onload = function(ev) {
       fetch(API_BASE + '/library/upload', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: ev.target.result })
       })
-        .then(function(r) { return r.json(); })
+        .then(function(r) { 
+          if (!r.ok) {
+            return r.json().then(function(err) { throw new Error(err.error || 'Upload mislukt'); });
+          }
+          return r.json(); 
+        })
         .then(function(res) {
           if (res.success) {
             loadMediaLibrary();
+          } else {
+            throw new Error(res.error || 'Upload mislukt');
           }
         })
         .catch(function(err) {
           console.error('Upload mislukt:', err);
+          alert('Upload mislukt: ' + err.message);
+        })
+        .finally(function() {
+          uploadZone.classList.remove('uploading');
+          uploadZone.style.pointerEvents = '';
         });
     };
+    
     reader.readAsDataURL(file);
   }
 })();

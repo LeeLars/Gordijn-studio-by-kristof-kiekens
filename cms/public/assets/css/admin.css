@@ -540,6 +540,24 @@ body {
   font-size: 0.9rem;
 }
 
+.upload-zone.uploading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.upload-zone.uploading::after {
+  content: 'Uploaden...';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  color: var(--cms-text);
+  font-weight: 500;
+}
+
 .upload-zone input[type="file"] {
   position: absolute;
   inset: 0;
