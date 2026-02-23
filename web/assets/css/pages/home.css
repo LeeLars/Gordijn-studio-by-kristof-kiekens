@@ -515,6 +515,91 @@
 
 
 /* ════════════════════════════════════════════
+   ATELIER SHOWCASE — Luxe interieurs
+   ════════════════════════════════════════════ */
+.atelier-showcase {
+    padding: var(--section-pad) 0;
+    background: var(--color-bg);
+}
+
+.atelier-showcase-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(4rem, 8vw, 8rem);
+    align-items: center;
+}
+
+.atelier-visual-large {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+}
+
+.atelier-visual-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.atelier-reveal {
+    position: absolute;
+    inset: 0;
+    background: var(--color-bg);
+    z-index: 2;
+}
+
+.atelier-content-box {
+    max-width: 480px;
+}
+
+.atelier-content-box .section-label {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.atelier-content-box h2 {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+}
+
+.atelier-content-box p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--color-text-light);
+    margin: 0 0 1.5rem;
+}
+
+.atelier-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text);
+    text-decoration: none;
+    margin-top: 2rem;
+    transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.atelier-cta svg {
+    transition: transform 0.3s ease;
+}
+
+.atelier-cta:hover {
+    gap: 1rem;
+    color: var(--color-primary);
+}
+
+.atelier-cta:hover svg {
+    transform: translateX(4px);
+}
+
+
+/* ════════════════════════════════════════════
    OVER ONS — Zenkai Stijl
    ════════════════════════════════════════════ */
 .about-section {
