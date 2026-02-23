@@ -49,21 +49,32 @@
         scrollTrigger: { trigger: '.intro-section', start: 'top 75%' }
     });
 
-    // ── COLLECTIE: masonry items stagger reveal ──
-    gsap.utils.toArray('.collectie-item').forEach(function (item, i) {
-        gsap.from(item, {
-            opacity: 0,
-            y: 60,
-            scale: 0.95,
-            duration: 1,
-            delay: i * 0.1,
-            ease: easeSlow,
+    // ── ATELIER: asymmetric items reveal ──
+    gsap.utils.toArray('.atelier-item').forEach(function (item, i) {
+        var visual = item.querySelector('.atelier-visual');
+        var content = item.querySelector('.atelier-content');
+        var isOffsetRight = item.classList.contains('offset-right') || item.classList.contains('compact-alt');
+
+        var tl = gsap.timeline({
             scrollTrigger: {
                 trigger: item,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
+                start: 'top 80%'
             }
         });
+
+        tl.from(visual, {
+            opacity: 0,
+            x: isOffsetRight ? 60 : -60,
+            duration: 1.2,
+            ease: easeSlow
+        })
+        .from(content.children, {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: ease
+        }, '-=0.6');
     });
 
     // ── COLLECTIE HEADER: elegant reveal ──

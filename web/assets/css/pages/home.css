@@ -200,7 +200,7 @@
 
 
 /* ════════════════════════════════════════════
-   COLLECTIE — Luxe Masonry Layout
+   COLLECTIE — Luxe Atelier Layout
    ════════════════════════════════════════════ */
 .collectie-section {
     padding: var(--section-pad) 0;
@@ -210,7 +210,8 @@
 .collectie-header {
     text-align: center;
     max-width: 700px;
-    margin: 0 auto 6rem;
+    margin: 0 auto 8rem;
+    padding: 0 2rem;
 }
 
 .collectie-header h2 {
@@ -224,172 +225,226 @@
     margin: 0;
 }
 
-/* Masonry Grid */
-.collectie-masonry {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: 280px;
-    gap: 1.5rem;
+/* Atelier Grid - Asymmetric Layout */
+.collectie-atelier {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 4rem;
 }
 
-.collectie-item {
+/* Atelier Item Base */
+.atelier-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+}
+
+/* Featured - Large format */
+.atelier-item.featured {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+}
+
+.atelier-item.featured .atelier-visual {
+    aspect-ratio: 4/3;
+}
+
+.atelier-item.featured .atelier-num {
+    font-size: 12rem;
+    top: -3rem;
+    left: -2rem;
+}
+
+.atelier-item.featured h3 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+/* Offset Left - Image sticks left */
+.atelier-item.offset-left {
+    grid-template-columns: 1.1fr 1fr;
+    padding-right: 10%;
+}
+
+.atelier-item.offset-left .atelier-visual {
+    aspect-ratio: 3/4;
+}
+
+/* Offset Right - Image sticks right */
+.atelier-item.offset-right {
+    grid-template-columns: 1fr 1.1fr;
+    direction: rtl;
+    padding-left: 10%;
+}
+
+.atelier-item.offset-right > * {
+    direction: ltr;
+}
+
+.atelier-item.offset-right .atelier-num {
+    left: auto;
+    right: -1rem;
+}
+
+.atelier-item.offset-right .atelier-visual {
+    aspect-ratio: 3/4;
+}
+
+/* Compact - Smaller items */
+.atelier-item.compact,
+.atelier-item.compact-alt {
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.atelier-item.compact-alt {
+    grid-template-columns: 1.5fr 1fr;
+    direction: rtl;
+}
+
+.atelier-item.compact-alt > * {
+    direction: ltr;
+}
+
+.atelier-item.compact .atelier-visual,
+.atelier-item.compact-alt .atelier-visual {
+    aspect-ratio: 1/1;
+}
+
+/* Item Number */
+.atelier-num {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-size: 8rem;
+    color: var(--color-primary);
+    opacity: 0.08;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    z-index: 0;
+    pointer-events: none;
+    top: -2rem;
+    left: -1rem;
+}
+
+/* Visual */
+.atelier-visual {
     position: relative;
     overflow: hidden;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* Grid spans */
-.collectie-item.featured {
-    grid-column: span 7;
-    grid-row: span 2;
-}
-
-.collectie-item.tall {
-    grid-column: span 5;
-    grid-row: span 2;
-}
-
-.collectie-item.wide {
-    grid-column: span 8;
-    grid-row: span 1;
-}
-
-.collectie-item:not(.featured):not(.tall):not(.wide) {
-    grid-column: span 4;
-    grid-row: span 1;
-}
-
-/* Image styling */
-.collectie-img {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-}
-
-.collectie-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.collectie-item:hover .collectie-img img {
-    transform: scale(1.08);
-}
-
-/* Overlay gradient */
-.collectie-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to top,
-        rgba(26, 26, 24, 0.85) 0%,
-        rgba(26, 26, 24, 0.4) 40%,
-        transparent 80%
-    );
-    z-index: 1;
-    transition: background 0.5s ease;
-}
-
-.collectie-item:hover .collectie-overlay {
-    background: linear-gradient(
-        to top,
-        rgba(26, 26, 24, 0.9) 0%,
-        rgba(26, 26, 24, 0.5) 50%,
-        rgba(26, 26, 24, 0.2) 100%
-    );
-}
-
-/* Content styling */
-.collectie-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 2rem;
-    z-index: 2;
-    color: var(--color-white);
-    transform: translateY(20px);
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.collectie-item:hover .collectie-content {
-    transform: translateY(0);
-}
-
-.collectie-tag {
-    display: inline-block;
-    font-size: 0.55rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--color-accent-light);
-    margin-bottom: 0.75rem;
-    padding: 0.4rem 0.8rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 2px;
 }
 
-.collectie-content h3 {
-    font-size: clamp(1.3rem, 2vw, 1.8rem);
-    color: var(--color-white);
-    margin: 0 0 0.75rem;
-    letter-spacing: -0.01em;
+.atelier-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.collectie-content p {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.7;
-    margin: 0 0 1.25rem;
-    max-width: 320px;
+.atelier-item:hover .atelier-visual img {
+    transform: scale(1.05);
 }
 
-/* Link styling */
-.collectie-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.65rem;
+/* Overlay */
+.atelier-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(26, 26, 24, 0.1) 0%,
+        transparent 50%
+    );
+    pointer-events: none;
+}
+
+/* Content */
+.atelier-content {
+    padding: 2rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.atelier-tag {
+    display: inline-block;
+    font-size: 0.6rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--color-white);
+    letter-spacing: 0.25em;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+}
+
+.atelier-content h3 {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.atelier-content p {
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    line-height: 1.9;
+    margin: 0 0 2rem;
+}
+
+/* Link */
+.atelier-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-text);
     text-decoration: none;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.4s ease 0.1s;
+    transition: gap 0.3s ease;
 }
 
-.collectie-item:hover .collectie-link {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.collectie-link svg {
+.atelier-link svg {
     transition: transform 0.3s ease;
 }
 
-.collectie-link:hover svg {
+.atelier-link:hover {
+    gap: 1rem;
+    color: var(--color-primary);
+}
+
+.atelier-link:hover svg {
     transform: translateX(4px);
 }
 
 /* Footer CTA */
 .collectie-footer {
     text-align: center;
-    margin-top: 5rem;
+    margin-top: 8rem;
     padding: 0 2rem;
 }
 
-.collectie-footer p {
+.footer-content-inner {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.footer-lead {
+    font-family: var(--font-heading);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    color: var(--color-text);
+    margin: 0 0 0.75rem;
+}
+
+.footer-sub {
     font-size: 0.95rem;
     color: var(--color-text-light);
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
+    line-height: 1.8;
 }
 
 
@@ -732,46 +787,48 @@
         min-height: 400px;
     }
 
-    /* Collectie masonry responsive */
-    .collectie-masonry {
-        grid-template-columns: repeat(6, 1fr);
-        grid-auto-rows: 240px;
-        gap: 1rem;
-        padding: 0 1.5rem;
+    /* Collectie atelier responsive tablet */
+    .collectie-atelier {
+        padding: 0 2rem;
+        gap: 4rem;
     }
 
-    .collectie-item.featured {
-        grid-column: span 6;
-        grid-row: span 2;
+    .atelier-item,
+    .atelier-item.featured,
+    .atelier-item.offset-left,
+    .atelier-item.offset-right,
+    .atelier-item.compact,
+    .atelier-item.compact-alt {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0;
+        direction: ltr;
     }
 
-    .collectie-item.tall {
-        grid-column: span 3;
-        grid-row: span 2;
+    .atelier-item.offset-right > *,
+    .atelier-item.compact-alt > * {
+        direction: ltr;
     }
 
-    .collectie-item.wide {
-        grid-column: span 6;
-        grid-row: span 1;
+    .atelier-item.offset-right .atelier-num {
+        left: -1rem;
+        right: auto;
     }
 
-    .collectie-item:not(.featured):not(.tall):not(.wide) {
-        grid-column: span 3;
-        grid-row: span 1;
+    .atelier-visual {
+        aspect-ratio: 16/10 !important;
     }
 
-    .collectie-content {
-        padding: 1.5rem;
-        transform: translateY(0);
+    .atelier-num {
+        font-size: 6rem;
+        top: -1.5rem;
+        left: -0.5rem;
     }
 
-    .collectie-item:hover .collectie-content {
-        transform: translateY(0);
-    }
-
-    .collectie-link {
-        opacity: 1;
-        transform: translateY(0);
+    .atelier-item.featured .atelier-num {
+        font-size: 8rem;
+        top: -2rem;
+        left: -1rem;
     }
 }
 
@@ -805,37 +862,37 @@
         padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
     }
 
-    /* Collectie masonry mobile */
-    .collectie-masonry {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 300px;
-        gap: 1rem;
-        padding: 0 1rem;
+    /* Collectie atelier mobile */
+    .collectie-atelier {
+        padding: 0 1.5rem;
+        gap: 3rem;
     }
 
-    .collectie-item.featured,
-    .collectie-item.tall,
-    .collectie-item.wide,
-    .collectie-item:not(.featured):not(.tall):not(.wide) {
-        grid-column: span 1;
-        grid-row: span 1;
+    .atelier-content {
+        padding: 1rem 0;
+    }
+
+    .atelier-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .atelier-num {
+        font-size: 4rem;
+        top: -1rem;
+        left: -0.5rem;
+    }
+
+    .atelier-item.featured .atelier-num {
+        font-size: 5rem;
     }
 
     .collectie-header {
-        margin-bottom: 3rem;
-        padding: 0 1rem;
-    }
-
-    .collectie-content {
-        padding: 1.5rem;
-    }
-
-    .collectie-content h3 {
-        font-size: 1.2rem;
+        margin-bottom: 4rem;
+        padding: 0 1.5rem;
     }
 
     .collectie-footer {
-        margin-top: 3rem;
+        margin-top: 4rem;
     }
 
     .ervaring-grid {
