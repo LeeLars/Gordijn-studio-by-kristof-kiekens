@@ -312,8 +312,13 @@ a {
     transform: scale(1.02);
 }
 
+/* Logo is altijd zichtbaar - wit op hero, zwart op scrolled */
 .site-header:not(.scrolled) .logo-img {
     filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+}
+
+.site-header.scrolled .logo-img {
+    filter: brightness(1) invert(0);
 }
 
 .nav-links {
