@@ -1,5 +1,5 @@
 (function () {
-  var CMS_PASSWORD = 'test123';
+  var CMS_PASSWORD = 'admin123';
   var API_BASE = '/api';
 
   var loginScreen = document.getElementById('loginScreen');
