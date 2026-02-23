@@ -96,6 +96,10 @@
 
 .hero-top-content {
     padding: 4rem 0 3rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .hero-text-grid {
@@ -114,8 +118,9 @@
     line-height: 1;
     letter-spacing: -0.03em;
     margin: 0;
-    color: var(--color-text);
+    color: var(--color-primary);
     font-weight: 400;
+    text-align: left;
 }
 
 .display-heading.heading-indent {
@@ -135,9 +140,10 @@
 .hero-description {
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     line-height: 1.8;
-    color: var(--color-text-light);
+    color: var(--color-primary);
     margin: 0;
     max-width: 500px;
+    text-align: left;
 }
 
 /* Hero overlap section */
@@ -188,7 +194,7 @@
     text-align: center;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-width 0.4s ease;
     position: absolute;
-    inset: -2.5rem 5% auto auto;
+    inset: -6.5rem 5% auto auto;
     z-index: 10;
     letter-spacing: 0.02em;
 }
