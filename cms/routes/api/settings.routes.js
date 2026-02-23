@@ -62,10 +62,24 @@ router.get('/settings', (req, res) => {
   }
 });
 
-// PUT settings
+// PUT settings - merge deeply for images
 router.put('/settings', (req, res) => {
   try {
     const current = readSettings();
+    
+    // Deep merge voor images object
+    if (req.body.images && current.images) {
+      req.body.images = {
+        ...current.images,
+        ...req.body.images,
+        // Nested aanbod object ook mergen
+        aanbod: {
+          ...current.images.aanbod,
+          ...req.body.images.aanbod
+        }
+      };
+    }
+    
     const updated = { ...current, ...req.body };
     writeSettings(updated);
     res.json({ success: true, data: updated });
