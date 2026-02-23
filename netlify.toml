@@ -1,0 +1,13 @@
+[build]
+  command = "echo 'Geen build nodig voor statische site'"
+  publish = "."
+
+[[redirects]]
+  from = "/"
+  to = "/web/pages/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cms/*"
+  to = "/cms/:splat"
+  status = 200
