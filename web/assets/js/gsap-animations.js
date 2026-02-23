@@ -134,7 +134,7 @@
                 trigger: revealSection,
                 start: 'top top',
                 end: 'center center',
-                scrub: 0.5,
+                scrub: 1.2,
                 pin: false
             }
         });

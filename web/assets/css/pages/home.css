@@ -746,7 +746,7 @@
    ════════════════════════════════════════════ */
 .reveal-section {
     position: relative;
-    height: 120vh; /* Verhoogd voor scroll ruimte maar sneller reveal */
+    height: 180vh; /* Verhoogd voor langzamere scroll animatie */
     background: var(--color-dark);
 }
 
