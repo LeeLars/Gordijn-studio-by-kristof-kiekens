@@ -164,31 +164,30 @@
 
 /* Circle CTA Right - Studio 11 stijl */
 .circle-cta-right {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 160px;
-    height: 160px;
+    width: 15rem;
+    height: 15rem;
     background: var(--color-primary);
     color: var(--color-white);
-    border-radius: 50%;
+    border: 1rem solid var(--color-cream);
+    border-radius: 1000px;
     text-decoration: none;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    line-height: 1.4;
+    line-height: 2rem;
     text-align: center;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: border 0.4s, background-color 0.4s;
     position: absolute;
-    right: 8%;
-    bottom: 10%;
+    inset: -7.5rem 5% auto auto;
     z-index: 10;
 }
 
 .circle-cta-right:hover {
     background: var(--color-dark);
-    transform: scale(1.08);
+    border-color: var(--color-white);
 }
 
 /* ════════════════════════════════════════════
@@ -895,7 +894,7 @@
     top: 0;
     bottom: 0;
     width: 50%;
-    background: var(--color-primary);
+    background: #eeedea;
     z-index: 2;
     transition: transform 0.1s linear;
 }
