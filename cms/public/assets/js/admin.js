@@ -84,6 +84,7 @@
             setPreview('hero', d.images.hero);
             setPreview('stickyCircle', d.images.stickyCircle);
             setPreview('overOns', d.images.overOns);
+            setPreview('overOnsSecondary', d.images.overOnsSecondary);
             setPreview('cta', d.images.cta);
             if (d.images.aanbod) {
               Object.keys(d.images.aanbod).forEach(function (key) {
