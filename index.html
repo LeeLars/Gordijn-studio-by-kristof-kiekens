@@ -352,10 +352,25 @@
             </div>
 
             <div class="footer-bottom">
-                <p>© 2026 Gordijnstudio Kristof Kiekens</p>
-                <span class="footer-sep">|</span>
-                <span>Gemaakt door <a href="https://grafixstudio.io/" target="_blank" rel="noopener">Grafix Studio</a></span>
-                <a href="https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/cms/" class="cms-link" target="_blank" rel="noopener" title="CMS">CMS</a>
+                <div class="footer-legal">
+                    <p>© <span id="currentYear">2026</span> Gordijnstudio Kristof Kiekens. Alle rechten voorbehouden.</p>
+                    <div class="legal-links">
+                        <a href="#ervaring">Over</a>
+                        <span class="separator">•</span>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+
+                <div class="footer-creator">
+                    <span>Gemaakt door <a href="https://grafixstudio.io/" target="_blank" rel="noopener">Grafix Studio</a></span>
+                    <span class="creator-separator">•</span>
+                    <a href="https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/cms/" class="cms-lock-link" target="_blank" rel="noopener" title="CMS Login">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
@@ -414,6 +429,9 @@
         console.log('CMS images not loaded, using defaults:', error);
       }
     })();
+    
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
