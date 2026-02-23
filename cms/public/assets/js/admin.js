@@ -187,6 +187,161 @@
   }
 
   // ════════════════════════════════════════════════════════════
+  // GALLERY MANAGER
+  // ════════════════════════════════════════════════════════════
+  var galleryList = document.getElementById('galleryList');
+  var addGalleryImage = document.getElementById('addGalleryImage');
+  var currentGalleryImages = [];
+  var currentGalleryIndex = null;
+
+  // Load gallery from settings
+  function loadGallery() {
+    if (!galleryList) return;
+    
+    fetch(API_BASE + '/settings')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success && res.data) {
+          currentGalleryImages = res.data.gallery || [];
+          renderGallery();
+        }
+      })
+      .catch(function(err) {
+        console.error('Gallery laden mislukt:', err);
+      });
+  }
+
+  function renderGallery() {
+    if (!galleryList) return;
+    
+    while (galleryList.firstChild) {
+      galleryList.removeChild(galleryList.firstChild);
+    }
+    
+    if (currentGalleryImages.length === 0) {
+      var emptyMsg = document.createElement('p');
+      emptyMsg.className = 'cms-image-empty';
+      emptyMsg.style.gridColumn = '1 / -1';
+      emptyMsg.textContent = 'Geen gallery afbeeldingen. Klik "Afbeelding toevoegen" om te beginnen.';
+      galleryList.appendChild(emptyMsg);
+      return;
+    }
+    
+    currentGalleryImages.forEach(function(url, idx) {
+      var card = document.createElement('div');
+      card.className = 'gallery-item-card';
+      card.setAttribute('data-index', idx);
+      
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Gallery afbeelding ' + (idx + 1);
+      card.appendChild(img);
+      
+      var indexLabel = document.createElement('span');
+      indexLabel.className = 'gallery-index';
+      indexLabel.textContent = (idx + 1);
+      card.appendChild(indexLabel);
+      
+      var deleteBtn = document.createElement('button');
+      deleteBtn.className = 'gallery-delete';
+      deleteBtn.title = 'Verwijderen';
+      
+      var deleteSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      deleteSvg.setAttribute('width', '16');
+      deleteSvg.setAttribute('height', '16');
+      deleteSvg.setAttribute('viewBox', '0 0 24 24');
+      deleteSvg.setAttribute('fill', 'none');
+      deleteSvg.setAttribute('stroke', 'currentColor');
+      deleteSvg.setAttribute('stroke-width', '2');
+      
+      var deletePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      deletePath.setAttribute('d', 'M18 6L6 18M6 6l12 12');
+      deleteSvg.appendChild(deletePath);
+      deleteBtn.appendChild(deleteSvg);
+      card.appendChild(deleteBtn);
+      
+      // Click to change image
+      card.addEventListener('click', function(e) {
+        if (e.target.closest('.gallery-delete')) {
+          e.stopPropagation();
+          if (confirm('Afbeelding verwijderen?')) {
+            currentGalleryImages.splice(idx, 1);
+            saveGallery();
+            renderGallery();
+          }
+          return;
+        }
+        
+        currentGalleryIndex = idx;
+        currentImageTarget = 'gallery:' + idx;
+        openMediaLibrary();
+      });
+      
+      galleryList.appendChild(card);
+    });
+  }
+
+  // Add new gallery image
+  if (addGalleryImage) {
+    addGalleryImage.addEventListener('click', function() {
+      if (currentGalleryImages.length >= 10) {
+        alert('Maximum 10 afbeeldingen toegestaan');
+        return;
+      }
+      currentGalleryIndex = currentGalleryImages.length;
+      currentImageTarget = 'gallery:new';
+      openMediaLibrary();
+    });
+  }
+
+  // Save gallery to settings
+  function saveGallery() {
+    fetch(API_BASE + '/settings')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        var settings = res.data || {};
+        settings.gallery = currentGalleryImages;
+        
+        return fetch(API_BASE + '/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ gallery: settings.gallery })
+        });
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success) {
+          console.log('Gallery opgeslagen');
+        }
+      })
+      .catch(function(err) {
+        console.error('Gallery opslaan mislukt:', err);
+      });
+  }
+
+  // Modified select handler for gallery
+  var originalSelectHandler = selectMediaLibrary.onclick;
+  selectMediaLibrary.addEventListener('click', function() {
+    if (currentImageTarget && currentImageTarget.startsWith('gallery:')) {
+      if (selectedLibraryImage) {
+        if (currentImageTarget === 'gallery:new') {
+          currentGalleryImages.push(selectedLibraryImage.url);
+        } else {
+          var idx = parseInt(currentImageTarget.split(':')[1]);
+          currentGalleryImages[idx] = selectedLibraryImage.url;
+        }
+        saveGallery();
+        renderGallery();
+        closeMediaLibraryModal();
+      }
+      return;
+    }
+  });
+
+  // Initialize gallery
+  loadGallery();
+
+  // ════════════════════════════════════════════════════════════
   // MEDIA LIBRARY
   // ════════════════════════════════════════════════════════════
   var mediaLibraryModal = document.getElementById('mediaLibraryModal');
