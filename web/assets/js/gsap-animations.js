@@ -123,8 +123,8 @@
 
     // Image reveal animaties
     gsap.utils.toArray('.about-image').forEach(function(img, i) {
-        gsap.from(img.querySelector('.image-reveal'), {
-            scaleY: 1,
+        gsap.to(img.querySelector('.image-reveal'), {
+            scaleY: 0,
             transformOrigin: 'top',
             duration: 1.2,
             delay: i * 0.2,
