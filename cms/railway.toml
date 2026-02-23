@@ -5,3 +5,8 @@ start = "npm start"
 
 [build]
 builder = "railpack"
+
+# Persistent volume voor data
+[[mounts]]
+source = "/data"
+destination = "./data"
