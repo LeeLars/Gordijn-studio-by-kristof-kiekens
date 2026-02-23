@@ -690,6 +690,9 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1rem;
+  min-height: 0;
+  max-height: 50vh;
+  align-content: start;
 }
 
 .media-library-item {

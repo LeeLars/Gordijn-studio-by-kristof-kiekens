@@ -3,34 +3,44 @@ import cloudinary from '../../config/cloudinary.js';
 
 const router = Router();
 
-// Get all library images
+// Get all library images - geen limiet
 router.get('/library', async (req, res) => {
   try {
-    const result = await cloudinary.api.resources({
-      type: 'upload',
-      prefix: 'gordijnstudio/library/',
-      max_results: 100,
-      context: true
-    });
-
-    const images = result.resources.map(resource => ({
-      id: resource.public_id,
-      url: resource.secure_url,
-      thumbnail: cloudinary.url(resource.public_id, {
-        width: 300,
-        height: 300,
-        crop: 'fill',
-        quality: 'auto:good',
-        fetch_format: 'auto'
-      }),
-      width: resource.width,
-      height: resource.height,
-      createdAt: resource.created_at
-    }));
+    let allImages = [];
+    let nextCursor = null;
+    
+    // Haal alle afbeeldingen op in batches van 100
+    do {
+      const result = await cloudinary.api.resources({
+        type: 'upload',
+        prefix: 'gordijnstudio/library/',
+        max_results: 100,
+        next_cursor: nextCursor,
+        context: true
+      });
+      
+      const batchImages = result.resources.map(resource => ({
+        id: resource.public_id,
+        url: resource.secure_url,
+        thumbnail: cloudinary.url(resource.public_id, {
+          width: 300,
+          height: 300,
+          crop: 'fill',
+          quality: 'auto:good',
+          fetch_format: 'auto'
+        }),
+        width: resource.width,
+        height: resource.height,
+        createdAt: resource.created_at
+      }));
+      
+      allImages = allImages.concat(batchImages);
+      nextCursor = result.next_cursor;
+    } while (nextCursor);
 
     res.json({
       success: true,
-      data: images
+      data: allImages
     });
   } catch (error) {
     console.error('Library fetch error:', error);
