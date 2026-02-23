@@ -216,6 +216,42 @@
 
         </main>
 
+        <!-- MEDIA LIBRARY MODAL -->
+        <div id="mediaLibraryModal" class="media-library-modal">
+            <div class="media-library-overlay"></div>
+            <div class="media-library-content">
+                <div class="media-library-header">
+                    <h3>Media Bibliotheek</h3>
+                    <button class="media-library-close" id="closeMediaLibrary">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="media-library-upload">
+                    <div class="upload-zone" id="uploadZone">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <p>Sleep afbeeldingen hierheen of klik om te uploaden</p>
+                        <input type="file" accept="image/*" multiple id="libraryUploadInput" />
+                    </div>
+                </div>
+                
+                <div class="media-library-grid" id="mediaLibraryGrid">
+                    <!-- Library images will be loaded here -->
+                </div>
+                
+                <div class="media-library-actions">
+                    <button class="btn btn--secondary" id="cancelMediaLibrary">Annuleren</button>
+                    <button class="btn btn--primary" id="selectMediaLibrary">Selecteren</button>
+                </div>
+            </div>
+        </div>
+
         <footer class="cms-footer">
             <p>Gordijn Studio CMS &mdash; Gemaakt door <a href="https://grafixstudio.io/" target="_blank" rel="noopener">Grafix Studio</a></p>
         </footer>

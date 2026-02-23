@@ -227,4 +227,191 @@
         console.error('Afbeelding opslaan mislukt:', err);
       });
   }
+
+  // ════════════════════════════════════════════════════════════
+  // MEDIA LIBRARY
+  // ════════════════════════════════════════════════════════════
+  var mediaLibraryModal = document.getElementById('mediaLibraryModal');
+  var closeMediaLibrary = document.getElementById('closeMediaLibrary');
+  var cancelMediaLibrary = document.getElementById('cancelMediaLibrary');
+  var selectMediaLibrary = document.getElementById('selectMediaLibrary');
+  var mediaLibraryGrid = document.getElementById('mediaLibraryGrid');
+  var libraryUploadInput = document.getElementById('libraryUploadInput');
+  var uploadZone = document.getElementById('uploadZone');
+  
+  var currentImageTarget = null;
+  var selectedLibraryImage = null;
+  var libraryImages = [];
+
+  // Open media library when clicking on image cards
+  var imageCards = document.querySelectorAll('.cms-image-card');
+  imageCards.forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // Don't open if clicking on delete button
+      if (e.target.closest('.delete-btn')) return;
+      
+      currentImageTarget = card.getAttribute('data-key');
+      openMediaLibrary();
+    });
+  });
+
+  function openMediaLibrary() {
+    selectedLibraryImage = null;
+    mediaLibraryModal.classList.add('active');
+    loadMediaLibrary();
+  }
+
+  function closeMediaLibraryModal() {
+    mediaLibraryModal.classList.remove('active');
+    currentImageTarget = null;
+    selectedLibraryImage = null;
+  }
+
+  closeMediaLibrary.addEventListener('click', closeMediaLibraryModal);
+  cancelMediaLibrary.addEventListener('click', closeMediaLibraryModal);
+  mediaLibraryModal.querySelector('.media-library-overlay').addEventListener('click', closeMediaLibraryModal);
+
+  // Select image
+  selectMediaLibrary.addEventListener('click', function() {
+    if (selectedLibraryImage && currentImageTarget) {
+      // Update preview
+      var previewId = currentImageTarget.replace('.', '-');
+      setPreview(previewId, selectedLibraryImage.url);
+      
+      // Save URL to settings
+      saveImageUrl(currentImageTarget, selectedLibraryImage.url);
+      
+      closeMediaLibraryModal();
+    }
+  });
+
+  // Load media library
+  function loadMediaLibrary() {
+    mediaLibraryGrid.innerHTML = '<p class="media-library-empty">Laden...</p>';
+    
+    fetch(API_BASE + '/library')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success) {
+          libraryImages = res.data || [];
+          renderMediaLibrary();
+        }
+      })
+      .catch(function(err) {
+        console.error('Media library laden mislukt:', err);
+        mediaLibraryGrid.innerHTML = '<p class="media-library-empty">Fout bij laden</p>';
+      });
+  }
+
+  function renderMediaLibrary() {
+    if (libraryImages.length === 0) {
+      mediaLibraryGrid.innerHTML = 
+        '<div class="media-library-empty">' +
+        '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' +
+        '<p>Geen afbeeldingen in bibliotheek</p>' +
+        '</div>';
+      return;
+    }
+
+    mediaLibraryGrid.innerHTML = '';
+    libraryImages.forEach(function(image) {
+      var item = document.createElement('div');
+      item.className = 'media-library-item';
+      item.setAttribute('data-id', image.id);
+      item.innerHTML = 
+        '<img src="' + image.thumbnail + '" alt="">' +
+        '<button class="delete-btn" data-id="' + image.id + '">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+        '</button>' +
+        '<div class="select-indicator">' +
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' +
+        '</div>';
+      
+      // Select image
+      item.addEventListener('click', function(e) {
+        if (e.target.closest('.delete-btn')) {
+          deleteLibraryImage(image.id);
+          return;
+        }
+        
+        // Deselect previous
+        document.querySelectorAll('.media-library-item').forEach(function(el) {
+          el.classList.remove('selected');
+        });
+        
+        // Select this one
+        item.classList.add('selected');
+        selectedLibraryImage = image;
+      });
+
+      mediaLibraryGrid.appendChild(item);
+    });
+  }
+
+  // Delete library image
+  function deleteLibraryImage(id) {
+    if (!confirm('Afbeelding verwijderen?')) return;
+    
+    fetch(API_BASE + '/library/' + encodeURIComponent(id), {
+      method: 'DELETE'
+    })
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success) {
+          loadMediaLibrary();
+        }
+      })
+      .catch(function(err) {
+        console.error('Verwijderen mislukt:', err);
+      });
+  }
+
+  // Upload to library
+  libraryUploadInput.addEventListener('change', function(e) {
+    var files = e.target.files;
+    if (!files.length) return;
+    
+    uploadToLibrary(files[0]);
+  });
+
+  // Drag and drop
+  uploadZone.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    uploadZone.classList.add('dragover');
+  });
+
+  uploadZone.addEventListener('dragleave', function() {
+    uploadZone.classList.remove('dragover');
+  });
+
+  uploadZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    
+    var files = e.dataTransfer.files;
+    if (files.length) {
+      uploadToLibrary(files[0]);
+    }
+  });
+
+  function uploadToLibrary(file) {
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      fetch(API_BASE + '/library/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: ev.target.result })
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+          if (res.success) {
+            loadMediaLibrary();
+          }
+        })
+        .catch(function(err) {
+          console.error('Upload mislukt:', err);
+        });
+    };
+    reader.readAsDataURL(file);
+  }
 })();
