@@ -25,7 +25,12 @@ app.use(helmet({
     },
   },
 }));
-app.use(cors());
+// Configure CORS to allow GitHub Pages and local development
+app.use(cors({
+  origin: ['https://leelars.github.io', 'http://localhost:3000', 'http://127.0.0.1:5500'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(requestLogger);
 
