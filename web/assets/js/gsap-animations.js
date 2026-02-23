@@ -132,8 +132,8 @@
             scrollTrigger: {
                 trigger: revealSection,
                 start: 'top top',
-                end: 'bottom top',
-                scrub: 1,
+                end: 'center center',
+                scrub: 0.5,
                 pin: false
             }
         });
