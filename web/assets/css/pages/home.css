@@ -179,15 +179,15 @@
     text-transform: uppercase;
     line-height: 2rem;
     text-align: center;
-    transition: border 0.4s, background-color 0.4s;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-width 0.4s ease;
     position: absolute;
     inset: -7.5rem 5% auto auto;
     z-index: 10;
 }
 
 .circle-cta-right:hover {
-    background: var(--color-dark);
-    border-color: var(--color-white);
+    transform: scale(1.08);
+    border-width: 0.5rem;
 }
 
 /* ════════════════════════════════════════════
