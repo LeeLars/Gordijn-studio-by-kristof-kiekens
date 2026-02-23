@@ -363,5 +363,57 @@
     <script src="web/assets/js/main.js"></script>
     <script src="web/assets/js/pages/home.js"></script>
     <script src="web/assets/js/gsap-animations.js"></script>
+    <script>
+    // Load CMS images dynamically
+    (async function loadCMSImages() {
+      try {
+        const API_URL = '/cms/api/settings';
+        const response = await fetch(API_URL);
+        const result = await response.json();
+        
+        if (result.success && result.data && result.data.images) {
+          const images = result.data.images;
+          
+          // Hero image
+          if (images.hero) {
+            document.querySelector('.hero-image-main').src = images.hero;
+          }
+          
+          // Sticky/Circle Reveal image
+          if (images.stickyCircle) {
+            document.querySelector('.reveal-image').src = images.stickyCircle;
+          }
+          
+          // Over Ons images
+          const overOnsImages = document.querySelectorAll('.about-images-stack img');
+          if (images.overOns && overOnsImages.length > 0) {
+            overOnsImages[0].src = images.overOns;
+          }
+          
+          // Aanbod images mapping
+          const aanbodMapping = {
+            'aanbod.overgordijnen': 0,
+            'aanbod.vouwgordijnen': 4,
+            'aanbod.rolgordijnen': 3,
+            'aanbod.houtenJaloezieen': 1,
+            'aanbod.lamellen': 1,
+            'aanbod.duoRoll': 0
+          };
+          
+          const collectieItems = document.querySelectorAll('.collectie-studio .studio-item img');
+          
+          if (images.aanbod) {
+            if (images.aanbod.overgordijnen && collectieItems[0]) collectieItems[0].src = images.aanbod.overgordijnen;
+            if (images.aanbod.houtenJaloezieen && collectieItems[1]) collectieItems[1].src = images.aanbod.houtenJaloezieen;
+            if (images.aanbod.lamellen && collectieItems[2]) collectieItems[2].src = images.aanbod.lamellen;
+            if (images.aanbod.rolgordijnen && collectieItems[3]) collectieItems[3].src = images.aanbod.rolgordijnen;
+            if (images.aanbod.vouwgordijnen && collectieItems[4]) collectieItems[4].src = images.aanbod.vouwgordijnen;
+          }
+        }
+      } catch (error) {
+        console.log('CMS images not loaded, using defaults:', error);
+      }
+    })();
+    </script>
 </body>
 </html>
