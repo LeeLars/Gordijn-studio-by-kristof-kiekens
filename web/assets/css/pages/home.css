@@ -392,13 +392,25 @@
     direction: ltr;
 }
 
+/* Studio num positioning - ALWAYS on the outside edge */
 .studio-item.item-links .studio-num {
-    left: -1rem;
+    left: -1.5rem;
+    right: auto;
+    z-index: 2;
 }
 
 .studio-item.item-rechts .studio-num {
     left: auto;
-    right: -1rem;
+    right: -1.5rem;
+    z-index: 2;
+}
+
+/* Ensure visual has lower z-index than num */
+.studio-visual {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    z-index: 1;
 }
 
 /* Compact - Smaller items */
