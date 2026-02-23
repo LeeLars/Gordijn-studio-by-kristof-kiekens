@@ -118,7 +118,37 @@
     line-height: 1.8;
     color: var(--color-text-light);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 2rem;
+}
+
+/* Circle CTA Button - Studio 11 stijl */
+.circle-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 140px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.circle-cta:hover {
+    background: var(--color-dark);
+    transform: translateY(-50%) scale(1.05);
 }
 
 /* Hero Image */
@@ -1008,6 +1038,22 @@
 
     .hero-minimal-scroll {
         bottom: 2rem;
+    }
+
+    /* Circle CTA mobile */
+    .circle-cta {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: 2rem auto 0;
+        width: 120px;
+        height: 120px;
+        font-size: 0.7rem;
+    }
+
+    .circle-cta:hover {
+        transform: scale(1.05);
     }
 
     .aanbod-item,

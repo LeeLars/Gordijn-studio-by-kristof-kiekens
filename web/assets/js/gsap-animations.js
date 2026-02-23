@@ -23,6 +23,9 @@
         .from('.hero-minimal-image', {
             opacity: 0, y: 60, scale: 1.05, duration: 1.4, ease: easeSlow
         }, '-=0.8')
+        .from('.circle-cta', {
+            opacity: 0, scale: 0.8, duration: 0.8, ease: ease
+        }, '-=0.6')
         .from('.hero-minimal-scroll', {
             opacity: 0, y: -10, duration: 0.8, ease: ease
         }, '-=0.4');
