@@ -105,6 +105,12 @@
     var img = document.createElement('img');
     img.src = url;
     img.alt = '';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    img.onerror = function() {
+      console.error('Afbeelding laden mislukt:', url);
+    };
     el.appendChild(img);
   }
 
