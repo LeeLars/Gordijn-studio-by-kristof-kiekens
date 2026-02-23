@@ -68,29 +68,38 @@
         scrollTrigger: { trigger: '.intro-section', start: 'top 75%' }
     });
 
-    // ── AANBOD: per item beeld + info reveal ──
-    gsap.utils.toArray('.aanbod-item').forEach(function (item, i) {
-        var img = item.querySelector('.aanbod-img');
-        var info = item.querySelector('.aanbod-info');
-        var isEven = i % 2 === 1;
-
-        var tl = gsap.timeline({
-            scrollTrigger: { trigger: item, start: 'top 80%' }
-        });
-
-        tl.from(img, {
+    // ── COLLECTIE: masonry items stagger reveal ──
+    gsap.utils.toArray('.collectie-item').forEach(function (item, i) {
+        gsap.from(item, {
             opacity: 0,
-            x: isEven ? 40 : -40,
+            y: 60,
+            scale: 0.95,
             duration: 1,
-            ease: easeSlow
-        })
-        .from(info, {
-            opacity: 0,
-            y: 30,
-            duration: 0.9,
-            ease: ease
-        }, '-=0.6');
+            delay: i * 0.1,
+            ease: easeSlow,
+            scrollTrigger: {
+                trigger: item,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
     });
+
+    // ── COLLECTIE HEADER: elegant reveal ──
+    var collectieHeader = document.querySelector('.collectie-header');
+    if (collectieHeader) {
+        gsap.from(collectieHeader.children, {
+            opacity: 0,
+            y: 40,
+            duration: 1,
+            stagger: 0.15,
+            ease: ease,
+            scrollTrigger: {
+                trigger: collectieHeader,
+                start: 'top 80%'
+            }
+        });
+    }
 
     // ── ERVARING: split reveal ──
     var ervaringTl = gsap.timeline({
