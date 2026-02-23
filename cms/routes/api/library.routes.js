@@ -43,12 +43,16 @@ router.post('/library/upload', async (req, res) => {
   try {
     const { image } = req.body;
 
+    console.log('Received upload request, image present:', !!image);
+    console.log('Image length:', image ? image.length : 0);
+
     if (!image) {
       return res.status(400).json({ success: false, error: 'Geen afbeelding meegegeven' });
     }
 
     // Validate base64 format
     if (!image.startsWith('data:image/')) {
+      console.log('Invalid image format, starts with:', image.substring(0, 50));
       return res.status(400).json({ success: false, error: 'Ongeldig afbeeldingsformaat' });
     }
 
@@ -56,10 +60,9 @@ router.post('/library/upload', async (req, res) => {
     
     const result = await cloudinary.uploader.upload(image, {
       folder: 'gordijnstudio/library',
-      resource_type: 'image',
-      transformation: [
-        { quality: 'auto:good', fetch_format: 'auto' }
-      ]
+      resource_type: 'auto',
+      use_filename: true,
+      unique_filename: true
     });
 
     console.log('Cloudinary upload successful:', result.public_id);
@@ -82,6 +85,10 @@ router.post('/library/upload', async (req, res) => {
     });
   } catch (error) {
     console.error('Library upload error:', error);
+    console.error('Error details:', error.message);
+    if (error.http_code) {
+      console.error('Cloudinary HTTP code:', error.http_code);
+    }
     res.status(500).json({ success: false, error: 'Upload mislukt: ' + error.message });
   }
 });

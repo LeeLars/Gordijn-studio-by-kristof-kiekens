@@ -247,8 +247,9 @@
   var imageCards = document.querySelectorAll('.cms-image-card');
   imageCards.forEach(function(card) {
     card.addEventListener('click', function(e) {
-      // Don't open if clicking on delete button
-      if (e.target.closest('.delete-btn')) return;
+      // Prevent file input from opening
+      e.preventDefault();
+      e.stopPropagation();
       
       currentImageTarget = card.getAttribute('data-key');
       openMediaLibrary();
@@ -329,7 +330,10 @@
       
       // Select image
       item.addEventListener('click', function(e) {
+        // Check if delete button was clicked
         if (e.target.closest('.delete-btn')) {
+          e.stopPropagation();
+          e.preventDefault();
           deleteLibraryImage(image.id);
           return;
         }
