@@ -260,15 +260,30 @@ a {
     right: 0;
     z-index: 100;
     background: transparent;
-    transition: background var(--transition), backdrop-filter var(--transition), border-color var(--transition);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all var(--transition);
+    border-bottom: 1px solid transparent;
 }
 
 .site-header.scrolled {
     background: rgba(250, 249, 246, 0.98);
     backdrop-filter: blur(20px);
     border-bottom-color: var(--color-border);
-    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Header always visible with subtle background */
+.site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%);
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity var(--transition);
+}
+
+.site-header.scrolled::before {
+    opacity: 0;
 }
 
 .nav {
@@ -287,7 +302,7 @@ a {
 }
 
 .logo-img {
-    height: 28px;
+    height: 32px;
     width: auto;
     display: block;
     transition: filter var(--transition), transform var(--transition);
@@ -298,7 +313,7 @@ a {
 }
 
 .site-header:not(.scrolled) .logo-img {
-    filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.2));
 }
 
 .nav-links {
@@ -312,13 +327,14 @@ a {
 .nav-links a {
     text-decoration: none;
     color: var(--color-text);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
     position: relative;
     transition: color var(--transition);
     padding: 0.5rem 0;
+    white-space: nowrap;
 }
 
 .nav-links a::after {
@@ -335,7 +351,8 @@ a {
 .nav-links a:hover::after { width: 100%; }
 
 .site-header:not(.scrolled) .nav-links a {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .site-header:not(.scrolled) .nav-links a:hover {
