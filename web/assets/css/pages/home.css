@@ -939,7 +939,7 @@
    ════════════════════════════════════════════ */
 .cta-section {
     padding: var(--section-pad) 0;
-    background: var(--color-dark);
+    background: var(--color-primary);
 }
 
 .cta-content {
