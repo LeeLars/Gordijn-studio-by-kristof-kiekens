@@ -385,11 +385,13 @@
     direction: ltr;
 }
 
-.studio-item.item-links .studio-num,
-.studio-item.item-rechts .studio-num {
-    font-size: 6rem;
-    top: -1.5rem;
+.studio-item.item-links .studio-num {
     left: -1rem;
+}
+
+.studio-item.item-rechts .studio-num {
+    left: auto;
+    right: -1rem;
 }
 
 /* Compact - Smaller items */
@@ -747,6 +749,15 @@
 .about-content-full .section-label {
     display: block;
     margin-bottom: 1.5rem;
+}
+
+.about-header {
+    margin-bottom: 2rem;
+}
+
+.about-header .section-label {
+    display: block;
+    margin-bottom: 1rem;
 }
 
 /* About Images Stack - Two smaller images */

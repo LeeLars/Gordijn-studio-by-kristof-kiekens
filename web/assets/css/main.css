@@ -408,6 +408,25 @@ a {
     z-index: 110;
 }
 
+.hamburger-flex {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.menu-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text);
+    transition: color var(--transition);
+}
+
+.site-header:not(.scrolled) .menu-label {
+    color: var(--color-white);
+}
+
 .hamburger {
     display: block;
     width: 24px;
