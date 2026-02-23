@@ -5,26 +5,25 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-    /* ── Kleuren — Luxe warm crème/ivoor palet ── */
-    --color-primary: #6b7c5f;           /* Diep mosgroen uit logo */
-    --color-primary-dark: #4a5a42;     /* Donkerder groen */
-    --color-accent: #c9b896;           /* Warm goud/bruin accent */
-    --color-accent-light: #e8dcc8;     /* Licht goud */
+    /* ── Kleuren — Nieuw minimalistisch palet ── */
+    --color-primary: #848374;           /* Grijsgroen */
+    --color-primary-dark: #000000;      /* Zwart */
     
-    --color-dark: #1a1a18;             /* Diep zwart-bruin */
-    --color-dark-secondary: #2d2d28;   /* Secundair donker */
+    --color-dark: #000000;              /* Zwart */
     
-    --color-text: #1a1a18;             /* Hoofdtekst */
-    --color-text-light: #5c5c56;       /* Lichtere tekst */
-    --color-text-muted: #8a8a82;       /* Gedisabled/muted */
+    --color-text: #000000;              /* Hoofdtekst */
+    --color-text-light: #848374;        /* Lichtere tekst */
+    --color-text-muted: #848374;        /* Gedisabled/muted */
     
-    --color-bg: #f8f6f1;               /* Warm crème achtergrond */
-    --color-cream: #f0ece3;            /* Diepere crème */
-    --color-cream-dark: #e5dfd2;       /* Donkere crème secties */
-    --color-white: #fffcf7;            /* Warm wit */
+    --color-bg: #EEEDEA;                /* Warm wit achtergrond */
+    --color-cream: #EEEDEA;             /* Diepere crème */
+    --color-cream-dark: #EEEDEA;        /* Donkere crème secties */
+    --color-white: #FFFFFF;             /* Wit */
     
-    --color-border: #d9d4c9;           /* Warme border */
-    --color-border-light: #ebe6db;     /* Lichte border */
+    --color-border: #848374;            /* Border */
+    --color-border-light: #EEEDEA;      /* Lichte border */
+    --color-accent: #848374;            /* Accent */
+    --color-accent-light: #EEEDEA;      /* Licht accent */
 
     /* ── Typografie ── */
     --font-heading: 'Suranna', Georgia, serif;
