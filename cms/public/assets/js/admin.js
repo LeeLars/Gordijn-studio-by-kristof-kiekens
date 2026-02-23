@@ -319,24 +319,25 @@
       });
   }
 
-  // Modified select handler for gallery
-  var originalSelectHandler = selectMediaLibrary.onclick;
-  selectMediaLibrary.addEventListener('click', function() {
-    if (currentImageTarget && currentImageTarget.startsWith('gallery:')) {
-      if (selectedLibraryImage) {
-        if (currentImageTarget === 'gallery:new') {
-          currentGalleryImages.push(selectedLibraryImage.url);
-        } else {
-          var idx = parseInt(currentImageTarget.split(':')[1]);
-          currentGalleryImages[idx] = selectedLibraryImage.url;
+  // Modified select handler for gallery - moet NA media library vars staan
+  if (selectMediaLibrary) {
+    selectMediaLibrary.addEventListener('click', function() {
+      if (currentImageTarget && currentImageTarget.startsWith('gallery:')) {
+        if (selectedLibraryImage) {
+          if (currentImageTarget === 'gallery:new') {
+            currentGalleryImages.push(selectedLibraryImage.url);
+          } else {
+            var idx = parseInt(currentImageTarget.split(':')[1]);
+            currentGalleryImages[idx] = selectedLibraryImage.url;
+          }
+          saveGallery();
+          renderGallery();
+          closeMediaLibraryModal();
         }
-        saveGallery();
-        renderGallery();
-        closeMediaLibraryModal();
+        return;
       }
-      return;
-    }
-  });
+    });
+  }
 
   // Initialize gallery
   loadGallery();
