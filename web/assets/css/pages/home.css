@@ -118,6 +118,11 @@
     font-weight: 400;
 }
 
+.display-heading.heading-indent {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    white-space: nowrap;
+}
+
 .heading-indent {
     padding-left: 4rem;
     margin-top: 0.5rem;
@@ -1049,11 +1054,15 @@
     }
 
     .display-heading {
-        font-size: clamp(2.5rem, 10vw, 4rem);
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .display-heading.heading-indent {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
     }
 
     .heading-indent {
-        padding-left: 2rem;
+        padding-left: 1rem;
     }
 
     .hero-subtitle {
