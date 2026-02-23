@@ -394,6 +394,34 @@ body {
   letter-spacing: 0.1em;
 }
 
+.cms-image-delete {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+  color: var(--cms-error);
+  z-index: 10;
+}
+
+.cms-image-card:hover .cms-image-delete {
+  opacity: 1;
+}
+
+.cms-image-delete:hover {
+  background: var(--cms-error);
+  color: white;
+}
+
 /* ── CMS FOOTER ── */
 .cms-footer {
   text-align: center;

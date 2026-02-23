@@ -152,48 +152,6 @@
     }, 2500);
   }
 
-  // Image uploads
-  var fileInputs = document.querySelectorAll('.cms-file-input');
-  fileInputs.forEach(function (input) {
-    input.addEventListener('change', function (e) {
-      var file = e.target.files[0];
-      if (!file) return;
-
-      var target = input.getAttribute('data-target');
-      var card = input.closest('.cms-image-card');
-      card.classList.add('uploading');
-
-      var reader = new FileReader();
-      reader.onload = function (ev) {
-        var base64 = ev.target.result;
-
-        // Upload to Cloudinary via API
-        fetch(API_BASE + '/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image: base64, folder: 'gordijnstudio' })
-        })
-          .then(function (r) { return r.json(); })
-          .then(function (res) {
-            card.classList.remove('uploading');
-            if (res.success && res.data) {
-              // Update preview
-              var previewId = target.replace('.', '-');
-              setPreview(previewId, res.data.url);
-
-              // Save URL to settings
-              saveImageUrl(target, res.data.url);
-            }
-          })
-          .catch(function (err) {
-            card.classList.remove('uploading');
-            console.error('Upload mislukt:', err);
-          });
-      };
-      reader.readAsDataURL(file);
-    });
-  });
-
   function saveImageUrl(target, url) {
     // First get current settings
     fetch(API_BASE + '/settings')
@@ -247,10 +205,26 @@
   var imageCards = document.querySelectorAll('.cms-image-card');
   imageCards.forEach(function(card) {
     card.addEventListener('click', function(e) {
-      // Prevent file input from opening
-      e.preventDefault();
-      e.stopPropagation();
+      // Check if delete button was clicked - don't open modal
+      if (e.target.closest('.cms-image-delete')) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        var target = card.getAttribute('data-key');
+        if (confirm('Afbeelding verwijderen?')) {
+          // Clear the preview
+          var previewId = target.replace('.', '-');
+          var previewEl = document.getElementById('preview-' + previewId);
+          if (previewEl) {
+            previewEl.innerHTML = '<span class="cms-image-empty">Geen afbeelding</span>';
+          }
+          // Clear from settings
+          saveImageUrl(target, '');
+        }
+        return;
+      }
       
+      // Open modal for image selection
       currentImageTarget = card.getAttribute('data-key');
       openMediaLibrary();
     });
