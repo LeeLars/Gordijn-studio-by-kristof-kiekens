@@ -38,7 +38,8 @@ function readSettings() {
           lamellen: '',
           duoRoll: ''
         }
-      }
+      },
+      gallery: []
     };
     fs.writeFileSync(DATA_FILE, JSON.stringify(defaults, null, 2));
     return defaults;
@@ -62,25 +63,37 @@ router.get('/settings', (req, res) => {
   }
 });
 
-// PUT settings - merge deeply for images
+// PUT settings - deep merge alle velden
 router.put('/settings', (req, res) => {
   try {
     const current = readSettings();
     
-    // Deep merge voor images object
-    if (req.body.images && current.images) {
-      req.body.images = {
-        ...current.images,
-        ...req.body.images,
-        // Nested aanbod object ook mergen
-        aanbod: {
-          ...current.images.aanbod,
-          ...req.body.images.aanbod
-        }
-      };
+    // Deep merge functie
+    function deepMerge(target, source) {
+      const output = Object.assign({}, target);
+      if (isObject(target) && isObject(source)) {
+        Object.keys(source).forEach(key => {
+          if (isObject(source[key])) {
+            if (!(key in target)) {
+              Object.assign(output, { [key]: source[key] });
+            } else {
+              output[key] = deepMerge(target[key], source[key]);
+            }
+          } else {
+            Object.assign(output, { [key]: source[key] });
+          }
+        });
+      }
+      return output;
     }
     
-    const updated = { ...current, ...req.body };
+    function isObject(item) {
+      return (item && typeof item === 'object' && !Array.isArray(item));
+    }
+    
+    // Deep merge van current met req.body
+    const updated = deepMerge(current, req.body);
+    
     writeSettings(updated);
     res.json({ success: true, data: updated });
   } catch (error) {
