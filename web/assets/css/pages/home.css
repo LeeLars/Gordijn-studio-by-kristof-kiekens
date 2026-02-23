@@ -87,106 +87,76 @@
 
 
 /* ════════════════════════════════════════════
-   HERO — Luxe, exclusief, verfijnd
+   HERO MINIMALISTISCH — Puur, witruimte, typografie
    ════════════════════════════════════════════ */
-.hero {
-    position: relative;
-    height: 100vh;
-    min-height: 800px;
+.hero-minimal {
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    background: var(--color-dark);
-}
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
-.hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.65;
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        180deg,
-        rgba(26, 26, 24, 0.3) 0%,
-        rgba(26, 26, 24, 0.1) 40%,
-        rgba(26, 26, 24, 0.5) 100%
-    );
-    z-index: 2;
-}
-
-.hero-content {
+    padding: 8rem 2rem 4rem;
+    background: var(--color-bg);
     position: relative;
-    z-index: 3;
+}
+
+.hero-minimal-content {
     text-align: center;
-    max-width: 950px;
-    padding: 0 2rem;
-    color: var(--color-white);
+    max-width: 900px;
 }
 
-.hero-title {
-    font-size: clamp(3.5rem, 10vw, 7rem);
+.hero-minimal-content h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
     line-height: 1;
-    margin: 0 0 2.5rem;
     letter-spacing: -0.04em;
-    color: var(--color-white);
+    margin: 0 0 2rem;
+    color: var(--color-text);
 }
 
-.hero-title .line {
-    display: block;
+.hero-minimal-content p {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.8;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.hero-sub {
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    font-weight: 300;
-    line-height: 2;
-    max-width: 480px;
-    margin: 0 auto 3.5rem;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.02em;
-}
-
-.hero-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3rem;
-}
-
-.scroll-indicator {
+/* Scroll indicator */
+.hero-minimal-scroll {
     position: absolute;
     bottom: 3rem;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
-.scroll-line {
+.hero-minimal-scroll .scroll-text {
+    font-size: 0.6rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+}
+
+.hero-minimal-scroll .scroll-line {
     width: 1px;
     height: 60px;
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--color-border);
     position: relative;
     overflow: hidden;
 }
 
-.scroll-line::after {
+.hero-minimal-scroll .scroll-line::after {
     content: '';
     position: absolute;
     top: -60px;
     left: 0;
     width: 1px;
     height: 60px;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--color-primary);
     animation: scrollDown 2s ease-in-out infinite;
 }
 
@@ -806,13 +776,18 @@
 }
 
 @media (max-width: 768px) {
-    .hero-title {
-        font-size: clamp(2.5rem, 12vw, 4rem);
+    /* Hero minimal mobile */
+    .hero-minimal {
+        padding: 6rem 1.5rem 3rem;
+        min-height: 80vh;
     }
 
-    .hero-actions {
-        flex-direction: column;
-        gap: 1.25rem;
+    .hero-minimal-content h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .hero-minimal-scroll {
+        bottom: 2rem;
     }
 
     .aanbod-item,

@@ -10,22 +10,19 @@
     var ease = 'power3.out';
     var easeSlow = 'power4.out';
 
-    // ── HERO: cinematic stagger na loading screen ──
+    // ── HERO MINIMAL: elegant fade-in na loading screen ──
     var heroTl = gsap.timeline({ paused: true });
 
     heroTl
-        .from('.hero-title .line', {
-            opacity: 0, y: 80, duration: 1.4, stagger: 0.25, ease: easeSlow
+        .from('.hero-minimal-content h1', {
+            opacity: 0, y: 40, duration: 1.2, ease: easeSlow
         })
-        .from('.hero-sub', {
-            opacity: 0, y: 25, duration: 1, ease: ease
-        }, '-=0.7')
-        .from('.hero-actions', {
-            opacity: 0, y: 20, duration: 0.9, ease: ease
+        .from('.hero-minimal-content p', {
+            opacity: 0, y: 20, duration: 1, ease: ease
         }, '-=0.6')
-        .from('.scroll-indicator', {
+        .from('.hero-minimal-scroll', {
             opacity: 0, y: -10, duration: 0.8, ease: ease
-        }, '-=0.3');
+        }, '-=0.4');
 
     var ls = document.getElementById('loading-screen');
     if (ls) {
@@ -33,22 +30,6 @@
     } else {
         heroTl.play();
     }
-
-    // ── PARALLAX op hero beeld ──
-    gsap.utils.toArray('[data-parallax]').forEach(function (el) {
-        var speed = parseFloat(el.getAttribute('data-parallax')) || 0.15;
-        var section = el.closest('section') || el.parentElement;
-        gsap.to(el, {
-            yPercent: speed * 20,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: section,
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true
-            }
-        });
-    });
 
     // ── SECTION LABELS: line + text reveal ──
     gsap.utils.toArray('.section-label').forEach(function (label) {
