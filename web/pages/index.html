@@ -329,11 +329,11 @@
                         <div class="contact-details">
                             <div class="contact-item">
                                 <span class="contact-label">Telefoon</span>
-                                <a href="tel:+32473625313">0473 62 53 13</a>
+                                <a href="tel:+32473625313" id="contactPhone">0473 62 53 13</a>
                             </div>
                             <div class="contact-item">
                                 <span class="contact-label">E-mail</span>
-                                <a href="mailto:info@kristofkiekens.be">info@kristofkiekens.be</a>
+                                <a href="mailto:info@kristofkiekens.be" id="contactEmail">info@kristofkiekens.be</a>
                             </div>
                         </div>
                     </div>
@@ -372,8 +372,8 @@
                 </div>
 
                 <div class="footer-links">
-                    <a href="tel:+32473625313">0473 62 53 13</a>
-                    <a href="mailto:info@kristofkiekens.be">info@kristofkiekens.be</a>
+                    <a href="tel:+32473625313" id="footerPhone">0473 62 53 13</a>
+                    <a href="mailto:info@kristofkiekens.be" id="footerEmail">info@kristofkiekens.be</a>
                 </div>
 
                 <div class="footer-social">
@@ -421,40 +421,76 @@
         const response = await fetch(API_URL);
         const result = await response.json();
         
-        if (result.success && result.data && result.data.images) {
-          const images = result.data.images;
+        if (result.success && result.data) {
+          const data = result.data;
           
-          // Hero image
-          if (images.hero) {
-            document.querySelector('.hero-image-main').src = images.hero;
+          // Contact details
+          if (data.contact) {
+            const phoneEl = document.getElementById('contactPhone');
+            const emailEl = document.getElementById('contactEmail');
+            const footerPhoneEl = document.getElementById('footerPhone');
+            const footerEmailEl = document.getElementById('footerEmail');
+            
+            if (data.contact.telefoon) {
+              const cleanPhone = data.contact.telefoon.replace(/\s/g, '');
+              if (phoneEl) {
+                phoneEl.href = 'tel:+' + cleanPhone;
+                phoneEl.textContent = data.contact.telefoon;
+              }
+              if (footerPhoneEl) {
+                footerPhoneEl.href = 'tel:+' + cleanPhone;
+                footerPhoneEl.textContent = data.contact.telefoon;
+              }
+            }
+            
+            if (data.contact.email) {
+              if (emailEl) {
+                emailEl.href = 'mailto:' + data.contact.email;
+                emailEl.textContent = data.contact.email;
+              }
+              if (footerEmailEl) {
+                footerEmailEl.href = 'mailto:' + data.contact.email;
+                footerEmailEl.textContent = data.contact.email;
+              }
+            }
           }
           
-          // Sticky/Circle Reveal image
-          if (images.stickyCircle) {
-            document.querySelector('.reveal-image').src = images.stickyCircle;
+          // Images
+          if (data.images) {
+            const images = data.images;
+            
+            // Hero image
+            if (images.hero) {
+              document.querySelector('.hero-image-main').src = images.hero;
+            }
+            
+            // Sticky/Circle Reveal image
+            if (images.stickyCircle) {
+              document.querySelector('.reveal-image').src = images.stickyCircle;
+            }
+            
+            // Over Ons images - find by data-cms-key attribute
+            const overOnsImages = document.querySelectorAll('.about-images-stack img[data-cms-key]');
+            overOnsImages.forEach(img => {
+              const key = img.getAttribute('data-cms-key');
+              if (images[key]) {
+                img.src = images[key];
+              }
+            });
+            
+            // Aanbod images - find by data-cms-key attribute
+            const collectieImages = document.querySelectorAll('.collectie-studio .studio-item img[data-cms-key]');
+            collectieImages.forEach(img => {
+              const key = img.getAttribute('data-cms-key');
+              const parts = key.split('.');
+              if (parts.length === 2 && images.aanbod && images.aanbod[parts[1]]) {
+                img.src = images.aanbod[parts[1]];
+              }
+            });
           }
-          
-          // Over Ons images - find by data-cms-key attribute
-          const overOnsImages = document.querySelectorAll('.about-images-stack img[data-cms-key]');
-          overOnsImages.forEach(img => {
-            const key = img.getAttribute('data-cms-key');
-            if (images[key]) {
-              img.src = images[key];
-            }
-          });
-          
-          // Aanbod images - find by data-cms-key attribute
-          const collectieImages = document.querySelectorAll('.collectie-studio .studio-item img[data-cms-key]');
-          collectieImages.forEach(img => {
-            const key = img.getAttribute('data-cms-key');
-            const parts = key.split('.');
-            if (parts.length === 2 && images.aanbod && images.aanbod[parts[1]]) {
-              img.src = images.aanbod[parts[1]];
-            }
-          });
         }
       } catch (error) {
-        console.log('CMS images not loaded, using defaults:', error);
+        console.log('CMS data not loaded, using defaults:', error);
       }
     })();
     
