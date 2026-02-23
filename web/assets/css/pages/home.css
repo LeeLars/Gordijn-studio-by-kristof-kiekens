@@ -562,6 +562,62 @@
 
 
 /* ════════════════════════════════════════════
+   GORDIJN REVEAL — Lecrance: gordijn effect bij scroll
+   ════════════════════════════════════════════ */
+.reveal-section {
+    position: relative;
+    height: 200vh; /* Extra hoogte voor scroll ruimte */
+    background: var(--color-dark);
+}
+
+.reveal-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.reveal-curtain {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background: var(--color-dark);
+    z-index: 2;
+    transition: transform 0.1s linear;
+}
+
+.reveal-curtain.left {
+    left: 0;
+    transform-origin: left center;
+}
+
+.reveal-curtain.right {
+    right: 0;
+    transform-origin: right center;
+}
+
+.reveal-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.reveal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    transition: transform 0.1s linear;
+}
+
+
+/* ════════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════════ */
 @media (max-width: 1024px) {

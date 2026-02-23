@@ -125,6 +125,34 @@
         scrollTrigger: { trigger: '.werkwijze-extra', start: 'top 85%' }
     });
 
+    // ── GORDIJN REVEAL: gordijnen schuiven open bij scroll ──
+    var revealSection = document.querySelector('.reveal-section');
+    if (revealSection) {
+        var revealTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: revealSection,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1,
+                pin: false
+            }
+        });
+
+        revealTl
+            .to('.reveal-curtain.left', {
+                xPercent: -100,
+                ease: 'none'
+            }, 0)
+            .to('.reveal-curtain.right', {
+                xPercent: 100,
+                ease: 'none'
+            }, 0)
+            .to('.reveal-image', {
+                scale: 1,
+                ease: 'none'
+            }, 0);
+    }
+
     // ── CTA: donkere sectie reveal ──
     var ctaContent = document.querySelector('.cta-content');
     if (ctaContent) {
