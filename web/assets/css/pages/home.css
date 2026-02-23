@@ -218,7 +218,7 @@
    INTRO — Korte introductie
    ════════════════════════════════════════════ */
 .intro-section {
-    padding: var(--section-pad) 0;
+    padding-top: var(--section-pad);
     background: var(--color-bg);
 }
 
