@@ -180,6 +180,102 @@
     // Initialiseer gallery
     loadGallery();
 
+    // ════════════════════════════════════════════════════════════
+    // LIGHTBOX - Gallery afbeeldingen in het groot bekijken
+    // ════════════════════════════════════════════════════════════
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxClose = document.querySelector('.lightbox-close');
+    var lightboxPrev = document.querySelector('.lightbox-prev');
+    var lightboxNext = document.querySelector('.lightbox-next');
+    var currentGalleryImages = [];
+    var currentImageIndex = 0;
+
+    function openLightbox(index) {
+        if (currentGalleryImages.length === 0) return;
+        currentImageIndex = index;
+        lightboxImg.src = currentGalleryImages[index];
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function showPrevImage() {
+        currentImageIndex = (currentImageIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+        lightboxImg.src = currentGalleryImages[currentImageIndex];
+    }
+
+    function showNextImage() {
+        currentImageIndex = (currentImageIndex + 1) % currentGalleryImages.length;
+        lightboxImg.src = currentGalleryImages[currentImageIndex];
+    }
+
+    // Event listeners voor lightbox
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    if (lightboxPrev) {
+        lightboxPrev.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showPrevImage();
+        });
+    }
+
+    if (lightboxNext) {
+        lightboxNext.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showNextImage();
+        });
+    }
+
+    // Sluiten bij klikken op achtergrond
+    if (lightbox) {
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    // Toetsenbord navigatie
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            showPrevImage();
+        } else if (e.key === 'ArrowRight') {
+            showNextImage();
+        }
+    });
+
+    // Gallery items klikbaar maken na render
+    function makeGalleryClickable() {
+        var items = document.querySelectorAll('.gallery-item img');
+        currentGalleryImages = [];
+        
+        items.forEach(function(img, index) {
+            // Alleen unieke afbeeldingen toevoegen (niet de duplicaten voor scroll)
+            if (index < items.length / 2) {
+                currentGalleryImages.push(img.src);
+            }
+            
+            img.addEventListener('click', function() {
+                var actualIndex = index % (items.length / 2);
+                openLightbox(actualIndex);
+            });
+        });
+    }
+
+    // Maak gallery klikbaar na laden
+    setTimeout(makeGalleryClickable, 500);
+
     // Alle reveal/scroll animaties worden afgehandeld door GSAP (zie gsap-animations.js)
 
     // Contact formulier met API integratie
