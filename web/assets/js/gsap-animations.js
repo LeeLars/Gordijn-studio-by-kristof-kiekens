@@ -19,13 +19,10 @@
         })
         .from('.hero-description', {
             opacity: 0, y: 30, duration: 1, ease: ease
-        }, '-=0.6')
-        .from('.hero-image-main', {
-            opacity: 0, y: 80, scale: 1.05, duration: 1.4, ease: easeSlow
-        }, '-=0.8')
-        .from('.circle-cta-right', {
-            opacity: 0, scale: 0.8, duration: 0.8, ease: ease
         }, '-=0.6');
+
+    // Hero afbeelding en button laden direct (geen animatie)
+    gsap.set('.hero-image-main, .circle-cta-right', { opacity: 1 });
 
     var ls = document.getElementById('loading-screen');
     if (ls) {
