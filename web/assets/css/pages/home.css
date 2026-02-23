@@ -483,53 +483,157 @@
 
 
 /* ════════════════════════════════════════════
-   30 JAAR ERVARING — Luxe, exclusief, verfijnd
+   OVER ONS — Zenkai Stijl
    ════════════════════════════════════════════ */
-.ervaring-section {
+.about-section {
     padding: var(--section-pad) 0;
     background: var(--color-cream);
 }
 
-.ervaring-grid {
+.about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: clamp(4rem, 8vw, 8rem);
+    gap: clamp(4rem, 8vw, 10rem);
     align-items: center;
 }
 
-.ervaring-visual {
-    aspect-ratio: 4/5;
-    overflow: hidden;
+.about-content {
+    max-width: 520px;
+}
+
+.about-content .section-label {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.about-heading {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0 0 2rem;
+}
+
+.about-heading .word {
+    display: inline-block;
+}
+
+.about-heading .script-word {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-primary);
+}
+
+.about-text {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--color-text-light);
+    margin: 0 0 1.25rem;
+}
+
+.about-text:last-of-type {
+    margin-bottom: 2.5rem;
+}
+
+/* Text Link with underline */
+.text-link {
+    display: inline-flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.link-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-text);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.text-link:hover .link-underline {
+    transform: scaleX(0);
+    transform-origin: right;
+}
+
+/* About Images */
+.about-images {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 1.5rem;
     position: relative;
 }
 
-.ervaring-visual::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.05) 100%);
-    pointer-events: none;
+.about-image {
+    position: relative;
+    overflow: hidden;
 }
 
-.ervaring-visual img {
+.about-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--transition-slow);
 }
 
-.ervaring-visual:hover img {
-    transform: scale(1.03);
+.image-small {
+    aspect-ratio: 3/4;
+    margin-top: 3rem;
 }
 
-.ervaring-content h2 {
-    margin: 0 0 2.5rem;
+.image-large {
+    aspect-ratio: 4/5;
 }
 
-.ervaring-content p {
-    font-size: 0.95rem;
-    line-height: 2;
-    margin: 0 0 1.5rem;
+/* Image reveal overlay */
+.image-reveal {
+    position: absolute;
+    inset: 0;
+    background: var(--color-cream);
+    z-index: 2;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .about-grid {
+        gap: 3rem;
+    }
+    
+    .about-images {
+        gap: 1rem;
+    }
+    
+    .image-small {
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .about-content {
+        max-width: 100%;
+        order: 2;
+    }
+    
+    .about-images {
+        order: 1;
+    }
+    
+    .image-small {
+        margin-top: 0;
+    }
 }
 
 

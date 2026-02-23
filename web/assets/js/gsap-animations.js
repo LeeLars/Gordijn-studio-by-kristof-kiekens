@@ -93,24 +93,42 @@
         });
     }
 
-    // ── ERVARING: split reveal ──
-    var ervaringTl = gsap.timeline({
-        scrollTrigger: { trigger: '.ervaring-grid', start: 'top 75%' }
+    // ── OVER ONS: Zenkai stijl reveal animaties ──
+    var aboutTl = gsap.timeline({
+        scrollTrigger: { trigger: '.about-grid', start: 'top 75%' }
     });
 
-    ervaringTl
-        .from('.ervaring-visual', {
-            opacity: 0, scale: 0.95, duration: 1.2, ease: easeSlow
-        })
-        .from('.ervaring-content .section-label', {
+    aboutTl
+        .from('.about-content .section-label', {
             opacity: 0, x: -15, duration: 0.6, ease: ease
-        }, '-=0.7')
-        .from('.ervaring-content h2', {
-            opacity: 0, y: 30, duration: 0.9, ease: ease
-        }, '-=0.4')
-        .from('.ervaring-content p', {
+        })
+        .from('.about-heading .word', {
+            opacity: 0, y: 40, duration: 0.8, stagger: 0.1, ease: easeSlow
+        }, '-=0.3')
+        .from('.about-heading .script-word', {
+            opacity: 0, x: -30, duration: 1, ease: easeSlow
+        }, '-=0.5')
+        .from('.about-text', {
             opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: ease
-        }, '-=0.5');
+        }, '-=0.4')
+        .from('.text-link', {
+            opacity: 0, y: 15, duration: 0.6, ease: ease
+        }, '-=0.3');
+
+    // Image reveal animaties
+    gsap.utils.toArray('.about-image').forEach(function(img, i) {
+        gsap.from(img.querySelector('.image-reveal'), {
+            scaleY: 1,
+            transformOrigin: 'top',
+            duration: 1.2,
+            delay: i * 0.2,
+            ease: easeSlow,
+            scrollTrigger: {
+                trigger: img,
+                start: 'top 80%'
+            }
+        });
+    });
 
     // ── WERKWIJZE: stappen stagger ──
     var stappen = gsap.utils.toArray('.stap');
