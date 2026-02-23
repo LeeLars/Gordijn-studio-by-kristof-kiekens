@@ -98,19 +98,20 @@
     }
     
     function renderGallery(images) {
-        var html = '';
-        images.forEach(function (img, idx) {
-            html += '<div class="gallery-item">' +
-                '<img src="' + img + '" alt="Gordijn project ' + (idx + 1) + '" />' +
-            '</div>';
+        galleryTrack.innerHTML = '';
+        var allImages = images.concat(images);
+        allImages.forEach(function (img, idx) {
+            var item = document.createElement('div');
+            item.className = 'gallery-item';
+            var imgEl = document.createElement('img');
+            imgEl.src = img;
+            imgEl.alt = 'Gordijn project ' + ((idx % images.length) + 1);
+            imgEl.addEventListener('click', function() {
+                openLightbox(img, images);
+            });
+            item.appendChild(imgEl);
+            galleryTrack.appendChild(item);
         });
-        // Duplicaten voor naadloze scroll
-        images.forEach(function (img, idx) {
-            html += '<div class="gallery-item">' +
-                '<img src="' + img + '" alt="Gordijn project ' + (idx + 1) + '" />' +
-            '</div>';
-        });
-        galleryTrack.innerHTML = html;
     }
     
     function renderGalleryFallback() {
@@ -179,103 +180,68 @@
     
     // Initialiseer gallery
     loadGallery();
-
-    // ════════════════════════════════════════════════════════════
-    // LIGHTBOX - Gallery afbeeldingen in het groot bekijken
-    // ════════════════════════════════════════════════════════════
+    
+    // Lightbox functionaliteit
     var lightbox = document.getElementById('lightbox');
-    var lightboxImg = document.getElementById('lightboxImg');
-    var lightboxClose = document.querySelector('.lightbox-close');
-    var lightboxPrev = document.querySelector('.lightbox-prev');
-    var lightboxNext = document.querySelector('.lightbox-next');
-    var currentGalleryImages = [];
-    var currentImageIndex = 0;
-
-    function openLightbox(index) {
-        if (currentGalleryImages.length === 0) return;
-        currentImageIndex = index;
-        lightboxImg.src = currentGalleryImages[index];
+    var lightboxImage = document.getElementById('lightboxImage');
+    var lightboxClose = document.getElementById('lightboxClose');
+    var lightboxPrev = document.getElementById('lightboxPrev');
+    var lightboxNext = document.getElementById('lightboxNext');
+    var currentImages = [];
+    var currentIndex = 0;
+    
+    function openLightbox(imageSrc, images) {
+        currentImages = images;
+        currentIndex = images.indexOf(imageSrc);
+        lightboxImage.src = imageSrc;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-
+    
     function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
     }
-
+    
     function showPrevImage() {
-        currentImageIndex = (currentImageIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
-        lightboxImg.src = currentGalleryImages[currentImageIndex];
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        lightboxImage.src = currentImages[currentIndex];
     }
-
+    
     function showNextImage() {
-        currentImageIndex = (currentImageIndex + 1) % currentGalleryImages.length;
-        lightboxImg.src = currentGalleryImages[currentImageIndex];
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        lightboxImage.src = currentImages[currentIndex];
     }
-
-    // Event listeners voor lightbox
+    
     if (lightboxClose) {
         lightboxClose.addEventListener('click', closeLightbox);
     }
-
+    
     if (lightboxPrev) {
-        lightboxPrev.addEventListener('click', function(e) {
-            e.stopPropagation();
-            showPrevImage();
-        });
+        lightboxPrev.addEventListener('click', showPrevImage);
     }
-
+    
     if (lightboxNext) {
-        lightboxNext.addEventListener('click', function(e) {
-            e.stopPropagation();
-            showNextImage();
-        });
+        lightboxNext.addEventListener('click', showNextImage);
     }
-
-    // Sluiten bij klikken op achtergrond
+    
     if (lightbox) {
         lightbox.addEventListener('click', function(e) {
-            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+            if (e.target === lightbox) {
                 closeLightbox();
             }
         });
     }
-
-    // Toetsenbord navigatie
+    
     document.addEventListener('keydown', function(e) {
         if (!lightbox.classList.contains('active')) return;
-        
-        if (e.key === 'Escape') {
-            closeLightbox();
-        } else if (e.key === 'ArrowLeft') {
-            showPrevImage();
-        } else if (e.key === 'ArrowRight') {
-            showNextImage();
-        }
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevImage();
+        if (e.key === 'ArrowRight') showNextImage();
     });
 
-    // Gallery items klikbaar maken na render
-    function makeGalleryClickable() {
-        var items = document.querySelectorAll('.gallery-item img');
-        currentGalleryImages = [];
-        
-        items.forEach(function(img, index) {
-            // Alleen unieke afbeeldingen toevoegen (niet de duplicaten voor scroll)
-            if (index < items.length / 2) {
-                currentGalleryImages.push(img.src);
-            }
-            
-            img.addEventListener('click', function() {
-                var actualIndex = index % (items.length / 2);
-                openLightbox(actualIndex);
-            });
-        });
-    }
-
-    // Maak gallery klikbaar na laden
-    setTimeout(makeGalleryClickable, 500);
-
+    window.openLightbox = openLightbox;
+    
     // Alle reveal/scroll animaties worden afgehandeld door GSAP (zie gsap-animations.js)
 
     // Contact formulier met API integratie

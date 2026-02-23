@@ -17,6 +17,9 @@
         .from('.display-heading', {
             opacity: 0, y: 60, duration: 1.2, stagger: 0.15, ease: easeSlow
         })
+        .from('.hero-quote', {
+            opacity: 0, y: 30, duration: 1, ease: ease
+        }, '-=0.6')
         .from('.hero-description', {
             opacity: 0, y: 30, duration: 1, ease: ease
         }, '-=0.6');
