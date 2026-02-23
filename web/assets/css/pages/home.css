@@ -360,6 +360,29 @@
     aspect-ratio: 3/4;
 }
 
+/* Links/Rechts layout voor collectie items */
+.atelier-item.item-links {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.atelier-item.item-rechts {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    direction: rtl;
+}
+
+.atelier-item.item-rechts > * {
+    direction: ltr;
+}
+
+.atelier-item.item-links .atelier-num,
+.atelier-item.item-rechts .atelier-num {
+    font-size: 6rem;
+    top: -1.5rem;
+    left: -1rem;
+}
+
 /* Compact - Smaller items */
 .atelier-item.compact,
 .atelier-item.compact-alt {
@@ -1138,6 +1161,8 @@
     }
 
     .atelier-item,
+    .atelier-item.item-links,
+    .atelier-item.item-rechts,
     .atelier-item.featured,
     .atelier-item.offset-left,
     .atelier-item.offset-right,
@@ -1149,11 +1174,14 @@
         direction: ltr;
     }
 
+    .atelier-item.item-rechts > *,
     .atelier-item.offset-right > *,
     .atelier-item.compact-alt > * {
         direction: ltr;
     }
 
+    .atelier-item.item-links .atelier-num,
+    .atelier-item.item-rechts .atelier-num,
     .atelier-item.offset-right .atelier-num {
         left: -1rem;
         right: auto;
