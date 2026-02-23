@@ -1,5 +1,5 @@
 (function () {
-  var CMS_PASSWORD = 'gordijnstudio2026';
+  var CMS_PASSWORD = 'test123';
   var API_BASE = '/api';
 
   var loginScreen = document.getElementById('loginScreen');
@@ -7,10 +7,36 @@
   var loginForm = document.getElementById('loginForm');
   var loginError = document.getElementById('loginError');
   var btnLogout = document.getElementById('btnLogout');
+  var togglePassword = document.getElementById('togglePassword');
+  var passwordInput = document.getElementById('password');
 
   // Check session
   if (sessionStorage.getItem('cms_auth') === 'true') {
     showDashboard();
+  }
+
+  // Toggle password visibility
+  if (togglePassword && passwordInput) {
+    togglePassword.addEventListener('click', function () {
+      var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      // Toggle icons
+      var eyeIcon = togglePassword.querySelector('.eye-icon');
+      var eyeOffIcon = togglePassword.querySelector('.eye-off-icon');
+      
+      if (eyeIcon && eyeOffIcon) {
+        if (type === 'text') {
+          eyeIcon.style.display = 'none';
+          eyeOffIcon.style.display = 'block';
+          togglePassword.setAttribute('aria-label', 'Verberg wachtwoord');
+        } else {
+          eyeIcon.style.display = 'block';
+          eyeOffIcon.style.display = 'none';
+          togglePassword.setAttribute('aria-label', 'Toon wachtwoord');
+        }
+      }
+    });
   }
 
   // Login

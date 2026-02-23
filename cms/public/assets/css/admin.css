@@ -95,6 +95,43 @@ body {
   border-color: var(--cms-primary);
 }
 
+/* Password field with toggle */
+.password-field .password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--cms-text-light);
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password:hover {
+  color: var(--cms-primary);
+}
+
+.toggle-password svg {
+  width: 18px;
+  height: 18px;
+}
+
 /* ── BUTTONS ── */
 .btn-cms {
   display: inline-block;
