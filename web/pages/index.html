@@ -115,7 +115,7 @@
                 <article class="studio-item item-links">
                     <div class="studio-num">01</div>
                     <div class="studio-visual">
-                        <img src="../assets/images/image-aalter.jpg" alt="Overgordijnen" />
+                        <img data-cms-key="aanbod.overgordijnen" alt="Overgordijnen" />
                         <div class="studio-overlay"></div>
                     </div>
                     <div class="studio-content">
@@ -132,7 +132,7 @@
                 <article class="studio-item item-rechts">
                     <div class="studio-num">02</div>
                     <div class="studio-visual">
-                        <img src="../assets/images/vouwgordijn.jpg" alt="Vouwgordijnen" />
+                        <img data-cms-key="aanbod.vouwgordijnen" alt="Vouwgordijnen" />
                         <div class="studio-overlay"></div>
                     </div>
                     <div class="studio-content">
@@ -149,7 +149,7 @@
                 <article class="studio-item item-links">
                     <div class="studio-num">03</div>
                     <div class="studio-visual">
-                        <img src="../assets/images/rolgordijnen.jpg" alt="Rolgordijnen" />
+                        <img data-cms-key="aanbod.rolgordijnen" alt="Rolgordijnen" />
                         <div class="studio-overlay"></div>
                     </div>
                     <div class="studio-content">
@@ -166,7 +166,7 @@
                 <article class="studio-item item-rechts">
                     <div class="studio-num">04</div>
                     <div class="studio-visual">
-                        <img src="../assets/images/horizontaal hout.jpg" alt="Houten Jaloezieën" />
+                        <img data-cms-key="aanbod.houtenJaloezieen" alt="Houten Jaloezieën" />
                         <div class="studio-overlay"></div>
                     </div>
                     <div class="studio-content">
@@ -183,7 +183,7 @@
                 <article class="studio-item item-links">
                     <div class="studio-num">05</div>
                     <div class="studio-visual">
-                        <img src="../assets/images/verticale jaloezie.jpg" alt="Lamellen" />
+                        <img data-cms-key="aanbod.lamellen" alt="Lamellen" />
                         <div class="studio-overlay"></div>
                     </div>
                     <div class="studio-content">
@@ -200,7 +200,7 @@
                 <article class="studio-item item-rechts">
                     <div class="studio-num">06</div>
                     <div class="studio-visual">
-                        <img src="../assets/images/duo-roll.jpg" alt="Duo-Roll" />
+                        <img data-cms-key="aanbod.duoRoll" alt="Duo-Roll" />
                         <div class="studio-overlay"></div>
                     </div>
                     <div class="studio-content">
@@ -422,18 +422,15 @@
             overOnsImages[0].src = images.overOns;
           }
           
-          // Aanbod images mapping - matches CMS order:
-          // 0: Overgordijnen, 1: Vouwgordijnen, 2: Rolgordijnen, 3: Houten Jaloezieën, 4: Lamellen, 5: Duo-Roll
-          const collectieItems = document.querySelectorAll('.collectie-studio .studio-item img');
-          
-          if (images.aanbod) {
-            if (images.aanbod.overgordijnen && collectieItems[0]) collectieItems[0].src = images.aanbod.overgordijnen;
-            if (images.aanbod.vouwgordijnen && collectieItems[1]) collectieItems[1].src = images.aanbod.vouwgordijnen;
-            if (images.aanbod.rolgordijnen && collectieItems[2]) collectieItems[2].src = images.aanbod.rolgordijnen;
-            if (images.aanbod.houtenJaloezieen && collectieItems[3]) collectieItems[3].src = images.aanbod.houtenJaloezieen;
-            if (images.aanbod.lamellen && collectieItems[4]) collectieItems[4].src = images.aanbod.lamellen;
-            if (images.aanbod.duoRoll && collectieItems[5]) collectieItems[5].src = images.aanbod.duoRoll;
-          }
+          // Aanbod images - find by data-cms-key attribute
+          const collectieImages = document.querySelectorAll('.collectie-studio .studio-item img[data-cms-key]');
+          collectieImages.forEach(img => {
+            const key = img.getAttribute('data-cms-key');
+            const parts = key.split('.');
+            if (parts.length === 2 && images.aanbod && images.aanbod[parts[1]]) {
+              img.src = images.aanbod[parts[1]];
+            }
+          });
         }
       } catch (error) {
         console.log('CMS images not loaded, using defaults:', error);
