@@ -14,21 +14,18 @@
     var heroTl = gsap.timeline({ paused: true });
 
     heroTl
-        .from('.hero-minimal-content h1', {
-            opacity: 0, y: 40, duration: 1.2, ease: easeSlow
+        .from('.display-heading', {
+            opacity: 0, y: 60, duration: 1.2, stagger: 0.15, ease: easeSlow
         })
-        .from('.hero-minimal-content p', {
-            opacity: 0, y: 20, duration: 1, ease: ease
+        .from('.hero-description', {
+            opacity: 0, y: 30, duration: 1, ease: ease
         }, '-=0.6')
-        .from('.hero-minimal-image', {
-            opacity: 0, y: 60, scale: 1.05, duration: 1.4, ease: easeSlow
+        .from('.hero-image-main', {
+            opacity: 0, y: 80, scale: 1.05, duration: 1.4, ease: easeSlow
         }, '-=0.8')
-        .from('.circle-cta', {
+        .from('.circle-cta-right', {
             opacity: 0, scale: 0.8, duration: 0.8, ease: ease
-        }, '-=0.6')
-        .from('.hero-minimal-scroll', {
-            opacity: 0, y: -10, duration: 0.8, ease: ease
-        }, '-=0.4');
+        }, '-=0.6');
 
     var ls = document.getElementById('loading-screen');
     if (ls) {
