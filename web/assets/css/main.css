@@ -275,6 +275,7 @@ a {
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem);
     max-width: 1440px;
     margin: 0 auto;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .logo {
