@@ -281,16 +281,16 @@
     });
   }
 
-  // Add new gallery image
+  // Add new gallery image - MULTI SELECT MODE
   if (addGalleryImage) {
     addGalleryImage.addEventListener('click', function() {
       if (currentGalleryImages.length >= 10) {
         alert('Maximum 10 afbeeldingen toegestaan');
         return;
       }
-      currentGalleryIndex = currentGalleryImages.length;
-      currentImageTarget = 'gallery:new';
-      openMediaLibrary();
+      currentImageTarget = 'gallery:multi';
+      selectedLibraryImages = []; // Array voor multi-select
+      openMediaLibrary(true); // true = multi select mode
     });
   }
 
@@ -319,26 +319,6 @@
       });
   }
 
-  // Modified select handler for gallery - moet NA media library vars staan
-  if (selectMediaLibrary) {
-    selectMediaLibrary.addEventListener('click', function() {
-      if (currentImageTarget && currentImageTarget.startsWith('gallery:')) {
-        if (selectedLibraryImage) {
-          if (currentImageTarget === 'gallery:new') {
-            currentGalleryImages.push(selectedLibraryImage.url);
-          } else {
-            var idx = parseInt(currentImageTarget.split(':')[1]);
-            currentGalleryImages[idx] = selectedLibraryImage.url;
-          }
-          saveGallery();
-          renderGallery();
-          closeMediaLibraryModal();
-        }
-        return;
-      }
-    });
-  }
-
   // Initialize gallery
   loadGallery();
 
@@ -355,6 +335,8 @@
   
   var currentImageTarget = null;
   var selectedLibraryImage = null;
+  var selectedLibraryImages = []; // Voor multi-select gallery
+  var isMultiSelectMode = false;
   var libraryImages = [];
 
   // Open media library when clicking on image cards
@@ -386,24 +368,58 @@
     });
   });
 
-  function openMediaLibrary() {
+  function openMediaLibrary(multiSelect) {
     selectedLibraryImage = null;
+    selectedLibraryImages = [];
+    isMultiSelectMode = multiSelect || false;
     mediaLibraryModal.classList.add('active');
+    if (isMultiSelectMode) {
+      mediaLibraryModal.classList.add('multi-select');
+    } else {
+      mediaLibraryModal.classList.remove('multi-select');
+    }
     loadMediaLibrary();
   }
 
   function closeMediaLibraryModal() {
     mediaLibraryModal.classList.remove('active');
+    mediaLibraryModal.classList.remove('multi-select');
     currentImageTarget = null;
     selectedLibraryImage = null;
+    selectedLibraryImages = [];
+    isMultiSelectMode = false;
   }
 
   closeMediaLibrary.addEventListener('click', closeMediaLibraryModal);
   cancelMediaLibrary.addEventListener('click', closeMediaLibraryModal);
   mediaLibraryModal.querySelector('.media-library-overlay').addEventListener('click', closeMediaLibraryModal);
 
-  // Select image
+  // Select image - SINGLE en MULTI mode
   selectMediaLibrary.addEventListener('click', function() {
+    // GALLERY MULTI SELECT MODE
+    if (currentImageTarget === 'gallery:multi') {
+      if (selectedLibraryImages.length === 0) {
+        alert('Selecteer minstens 1 afbeelding');
+        return;
+      }
+      // Voeg alle geselecteerde afbeeldingen toe aan gallery
+      var addedCount = 0;
+      selectedLibraryImages.forEach(function(img) {
+        if (currentGalleryImages.length < 10) {
+          currentGalleryImages.push(img.url);
+          addedCount++;
+        }
+      });
+      if (addedCount < selectedLibraryImages.length) {
+        alert('Er zijn maar ' + addedCount + ' afbeeldingen toegevoegd (maximum 10 bereikt)');
+      }
+      saveGallery();
+      renderGallery();
+      closeMediaLibraryModal();
+      return;
+    }
+    
+    // SINGLE SELECT MODE (normale images)
     if (selectedLibraryImage && currentImageTarget) {
       // Update preview
       var previewId = currentImageTarget.replace('.', '-');
@@ -458,7 +474,7 @@
         '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' +
         '</div>';
       
-      // Select image
+      // Select image - toggle voor multi-select
       item.addEventListener('click', function(e) {
         // Check if delete button was clicked
         if (e.target.closest('.delete-btn')) {
@@ -468,14 +484,24 @@
           return;
         }
         
-        // Deselect previous
-        document.querySelectorAll('.media-library-item').forEach(function(el) {
-          el.classList.remove('selected');
-        });
-        
-        // Select this one
-        item.classList.add('selected');
-        selectedLibraryImage = image;
+        if (isMultiSelectMode) {
+          // MULTI SELECT: toggle selectie
+          var idx = selectedLibraryImages.indexOf(image);
+          if (idx > -1) {
+            selectedLibraryImages.splice(idx, 1);
+            item.classList.remove('selected');
+          } else {
+            selectedLibraryImages.push(image);
+            item.classList.add('selected');
+          }
+        } else {
+          // SINGLE SELECT: alleen 1 selectie
+          document.querySelectorAll('.media-library-item').forEach(function(el) {
+            el.classList.remove('selected');
+          });
+          item.classList.add('selected');
+          selectedLibraryImage = image;
+        }
       });
 
       mediaLibraryGrid.appendChild(item);
