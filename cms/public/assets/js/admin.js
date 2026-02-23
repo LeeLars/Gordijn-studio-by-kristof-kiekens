@@ -526,65 +526,90 @@
       });
   }
 
-  // Upload to library
+  // Upload to library - MULTI FILE SUPPORT
   libraryUploadInput.addEventListener('change', function(e) {
     var files = e.target.files;
     if (!files.length) return;
     
-    // Validate file type
-    var file = files[0];
-    if (!file.type.startsWith('image/')) {
-      alert('Alleen afbeeldingen zijn toegestaan');
-      return;
-    }
+    // Upload alle geselecteerde files
+    var uploadCount = 0;
+    var errorCount = 0;
+    var totalFiles = files.length;
     
-    // Check file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      alert('Bestand is te groot. Maximum 10MB.');
-      return;
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Alleen afbeeldingen zijn toegestaan: ' + file.name);
+        continue;
+      }
+      
+      // Check file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        alert('Bestand te groot (max 10MB): ' + file.name);
+        continue;
+      }
+      
+      uploadToLibrary(file, function() {
+        uploadCount++;
+        if (uploadCount + errorCount === totalFiles) {
+          loadMediaLibrary();
+        }
+      }, function() {
+        errorCount++;
+        if (uploadCount + errorCount === totalFiles) {
+          loadMediaLibrary();
+        }
+      });
     }
-    
-    uploadToLibrary(file);
     
     // Reset input so same file can be selected again
     libraryUploadInput.value = '';
   });
 
-  // Drag and drop
-  uploadZone.addEventListener('dragover', function(e) {
-    e.preventDefault();
-    uploadZone.classList.add('dragover');
-  });
-
-  uploadZone.addEventListener('dragleave', function() {
-    uploadZone.classList.remove('dragover');
-  });
-
+  // Drag and drop - MULTI FILE SUPPORT
   uploadZone.addEventListener('drop', function(e) {
     e.preventDefault();
     uploadZone.classList.remove('dragover');
     
     var files = e.dataTransfer.files;
-    if (files.length) {
-      var file = files[0];
+    if (!files.length) return;
+    
+    var uploadCount = 0;
+    var errorCount = 0;
+    var totalFiles = files.length;
+    
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
       
       // Validate file type
       if (!file.type.startsWith('image/')) {
-        alert('Alleen afbeeldingen zijn toegestaan');
-        return;
+        alert('Alleen afbeeldingen zijn toegestaan: ' + file.name);
+        continue;
       }
       
       // Check file size (max 10MB)
       if (file.size > 10 * 1024 * 1024) {
-        alert('Bestand is te groot. Maximum 10MB.');
-        return;
+        alert('Bestand te groot (max 10MB): ' + file.name);
+        continue;
       }
       
-      uploadToLibrary(file);
+      uploadToLibrary(file, function() {
+        uploadCount++;
+        if (uploadCount + errorCount === totalFiles) {
+          loadMediaLibrary();
+        }
+      }, function() {
+        errorCount++;
+        if (uploadCount + errorCount === totalFiles) {
+          loadMediaLibrary();
+        }
+      });
     }
   });
 
-  function uploadToLibrary(file) {
+  function uploadToLibrary(file, onSuccess, onError) {
     // Show loading state
     uploadZone.classList.add('uploading');
     uploadZone.style.pointerEvents = 'none';
@@ -592,9 +617,10 @@
     var reader = new FileReader();
     
     reader.onerror = function() {
-      alert('Fout bij lezen van bestand');
+      alert('Fout bij lezen van bestand: ' + file.name);
       uploadZone.classList.remove('uploading');
       uploadZone.style.pointerEvents = '';
+      if (onError) onError();
     };
     
     reader.onload = function(ev) {
@@ -611,14 +637,15 @@
         })
         .then(function(res) {
           if (res.success) {
-            loadMediaLibrary();
+            if (onSuccess) onSuccess();
           } else {
             throw new Error(res.error || 'Upload mislukt');
           }
         })
         .catch(function(err) {
           console.error('Upload mislukt:', err);
-          alert('Upload mislukt: ' + err.message);
+          alert('Upload mislukt voor ' + file.name + ': ' + err.message);
+          if (onError) onError();
         })
         .finally(function() {
           uploadZone.classList.remove('uploading');
