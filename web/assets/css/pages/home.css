@@ -869,7 +869,7 @@
 
     .about-content-full {
         max-width: 100%;
-        order: 2;
+        order: 1;
     }
     
     .about-row-reverse {
@@ -892,7 +892,7 @@
     }
 
     .about-images-stack {
-        order: 1;
+        order: 2;
     }
     
     .image-small {
