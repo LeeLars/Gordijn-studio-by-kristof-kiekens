@@ -728,7 +728,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(4rem, 8vw, 10rem);
-    align-items: start;
+    align-items: center;
 }
 
 .about-content-full {
