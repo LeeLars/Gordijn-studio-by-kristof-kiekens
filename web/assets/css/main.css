@@ -1,35 +1,44 @@
 /* ═══════════════════════════════════════════════
    GORDIJNSTUDIO CHRISTOPHE KIEKENS
-   Styleguide & Global Styles
-   Inspired by Lecrance — refined, spacious, elegant
+   Styleguide & Global Styles — LUXE REDESIGN
+   Geïnspireerd door exclusiviteit, vakmanschap, tijdloze elegantie
    ═══════════════════════════════════════════════ */
 
 :root {
-    /* ── Kleuren ── */
-    --color-primary: #848374;
-    --color-primary-dark: #6e6d5f;
-    --color-dark: #1a1917;
-    --color-text: #2c2c28;
-    --color-text-light: #7a7a72;
-    --color-text-muted: #a5a59b;
-    --color-bg: #faf9f6;
-    --color-cream: #f3efe7;
-    --color-white: #ffffff;
-    --color-border: #e0ddd6;
-    --color-border-light: #eceae4;
+    /* ── Kleuren — Luxe warm crème/ivoor palet ── */
+    --color-primary: #6b7c5f;           /* Diep mosgroen uit logo */
+    --color-primary-dark: #4a5a42;     /* Donkerder groen */
+    --color-accent: #c9b896;           /* Warm goud/bruin accent */
+    --color-accent-light: #e8dcc8;     /* Licht goud */
+    
+    --color-dark: #1a1a18;             /* Diep zwart-bruin */
+    --color-dark-secondary: #2d2d28;   /* Secundair donker */
+    
+    --color-text: #1a1a18;             /* Hoofdtekst */
+    --color-text-light: #5c5c56;       /* Lichtere tekst */
+    --color-text-muted: #8a8a82;       /* Gedisabled/muted */
+    
+    --color-bg: #f8f6f1;               /* Warm crème achtergrond */
+    --color-cream: #f0ece3;            /* Diepere crème */
+    --color-cream-dark: #e5dfd2;       /* Donkere crème secties */
+    --color-white: #fffcf7;            /* Warm wit */
+    
+    --color-border: #d9d4c9;           /* Warme border */
+    --color-border-light: #ebe6db;     /* Lichte border */
 
     /* ── Typografie ── */
     --font-heading: 'Suranna', Georgia, serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
     /* ── Layout ── */
-    --max-width: 1200px;
-    --section-pad: clamp(6rem, 10vw, 10rem);
+    --max-width: 1280px;
+    --section-pad: clamp(7rem, 12vw, 12rem);
 
-    /* ── Animatie ── */
-    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition: 0.4s var(--ease);
-    --transition-slow: 0.7s var(--ease);
+    /* ── Animatie — Verfijnd, langzaam ── */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-slow: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --transition: 0.5s var(--ease);
+    --transition-slow: 0.8s var(--ease-slow);
 }
 
 /* ── Reset ── */
@@ -41,28 +50,42 @@ body {
     font-family: var(--font-body);
     color: var(--color-text);
     background: var(--color-bg);
-    line-height: 1.75;
+    line-height: 1.8;
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.01em;
 }
 
-/* ── Typografie ── */
+/* ── Typografie — Luxe, exclusief ── */
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
     font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
     color: var(--color-text);
+    margin: 0 0 0.5em;
 }
 
-h1 { font-size: clamp(3rem, 8vw, 6rem); }
-h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+h1 { 
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    letter-spacing: -0.04em;
+}
+
+h2 { 
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    letter-spacing: -0.02em;
+}
+
+h3 { 
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    letter-spacing: -0.01em;
+}
 
 p {
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.5rem;
     color: var(--color-text-light);
+    line-height: 1.9;
 }
 
 p:last-child { margin-bottom: 0; }
@@ -79,28 +102,37 @@ a {
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    padding: 0 clamp(1.5rem, 6vw, 5rem);
 }
 
-/* ── Section Label ── */
+/* ── Section Label — Luxe uitstraling ── */
 .section-label {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
-    font-size: 0.65rem;
+    gap: 1.25rem;
+    font-size: 0.6rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.25em;
     color: var(--color-primary);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .section-label::before {
     content: '';
     display: block;
-    width: 30px;
+    width: 40px;
     height: 1px;
     background: var(--color-primary);
+}
+
+.section-label::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--color-primary);
+    transform: rotate(45deg);
 }
 
 /* ═══════════════════════════════════════════════

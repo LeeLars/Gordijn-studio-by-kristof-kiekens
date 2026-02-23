@@ -29,7 +29,7 @@
 
     var ls = document.getElementById('loading-screen');
     if (ls) {
-        setTimeout(function () { heroTl.play(); }, 6800);
+        setTimeout(function () { heroTl.play(); }, 5200);
     } else {
         heroTl.play();
     }

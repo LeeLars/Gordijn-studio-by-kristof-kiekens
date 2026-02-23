@@ -87,12 +87,12 @@
 
 
 /* ════════════════════════════════════════════
-   HERO — Lecrance: immersive, spacious
+   HERO — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .hero {
     position: relative;
     height: 100vh;
-    min-height: 700px;
+    min-height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,7 +110,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7;
+    opacity: 0.65;
 }
 
 .hero-overlay {
@@ -118,9 +118,9 @@
     inset: 0;
     background: linear-gradient(
         180deg,
-        rgba(26, 25, 23, 0.2) 0%,
-        rgba(26, 25, 23, 0.05) 40%,
-        rgba(26, 25, 23, 0.4) 100%
+        rgba(26, 26, 24, 0.3) 0%,
+        rgba(26, 26, 24, 0.1) 40%,
+        rgba(26, 26, 24, 0.5) 100%
     );
     z-index: 2;
 }
@@ -129,16 +129,16 @@
     position: relative;
     z-index: 3;
     text-align: center;
-    max-width: 900px;
+    max-width: 950px;
     padding: 0 2rem;
     color: var(--color-white);
 }
 
 .hero-title {
-    font-size: clamp(3rem, 9vw, 6.5rem);
-    line-height: 1.05;
-    margin: 0 0 2rem;
-    letter-spacing: -0.03em;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    line-height: 1;
+    margin: 0 0 2.5rem;
+    letter-spacing: -0.04em;
     color: var(--color-white);
 }
 
@@ -147,19 +147,20 @@
 }
 
 .hero-sub {
-    font-size: clamp(0.85rem, 1.3vw, 1rem);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     font-weight: 300;
-    line-height: 1.9;
-    max-width: 440px;
-    margin: 0 auto 3rem;
-    color: rgba(255, 255, 255, 0.75);
+    line-height: 2;
+    max-width: 480px;
+    margin: 0 auto 3.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.02em;
 }
 
 .hero-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 3rem;
 }
 
 .scroll-indicator {
@@ -196,7 +197,7 @@
 
 
 /* ════════════════════════════════════════════
-   INTRO — Lecrance: groot, ruim, statement
+   INTRO — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .intro-section {
     padding: var(--section-pad) 0;
@@ -204,32 +205,32 @@
 }
 
 .intro-content {
-    max-width: 800px;
+    max-width: 850px;
     margin: 0 auto;
     text-align: center;
 }
 
 .intro-text {
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    line-height: 1.6;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    line-height: 1.5;
+    letter-spacing: -0.02em;
     color: var(--color-text);
-    margin: 0 0 2.5rem;
+    margin: 0 0 3rem;
 }
 
 .intro-accent {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     color: var(--color-primary);
     margin: 0;
 }
 
 
 /* ════════════════════════════════════════════
-   AANBOD — Lecrance: grote beelden, ruim
+   AANBOD — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .aanbod-section {
     padding: 0 0 var(--section-pad);
@@ -239,7 +240,7 @@
 .aanbod-header {
     padding: 0 clamp(1.5rem, 5vw, 4rem);
     max-width: var(--max-width);
-    margin: 0 auto 4rem;
+    margin: 0 auto 5rem;
 }
 
 .aanbod-header h2 {
@@ -257,7 +258,7 @@
     grid-template-columns: 1.3fr 1fr;
     gap: 0;
     align-items: stretch;
-    min-height: 500px;
+    min-height: 550px;
 }
 
 .aanbod-item:nth-child(even) {
@@ -273,6 +274,14 @@
     position: relative;
 }
 
+.aanbod-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.03) 100%);
+    pointer-events: none;
+}
+
 .aanbod-img img {
     width: 100%;
     height: 100%;
@@ -281,14 +290,14 @@
 }
 
 .aanbod-item:hover .aanbod-img img {
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
 
 .aanbod-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: clamp(2.5rem, 5vw, 5rem);
+    padding: clamp(3rem, 5vw, 6rem);
     background: var(--color-cream);
 }
 
@@ -297,38 +306,47 @@
 }
 
 .aanbod-info h3 {
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-    margin: 0 0 1.2rem;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    margin: 0 0 1.5rem;
     letter-spacing: -0.02em;
 }
 
 .aanbod-info p {
     font-size: 0.9rem;
-    line-height: 1.8;
+    line-height: 1.9;
     color: var(--color-text-light);
     margin: 0;
-    max-width: 360px;
+    max-width: 380px;
 }
 
 
 /* ════════════════════════════════════════════
-   30 JAAR ERVARING — Lecrance: split layout
+   30 JAAR ERVARING — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .ervaring-section {
     padding: var(--section-pad) 0;
-    background: var(--color-bg);
+    background: var(--color-cream);
 }
 
 .ervaring-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: clamp(3rem, 6vw, 6rem);
+    gap: clamp(4rem, 8vw, 8rem);
     align-items: center;
 }
 
 .ervaring-visual {
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/5;
     overflow: hidden;
+    position: relative;
+}
+
+.ervaring-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.05) 100%);
+    pointer-events: none;
 }
 
 .ervaring-visual img {
@@ -343,26 +361,26 @@
 }
 
 .ervaring-content h2 {
-    margin: 0 0 2rem;
+    margin: 0 0 2.5rem;
 }
 
 .ervaring-content p {
     font-size: 0.95rem;
-    line-height: 1.9;
-    margin: 0 0 1.25rem;
+    line-height: 2;
+    margin: 0 0 1.5rem;
 }
 
 
 /* ════════════════════════════════════════════
-   HOE WERKT HET — Lecrance: clean grid
+   HOE WERKT HET — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .werkwijze-section {
     padding: var(--section-pad) 0;
-    background: var(--color-cream);
+    background: var(--color-bg);
 }
 
 .werkwijze-header {
-    margin-bottom: 5rem;
+    margin-bottom: 6rem;
 }
 
 .werkwijze-header h2 {
@@ -373,13 +391,13 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-    margin-bottom: 5rem;
+    margin-bottom: 6rem;
 }
 
 .stap {
-    padding: 2.5rem 2.5rem 2.5rem 0;
+    padding: 3rem 3rem 3rem 0;
     border-left: 1px solid var(--color-border);
-    padding-left: 2.5rem;
+    padding-left: 3rem;
     transition: background var(--transition);
 }
 
@@ -391,38 +409,38 @@
 .stap-num {
     display: block;
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: var(--color-primary);
-    opacity: 0.2;
+    opacity: 0.15;
     line-height: 1;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     letter-spacing: -0.03em;
 }
 
 .stap p {
     font-size: 0.9rem;
-    line-height: 1.8;
+    line-height: 1.9;
     margin: 0;
 }
 
 .werkwijze-extra {
     text-align: center;
-    max-width: 500px;
+    max-width: 550px;
     margin: 0 auto;
 }
 
 .werkwijze-extra p {
     font-family: var(--font-heading);
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
     line-height: 2;
     color: var(--color-text);
-    margin: 0 0 2.5rem;
+    margin: 0 0 3rem;
     letter-spacing: -0.01em;
 }
 
 
 /* ════════════════════════════════════════════
-   CTA — Lecrance: donkere achtergrond, impact
+   CTA — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .cta-section {
     padding: var(--section-pad) 0;
@@ -431,24 +449,24 @@
 
 .cta-content {
     text-align: center;
-    max-width: 650px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
 .cta-content h2 {
     color: var(--color-white);
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
 }
 
 .cta-content p {
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 0.95rem;
-    line-height: 1.9;
-    margin: 0 0 3rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    line-height: 2;
+    margin: 0 0 3.5rem;
 }
 
 .cta-section .btn {
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.2);
     color: var(--color-white);
 }
 
@@ -460,51 +478,51 @@
 
 
 /* ════════════════════════════════════════════
-   CONTACT — Lecrance: clean form
+   CONTACT — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .contact-section {
     padding: var(--section-pad) 0;
-    background: var(--color-bg);
+    background: var(--color-cream);
 }
 
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    gap: clamp(3rem, 6vw, 6rem);
+    gap: clamp(4rem, 8vw, 8rem);
 }
 
 .contact-info h2 {
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
 }
 
 .contact-sub {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    margin: 0 0 3rem;
+    font-size: 0.95rem;
+    line-height: 2;
+    margin: 0 0 4rem;
 }
 
 .contact-details {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .contact-item {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.4rem;
 }
 
 .contact-label {
     font-size: 0.6rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     color: var(--color-text-muted);
 }
 
 .contact-item a {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--color-text);
     transition: color var(--transition);
 }
@@ -520,7 +538,7 @@
 }
 
 .form-field {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .form-field label {
@@ -528,16 +546,16 @@
     font-size: 0.6rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     color: var(--color-text-muted);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.8rem;
 }
 
 .form-field input {
     width: 100%;
     font-family: var(--font-body);
-    font-size: 0.95rem;
-    padding: 0.85rem 0;
+    font-size: 1rem;
+    padding: 1rem 0;
     border: none;
     border-bottom: 1px solid var(--color-border);
     background: transparent;
