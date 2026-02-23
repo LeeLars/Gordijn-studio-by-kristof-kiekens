@@ -1,71 +1,92 @@
 import { Router } from 'express';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const DATA_FILE = path.join(__dirname, '../../data/settings.json');
+import cloudinary from '../../config/cloudinary.js';
 
 const router = Router();
 
-function ensureDataDir() {
-  const dir = path.dirname(DATA_FILE);
-  console.log('Data directory path:', dir);
-  if (!fs.existsSync(dir)) {
-    console.log('Creating data directory...');
-    fs.mkdirSync(dir, { recursive: true });
-  } else {
-    console.log('Data directory exists');
+const SETTINGS_PUBLIC_ID = 'gordijnstudio/settings/data';
+
+// Default settings
+const DEFAULT_SETTINGS = {
+  contact: {
+    telefoon: '0473 62 53 13',
+    email: 'info@kristofkiekens.be',
+    ondernemingsnummer: 'BE 0600.782.960'
+  },
+  images: {
+    hero: '',
+    stickyCircle: '',
+    overOns: '',
+    cta: '',
+    aanbod: {
+      overgordijnen: '',
+      vouwgordijnen: '',
+      rolgordijnen: '',
+      houtenJaloezieen: '',
+      lamellen: '',
+      duoRoll: ''
+    }
+  },
+  gallery: []
+};
+
+// Read settings from Cloudinary
+async function readSettings() {
+  try {
+    console.log('Reading settings from Cloudinary...');
+    
+    // Try to get the existing settings file
+    try {
+      const result = await cloudinary.api.resource(SETTINGS_PUBLIC_ID, {
+        resource_type: 'raw'
+      });
+      
+      // Download and parse the JSON
+      const response = await fetch(result.secure_url);
+      const data = await response.json();
+      
+      console.log('Settings loaded from Cloudinary, gallery count:', data.gallery ? data.gallery.length : 0);
+      return data;
+    } catch (err) {
+      // File doesn't exist yet, return defaults
+      console.log('No settings file found in Cloudinary, using defaults');
+      return { ...DEFAULT_SETTINGS };
+    }
+  } catch (error) {
+    console.error('Error reading settings from Cloudinary:', error);
+    return { ...DEFAULT_SETTINGS };
   }
 }
 
-function readSettings() {
-  console.log('Reading settings from:', DATA_FILE);
-  ensureDataDir();
-  if (!fs.existsSync(DATA_FILE)) {
-    console.log('Settings file not found, creating defaults');
-    const defaults = {
-      contact: {
-        telefoon: '0473 62 53 13',
-        email: 'info@kristofkiekens.be',
-        ondernemingsnummer: 'BE 0600.782.960'
-      },
-      images: {
-        hero: '',
-        stickyCircle: '',
-        overOns: '',
-        cta: '',
-        aanbod: {
-          overgordijnen: '',
-          vouwgordijnen: '',
-          rolgordijnen: '',
-          houtenJaloezieen: '',
-          lamellen: '',
-          duoRoll: ''
-        }
-      },
-      gallery: []
-    };
-    fs.writeFileSync(DATA_FILE, JSON.stringify(defaults, null, 2));
-    return defaults;
+// Write settings to Cloudinary
+async function writeSettings(data) {
+  try {
+    console.log('Writing settings to Cloudinary...');
+    
+    // Convert to JSON string
+    const jsonString = JSON.stringify(data, null, 2);
+    
+    // Upload as raw file to Cloudinary using data URI
+    const base64String = Buffer.from(jsonString, 'utf-8').toString('base64');
+    const dataUri = 'data:application/json;base64,' + base64String;
+    
+    const result = await cloudinary.uploader.upload(dataUri, {
+      public_id: SETTINGS_PUBLIC_ID,
+      resource_type: 'raw',
+      overwrite: true
+    });
+    
+    console.log('Settings saved to Cloudinary, gallery count:', data.gallery ? data.gallery.length : 0);
+    return result;
+  } catch (error) {
+    console.error('Error writing settings to Cloudinary:', error);
+    throw error;
   }
-  const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-  console.log('Settings loaded, gallery count:', data.gallery ? data.gallery.length : 0);
-  return data;
-}
-
-function writeSettings(data) {
-  console.log('Writing settings to:', DATA_FILE);
-  ensureDataDir();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
-  console.log('Settings saved, gallery count:', data.gallery ? data.gallery.length : 0);
 }
 
 // GET settings
-router.get('/settings', (req, res) => {
+router.get('/settings', async (req, res) => {
   try {
-    const settings = readSettings();
+    const settings = await readSettings();
     res.json({ success: true, data: settings });
   } catch (error) {
     console.error('Settings read error:', error);
@@ -74,9 +95,9 @@ router.get('/settings', (req, res) => {
 });
 
 // PUT settings - deep merge alle velden
-router.put('/settings', (req, res) => {
+router.put('/settings', async (req, res) => {
   try {
-    const current = readSettings();
+    const current = await readSettings();
     
     // Deep merge functie
     function deepMerge(target, source) {
@@ -104,11 +125,11 @@ router.put('/settings', (req, res) => {
     // Deep merge van current met req.body
     const updated = deepMerge(current, req.body);
     
-    writeSettings(updated);
+    await writeSettings(updated);
     res.json({ success: true, data: updated });
   } catch (error) {
     console.error('Settings write error:', error);
-    res.status(500).json({ success: false, error: 'Kon instellingen niet opslaan' });
+    res.status(500).json({ success: false, error: 'Kon instellingen niet opslaan: ' + error.message });
   }
 });
 
