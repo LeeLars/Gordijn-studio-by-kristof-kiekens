@@ -144,8 +144,8 @@
     font-family: 'Suranna', serif;
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     line-height: 1.4;
-    color: var(--color-text);
-    margin: 0 0 1rem;
+    color: var(--color-primary);
+    margin: 0;
 }
 
 .hero-description {
