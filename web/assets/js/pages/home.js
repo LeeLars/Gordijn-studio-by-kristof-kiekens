@@ -3,9 +3,9 @@
 (function () {
     // Loading screen animatie sequentie:
     // 1. Zwart scherm (0.6s)
-    // 2. Panelen schuiven open, onthullen Logo animatie.png (0.6s -> 1.8s)
-    // 3. Fill animatie Logo.svg (mask schuift weg van L naar R) (2.2s -> 4.7s)
-    // 4. Hele scherm fadet uit (6s -> 6.8s)
+    // 2. Panelen schuiven open, onthullen Logo animatie.png (0.6s -> 1.4s)
+    // 3. Fill animatie Logo.svg (mask schuift weg van L naar R) (1.4s -> 3.9s)
+    // 4. Hele scherm fadet uit (5s -> 5.8s)
     var ls = document.getElementById('loading-screen');
     if (ls) {
         // Laad de SVG en injecteer de paden
@@ -48,22 +48,22 @@
                 ls.classList.add('phase-split');
             }, 600);
 
-            // Phase 2: Na 2.2s - fill animatie (mask schuift weg van L naar R)
+            // Phase 2: Na 1.4s - fill animatie (mask schuift weg van L naar R)
             setTimeout(function () {
                 ls.classList.add('phase-write');
-            }, 2200);
+            }, 1400);
 
-            // Phase 3: Na 5.5s - tekenbord wisser veegt alles weg
+            // Phase 3: Na 4s - tekenbord wisser veegt alles weg
             setTimeout(function () {
                 ls.classList.add('phase-wipe');
-            }, 5500);
+            }, 4000);
 
-            // Phase 4: Na 6.7s - loading screen verwijderd uit DOM
+            // Phase 4: Na 5.2s - loading screen verwijderd uit DOM
             setTimeout(function () {
                 if (ls.parentNode) {
                     ls.parentNode.removeChild(ls);
                 }
-            }, 6700);
+            }, 5200);
         }
     }
 
