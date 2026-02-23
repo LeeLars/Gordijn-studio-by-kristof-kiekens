@@ -47,12 +47,22 @@ router.post('/library/upload', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Geen afbeelding meegegeven' });
     }
 
+    // Validate base64 format
+    if (!image.startsWith('data:image/')) {
+      return res.status(400).json({ success: false, error: 'Ongeldig afbeeldingsformaat' });
+    }
+
+    console.log('Uploading to Cloudinary...');
+    
     const result = await cloudinary.uploader.upload(image, {
       folder: 'gordijnstudio/library',
+      resource_type: 'image',
       transformation: [
         { quality: 'auto:good', fetch_format: 'auto' }
       ]
     });
+
+    console.log('Cloudinary upload successful:', result.public_id);
 
     res.json({
       success: true,
