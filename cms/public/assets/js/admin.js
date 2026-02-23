@@ -211,6 +211,10 @@
       });
   }
 
+  // Drag & Drop voor gallery herordenening
+  var dragSrcEl = null;
+  var dragSrcIndex = null;
+
   function renderGallery() {
     if (!galleryList) return;
     
@@ -231,6 +235,7 @@
       var card = document.createElement('div');
       card.className = 'gallery-item-card';
       card.setAttribute('data-index', idx);
+      card.setAttribute('draggable', 'true');
       
       var img = document.createElement('img');
       img.src = url;
@@ -259,6 +264,54 @@
       deleteSvg.appendChild(deletePath);
       deleteBtn.appendChild(deleteSvg);
       card.appendChild(deleteBtn);
+      
+      // Drag & Drop events
+      card.addEventListener('dragstart', function(e) {
+        dragSrcEl = card;
+        dragSrcIndex = idx;
+        card.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', card.innerHTML);
+      });
+      
+      card.addEventListener('dragend', function() {
+        card.classList.remove('dragging');
+        document.querySelectorAll('.gallery-item-card').forEach(function(el) {
+          el.classList.remove('drag-over');
+        });
+      });
+      
+      card.addEventListener('dragover', function(e) {
+        if (e.preventDefault) {
+          e.preventDefault();
+        }
+        e.dataTransfer.dropEffect = 'move';
+        card.classList.add('drag-over');
+        return false;
+      });
+      
+      card.addEventListener('dragleave', function() {
+        card.classList.remove('drag-over');
+      });
+      
+      card.addEventListener('drop', function(e) {
+        if (e.stopPropagation) {
+          e.stopPropagation();
+        }
+        
+        if (dragSrcEl !== card) {
+          // Herorden de array
+          var draggedItem = currentGalleryImages[dragSrcIndex];
+          currentGalleryImages.splice(dragSrcIndex, 1);
+          currentGalleryImages.splice(idx, 0, draggedItem);
+          
+          // Save en re-render
+          saveGallery();
+          renderGallery();
+        }
+        
+        return false;
+      });
       
       // Click to change image
       card.addEventListener('click', function(e) {
@@ -465,14 +518,24 @@
       var item = document.createElement('div');
       item.className = 'media-library-item';
       item.setAttribute('data-id', image.id);
+      
+      // Calculate selection index for display
+      var selectionIndex = selectedLibraryImages.indexOf(image);
+      var indexDisplay = selectionIndex > -1 ? '<span class="select-number">' + (selectionIndex + 1) + '</span>' : '';
+      
       item.innerHTML = 
         '<img src="' + image.thumbnail + '" alt="">' +
         '<button class="delete-btn" data-id="' + image.id + '">' +
         '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
         '</button>' +
-        '<div class="select-indicator">' +
+        '<div class="select-indicator">' + indexDisplay +
         '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' +
         '</div>';
+      
+      // If already selected, mark it
+      if (selectionIndex > -1) {
+        item.classList.add('selected');
+      }
       
       // Select image - toggle voor multi-select
       item.addEventListener('click', function(e) {
@@ -494,6 +557,8 @@
             selectedLibraryImages.push(image);
             item.classList.add('selected');
           }
+          // Re-render to update indices
+          renderMediaLibrary();
         } else {
           // SINGLE SELECT: alleen 1 selectie
           document.querySelectorAll('.media-library-item').forEach(function(el) {

@@ -443,6 +443,18 @@ body {
   background: var(--cms-bg);
   overflow: hidden;
   cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.gallery-item-card.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.gallery-item-card.drag-over {
+  border-color: var(--cms-primary);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(132, 131, 116, 0.3);
 }
 
 .gallery-item-card img {
@@ -783,6 +795,23 @@ body {
   transition: opacity 0.3s ease;
   z-index: 5;
   pointer-events: none;
+}
+
+.media-library-item .select-indicator .select-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 24px;
+  height: 24px;
+  background: var(--cms-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 6;
 }
 
 .media-library-item.selected .select-indicator {
