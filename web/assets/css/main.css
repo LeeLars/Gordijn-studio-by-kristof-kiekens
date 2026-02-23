@@ -318,7 +318,7 @@ a {
 }
 
 .site-header.scrolled .logo-img {
-    filter: brightness(0);
+    filter: brightness(0) contrast(1.2);
 }
 
 .nav-links {
