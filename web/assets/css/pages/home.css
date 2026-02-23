@@ -235,6 +235,24 @@
     padding: 0 4rem;
 }
 
+/* Oude masonry layout fixes - alle items volle breedte en hoger */
+.collectie-masonry .collectie-item,
+.collectie-masonry .collectie-item.featured {
+    grid-column: span 12;
+    grid-row: span 1;
+}
+
+.collectie-masonry .collectie-item.tall,
+.collectie-masonry .collectie-item.wide {
+    grid-column: span 12;
+    grid-row: span 2;
+    min-height: 400px;
+}
+
+.collectie-masonry {
+    grid-auto-rows: 320px;
+}
+
 /* Atelier Item Base */
 .atelier-item {
     display: grid;
@@ -245,6 +263,22 @@
 }
 
 /* Featured - Large format */
+.atelier-item.featured,
+.atelier-item:not(.featured):not(.tall):not(.wide) {
+    grid-column: span 12;
+    grid-row: span 1;
+}
+
+.atelier-item.tall {
+    grid-column: span 6;
+    grid-row: span 2;
+}
+
+.atelier-item.wide {
+    grid-column: span 6;
+    grid-row: span 1;
+}
+
 .atelier-item.featured {
     grid-template-columns: 1.2fr 1fr;
     gap: 5rem;
