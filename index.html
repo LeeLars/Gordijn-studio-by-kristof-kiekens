@@ -242,11 +242,11 @@
                     </div>
                     <div class="about-images-stack">
                         <div class="about-image about-img-primary">
-                            <img src="web/assets/images/image-knesselare.jpg" alt="Exclusief interieur met raamdecoratie" />
+                            <img data-cms-key="overOns" alt="Exclusief interieur met raamdecoratie" />
                             <div class="image-reveal"></div>
                         </div>
                         <div class="about-image about-img-secondary">
-                            <img src="web/assets/images/image-knesselare-2.jpg" alt="Vakkundig vakmanschap in uitvoering" />
+                            <img data-cms-key="overOnsSecondary" alt="Vakkundig vakmanschap in uitvoering" />
                             <div class="image-reveal"></div>
                         </div>
                     </div>
@@ -416,11 +416,14 @@
             document.querySelector('.reveal-image').src = images.stickyCircle;
           }
           
-          // Over Ons images
-          const overOnsImages = document.querySelectorAll('.about-images-stack img');
-          if (images.overOns && overOnsImages.length > 0) {
-            overOnsImages[0].src = images.overOns;
-          }
+          // Over Ons images - find by data-cms-key attribute
+          const overOnsImages = document.querySelectorAll('.about-images-stack img[data-cms-key]');
+          overOnsImages.forEach(img => {
+            const key = img.getAttribute('data-cms-key');
+            if (images[key]) {
+              img.src = images[key];
+            }
+          });
           
           // Aanbod images - find by data-cms-key attribute
           const collectieImages = document.querySelectorAll('.collectie-studio .studio-item img[data-cms-key]');
