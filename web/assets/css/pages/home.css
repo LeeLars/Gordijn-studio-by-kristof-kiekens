@@ -612,6 +612,18 @@
     transform-origin: right;
 }
 
+/* About Images Pair - Two images side by side */
+.about-images-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.about-images-pair .image-small {
+    margin-top: 3rem;
+}
+
 /* About Images */
 .about-image {
     position: relative;
@@ -626,12 +638,10 @@
 
 .image-small {
     aspect-ratio: 3/4;
-    max-width: 400px;
 }
 
 .image-large {
     aspect-ratio: 4/5;
-    max-width: 500px;
 }
 
 .about-row .image-small,
