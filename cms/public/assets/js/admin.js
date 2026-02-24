@@ -64,6 +64,8 @@
     loginScreen.style.display = 'none';
     cmsApp.style.display = 'block';
     loadSettings();
+    loadGallery();
+    loadInquiries();
   }
 
   // Load settings from API
@@ -524,14 +526,27 @@
       var selectionIndex = selectedLibraryImages.indexOf(image);
       var indexDisplay = selectionIndex > -1 ? '<span class="select-number">' + (selectionIndex + 1) + '</span>' : '';
       
-      item.innerHTML = 
-        '<img src="' + image.thumbnail + '" alt="">' +
-        '<button class="delete-btn" data-id="' + image.id + '">' +
-        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
-        '</button>' +
-        '<div class="select-indicator">' + indexDisplay +
-        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' +
-        '</div>';
+      var img = document.createElement('img');
+      img.src = image.thumbnail;
+      img.alt = '';
+      item.appendChild(img);
+
+      var deleteBtn = document.createElement('button');
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.setAttribute('data-id', image.id);
+      deleteBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+      item.appendChild(deleteBtn);
+
+      var selectIndicator = document.createElement('div');
+      selectIndicator.className = 'select-indicator';
+      if (selectionIndex > -1) {
+        var numSpan = document.createElement('span');
+        numSpan.className = 'select-number';
+        numSpan.textContent = selectionIndex + 1;
+        selectIndicator.appendChild(numSpan);
+      }
+      selectIndicator.innerHTML += '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+      item.appendChild(selectIndicator);
       
       // If already selected, mark it
       if (selectionIndex > -1) {
@@ -765,33 +780,72 @@
       return;
     }
 
-    listEl.innerHTML = inquiries.map(function(inquiry) {
+    listEl.innerHTML = '';
+    inquiries.forEach(function(inquiry) {
       const date = new Date(inquiry.datum);
       const dateStr = date.toLocaleDateString('nl-BE', { day: 'numeric', month: 'short', year: 'numeric' });
-      const unreadClass = inquiry.gelezen ? '' : 'unread';
-      
-      return '<div class="inquiry-item ' + unreadClass + '" data-id="' + inquiry.id + '">' +
-        '<div class="inquiry-header">' +
-          '<span class="inquiry-name">' + escapeHtml(inquiry.naam) + '</span>' +
-          '<span class="inquiry-date">' + dateStr + '</span>' +
-        '</div>' +
-        '<div class="inquiry-preview">' + escapeHtml(inquiry.voorkeur || 'Geen voorkeurmoment opgegeven') + '</div>' +
-        '<div class="inquiry-detail">' +
-          '<div class="inquiry-field">' +
-            '<div class="inquiry-field-label">E-mail</div>' +
-            '<div class="inquiry-field-value"><a href="mailto:' + escapeHtml(inquiry.email) + '">' + escapeHtml(inquiry.email) + '</a></div>' +
-          '</div>' +
-          '<div class="inquiry-field">' +
-            '<div class="inquiry-field-label">Telefoon</div>' +
-            '<div class="inquiry-field-value">' + (inquiry.telefoon ? '<a href="tel:' + inquiry.telefoon.replace(/\s/g, '') + '">' + escapeHtml(inquiry.telefoon) + '</a>' : 'Niet opgegeven') + '</div>' +
-          '</div>' +
-          '<div class="inquiry-field">' +
-            '<div class="inquiry-field-label">Voorkeurmoment</div>' +
-            '<div class="inquiry-field-value">' + escapeHtml(inquiry.voorkeur || 'Niet opgegeven') + '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
+
+      var item = document.createElement('div');
+      item.className = 'inquiry-item' + (inquiry.gelezen ? '' : ' unread');
+      item.setAttribute('data-id', inquiry.id);
+
+      var header = document.createElement('div');
+      header.className = 'inquiry-header';
+      var nameEl = document.createElement('span');
+      nameEl.className = 'inquiry-name';
+      nameEl.textContent = inquiry.naam;
+      var dateEl = document.createElement('span');
+      dateEl.className = 'inquiry-date';
+      dateEl.textContent = dateStr;
+      header.appendChild(nameEl);
+      header.appendChild(dateEl);
+
+      var preview = document.createElement('div');
+      preview.className = 'inquiry-preview';
+      preview.textContent = inquiry.voorkeur || 'Geen voorkeurmoment opgegeven';
+
+      var detail = document.createElement('div');
+      detail.className = 'inquiry-detail';
+
+      function makeField(label, valueEl) {
+        var field = document.createElement('div');
+        field.className = 'inquiry-field';
+        var lbl = document.createElement('div');
+        lbl.className = 'inquiry-field-label';
+        lbl.textContent = label;
+        var val = document.createElement('div');
+        val.className = 'inquiry-field-value';
+        val.appendChild(valueEl);
+        field.appendChild(lbl);
+        field.appendChild(val);
+        return field;
+      }
+
+      var emailLink = document.createElement('a');
+      emailLink.href = 'mailto:' + inquiry.email;
+      emailLink.textContent = inquiry.email;
+      detail.appendChild(makeField('E-mail', emailLink));
+
+      var telEl;
+      if (inquiry.telefoon) {
+        telEl = document.createElement('a');
+        telEl.href = 'tel:' + inquiry.telefoon.replace(/\s/g, '');
+        telEl.textContent = inquiry.telefoon;
+      } else {
+        telEl = document.createElement('span');
+        telEl.textContent = 'Niet opgegeven';
+      }
+      detail.appendChild(makeField('Telefoon', telEl));
+
+      var voorkeurSpan = document.createElement('span');
+      voorkeurSpan.textContent = inquiry.voorkeur || 'Niet opgegeven';
+      detail.appendChild(makeField('Voorkeurmoment', voorkeurSpan));
+
+      item.appendChild(header);
+      item.appendChild(preview);
+      item.appendChild(detail);
+      listEl.appendChild(item);
+    });
 
     // Add click handlers
     listEl.querySelectorAll('.inquiry-item').forEach(function(item) {
