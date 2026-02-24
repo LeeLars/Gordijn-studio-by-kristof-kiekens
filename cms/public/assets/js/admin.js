@@ -721,4 +721,121 @@
     
     reader.readAsDataURL(file);
   }
+
+  // Load and display inquiries
+  loadInquiries();
+
+  function loadInquiries() {
+    fetch(API_BASE + '/inquiries')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success) {
+          displayInquiries(res.data || []);
+        }
+      })
+      .catch(function(err) {
+        console.error('Error loading inquiries:', err);
+      });
+  }
+
+  function displayInquiries(inquiries) {
+    const listEl = document.getElementById('inquiryList');
+    const statTotal = document.getElementById('statTotal');
+    const statMonth = document.getElementById('statMonth');
+    const statUnread = document.getElementById('statUnread');
+
+    if (!listEl) return;
+
+    // Update stats
+    if (statTotal) statTotal.textContent = inquiries.length;
+    
+    const now = new Date();
+    const thisMonth = inquiries.filter(function(i) {
+      const d = new Date(i.datum);
+      return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+    });
+    if (statMonth) statMonth.textContent = thisMonth.length;
+
+    const unread = inquiries.filter(function(i) { return !i.gelezen; });
+    if (statUnread) statUnread.textContent = unread.length;
+
+    // Display list
+    if (inquiries.length === 0) {
+      listEl.innerHTML = '<p class="inquiry-empty">Geen aanvragen gevonden</p>';
+      return;
+    }
+
+    listEl.innerHTML = inquiries.map(function(inquiry) {
+      const date = new Date(inquiry.datum);
+      const dateStr = date.toLocaleDateString('nl-BE', { day: 'numeric', month: 'short', year: 'numeric' });
+      const unreadClass = inquiry.gelezen ? '' : 'unread';
+      
+      return '<div class="inquiry-item ' + unreadClass + '" data-id="' + inquiry.id + '">' +
+        '<div class="inquiry-header">' +
+          '<span class="inquiry-name">' + escapeHtml(inquiry.naam) + '</span>' +
+          '<span class="inquiry-date">' + dateStr + '</span>' +
+        '</div>' +
+        '<div class="inquiry-preview">' + escapeHtml(inquiry.voorkeur || 'Geen voorkeurmoment opgegeven') + '</div>' +
+        '<div class="inquiry-detail">' +
+          '<div class="inquiry-field">' +
+            '<div class="inquiry-field-label">E-mail</div>' +
+            '<div class="inquiry-field-value"><a href="mailto:' + escapeHtml(inquiry.email) + '">' + escapeHtml(inquiry.email) + '</a></div>' +
+          '</div>' +
+          '<div class="inquiry-field">' +
+            '<div class="inquiry-field-label">Telefoon</div>' +
+            '<div class="inquiry-field-value">' + (inquiry.telefoon ? '<a href="tel:' + inquiry.telefoon.replace(/\s/g, '') + '">' + escapeHtml(inquiry.telefoon) + '</a>' : 'Niet opgegeven') + '</div>' +
+          '</div>' +
+          '<div class="inquiry-field">' +
+            '<div class="inquiry-field-label">Voorkeurmoment</div>' +
+            '<div class="inquiry-field-value">' + escapeHtml(inquiry.voorkeur || 'Niet opgegeven') + '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    // Add click handlers
+    listEl.querySelectorAll('.inquiry-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        const isExpanded = this.classList.contains('expanded');
+        
+        // Close all others
+        listEl.querySelectorAll('.inquiry-item').forEach(function(i) {
+          i.classList.remove('expanded');
+        });
+        
+        if (!isExpanded) {
+          this.classList.add('expanded');
+          // Mark as read
+          const id = this.getAttribute('data-id');
+          if (id) {
+            markAsRead(id);
+            this.classList.remove('unread');
+            if (statUnread) {
+              const current = parseInt(statUnread.textContent, 10) || 0;
+              if (current > 0) statUnread.textContent = current - 1;
+            }
+          }
+        }
+      });
+    });
+  }
+
+  function markAsRead(id) {
+    fetch(API_BASE + '/inquiries/' + id + '/read', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' }
+    }).catch(function(err) {
+      console.error('Error marking as read:', err);
+    });
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
 })();

@@ -95,11 +95,9 @@
 }
 
 .hero-top-content {
-    padding: 4rem 0 3rem;
+    padding: 4rem clamp(1.5rem, 4vw, 3rem) 3rem;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding-left: clamp(1.5rem, 6vw, 5rem);
-    padding-right: clamp(1.5rem, 6vw, 5rem);
 }
 
 .hero-text-grid {
@@ -111,7 +109,7 @@
 
 .hero-title {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: baseline;
     gap: 0 0.5rem;
 }
@@ -172,7 +170,7 @@
     position: relative;
     max-width: var(--max-width);
     margin: -150px auto 0;
-    padding: 0 clamp(1.5rem, 6vw, 5rem);
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
 }
 
 .hero-image-main {
@@ -204,7 +202,8 @@
     text-align: center;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-width 0.4s ease;
     position: absolute;
-    inset: -3.5rem 5% auto auto;    z-index: 10;
+    inset: -3.5rem 2% auto auto;
+    z-index: 10;
     letter-spacing: 0.02em;
 }
 
@@ -282,24 +281,6 @@
     padding: 0 clamp(1.5rem, 6vw, 5rem);
 }
 
-/* Oude masonry layout fixes - alle items volle breedte en hoger */
-.collectie-masonry .collectie-item,
-.collectie-masonry .collectie-item.featured {
-    grid-column: span 12;
-    grid-row: span 1;
-}
-
-.collectie-masonry .collectie-item.tall,
-.collectie-masonry .collectie-item.wide {
-    grid-column: span 12;
-    grid-row: span 2;
-    min-height: 400px;
-}
-
-.collectie-masonry {
-    grid-auto-rows: 320px;
-}
-
 /* Atelier Item Base */
 .studio-item {
     display: grid;
@@ -307,23 +288,6 @@
     gap: 4rem;
     align-items: center;
     position: relative;
-}
-
-/* Featured - Large format */
-.studio-item.featured,
-.studio-item:not(.featured):not(.tall):not(.wide) {
-    grid-column: span 12;
-    grid-row: span 1;
-}
-
-.studio-item.tall {
-    grid-column: span 6;
-    grid-row: span 2;
-}
-
-.studio-item.wide {
-    grid-column: span 6;
-    grid-row: span 1;
 }
 
 .studio-item.featured {
@@ -402,14 +366,6 @@
     left: auto;
     right: -1.5rem;
     z-index: 2;
-}
-
-/* Ensure visual has lower z-index than num */
-.studio-visual {
-    position: relative;
-    overflow: hidden;
-    border-radius: 2px;
-    z-index: 1;
 }
 
 /* Compact - Smaller items */
@@ -843,9 +799,6 @@
         gap: 3rem;
     }
     
-    .about-image {
-        gap: 1rem;
-    }
     
     .image-small {
         margin-top: 2rem;
@@ -929,9 +882,8 @@
 }
 
 .stap {
-    padding: 3rem 3rem 3rem 0;
+    padding: 3rem;
     border-left: 1px solid var(--color-border);
-    padding-left: 3rem;
     transition: background var(--transition);
 }
 
@@ -1118,8 +1070,8 @@
    ════════════════════════════════════════════ */
 .reveal-section {
     position: relative;
-    height: 180vh; /* Verhoogd voor langzamere scroll animatie */
-    background: var(--color-dark);
+    height: 180vh;
+    background: var(--color-bg);
 }
 
 .reveal-wrapper {
@@ -1140,7 +1092,6 @@
     width: 50%;
     background: #eeedea;
     z-index: 2;
-    transition: transform 0.1s linear;
 }
 
 .reveal-curtain.left {
@@ -1154,9 +1105,8 @@
 }
 
 .reveal-image-wrap {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 0;
     z-index: 1;
 }
 
@@ -1165,7 +1115,6 @@
     height: 100%;
     object-fit: cover;
     transform: scale(1.1);
-    transition: transform 0.1s linear;
 }
 
 
