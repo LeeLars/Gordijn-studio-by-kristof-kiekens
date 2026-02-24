@@ -17,6 +17,11 @@
         menuToggle.addEventListener('click', function () {
             menuToggle.classList.toggle('active');
             navLinks.classList.toggle('open');
+            if (menuToggle.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         });
 
         // Sluit menu bij klik op link
@@ -24,6 +29,7 @@
             link.addEventListener('click', function () {
                 menuToggle.classList.remove('active');
                 navLinks.classList.remove('open');
+                document.body.style.overflow = '';
             });
         });
     }

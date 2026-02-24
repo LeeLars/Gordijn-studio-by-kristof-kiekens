@@ -6,24 +6,38 @@
 
 :root {
     /* ── Kleuren — Nieuw minimalistisch palet ── */
-    --color-primary: #848374;           /* Grijsgroen */
-    --color-primary-dark: #000000;      /* Zwart */
-    
-    --color-dark: #000000;              /* Zwart */
-    
-    --color-text: #000000;              /* Hoofdtekst */
-    --color-text-light: #848374;        /* Lichtere tekst */
-    --color-text-muted: #848374;        /* Gedisabled/muted */
-    
-    --color-bg: #EEEDEA;                /* Warm wit achtergrond */
-    --color-cream: #EEEDEA;             /* Diepere crème */
-    --color-cream-dark: #EEEDEA;        /* Donkere crème secties */
-    --color-white: #FFFFFF;             /* Wit */
-    
-    --color-border: #848374;            /* Border */
-    --color-border-light: #EEEDEA;      /* Lichte border */
-    --color-accent: #848374;            /* Accent */
-    --color-accent-light: #EEEDEA;      /* Licht accent */
+    --color-primary: #848374;
+    /* Grijsgroen */
+    --color-primary-dark: #000000;
+    /* Zwart */
+
+    --color-dark: #000000;
+    /* Zwart */
+
+    --color-text: #000000;
+    /* Hoofdtekst */
+    --color-text-light: #848374;
+    /* Lichtere tekst */
+    --color-text-muted: #848374;
+    /* Gedisabled/muted */
+
+    --color-bg: #EEEDEA;
+    /* Warm wit achtergrond */
+    --color-cream: #EEEDEA;
+    /* Diepere crème */
+    --color-cream-dark: #EEEDEA;
+    /* Donkere crème secties */
+    --color-white: #FFFFFF;
+    /* Wit */
+
+    --color-border: #848374;
+    /* Border */
+    --color-border-light: #EEEDEA;
+    /* Lichte border */
+    --color-accent: #848374;
+    /* Accent */
+    --color-accent-light: #EEEDEA;
+    /* Licht accent */
 
     /* ── Typografie ── */
     --font-heading: 'Suranna', Georgia, serif;
@@ -41,8 +55,15 @@
 }
 
 /* ── Reset ── */
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
@@ -57,7 +78,10 @@ body {
 }
 
 /* ── Typografie — Luxe, exclusief ── */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: var(--font-heading);
     font-weight: 400;
     line-height: 1.1;
@@ -66,17 +90,17 @@ h1, h2, h3, h4 {
     margin: 0 0 0.5em;
 }
 
-h1 { 
+h1 {
     font-size: clamp(3.5rem, 10vw, 7rem);
     letter-spacing: -0.04em;
 }
 
-h2 { 
+h2 {
     font-size: clamp(2.2rem, 5vw, 4rem);
     letter-spacing: -0.02em;
 }
 
-h3 { 
+h3 {
     font-size: clamp(1.4rem, 2.5vw, 1.8rem);
     letter-spacing: -0.01em;
 }
@@ -87,9 +111,15 @@ p {
     line-height: 1.9;
 }
 
-p:last-child { margin-bottom: 0; }
+p:last-child {
+    margin-bottom: 0;
+}
 
-img { max-width: 100%; height: auto; display: block; }
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
 a {
     color: inherit;
@@ -186,7 +216,9 @@ a {
     border-color: var(--color-text);
 }
 
-.btn:hover .arrow { width: 22px; }
+.btn:hover .arrow {
+    width: 22px;
+}
 
 /* Dark variant (voor lichte achtergronden) */
 .btn--dark {
@@ -245,10 +277,17 @@ a {
     transition: transform var(--transition);
 }
 
-.link-arrow:hover { gap: 1rem; }
-.link-arrow:hover::after { transform: translateX(2px); }
+.link-arrow:hover {
+    gap: 1rem;
+}
 
-.link-arrow--light { color: var(--color-white); }
+.link-arrow:hover::after {
+    transform: translateX(2px);
+}
+
+.link-arrow--light {
+    color: var(--color-white);
+}
 
 /* ═══════════════════════════════════════════════
    HEADER / NAV — Studio 11 Style
@@ -276,7 +315,7 @@ a {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
     pointer-events: none;
     opacity: 1;
     transition: opacity var(--transition);
@@ -314,7 +353,7 @@ a {
 
 /* Logo is altijd zichtbaar - wit op hero, donker op scrolled */
 .site-header:not(.scrolled) .logo-img {
-    filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+    filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
 }
 
 .site-header.scrolled .logo-img {
@@ -353,11 +392,13 @@ a {
     transition: width var(--transition);
 }
 
-.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover::after {
+    width: 100%;
+}
 
 .site-header:not(.scrolled) .nav-links a {
     color: rgba(255, 255, 255, 0.95);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .site-header:not(.scrolled) .nav-links a:hover {
@@ -475,12 +516,27 @@ a {
     transition: transform var(--transition), background var(--transition);
 }
 
-.hamburger::before { top: -7px; }
-.hamburger::after { top: 7px; }
+.hamburger::before {
+    top: -7px;
+}
 
-.menu-toggle.active .hamburger { background: transparent; }
-.menu-toggle.active .hamburger::before { transform: translateY(7px) rotate(45deg); }
-.menu-toggle.active .hamburger::after { transform: translateY(-7px) rotate(-45deg); }
+.hamburger::after {
+    top: 7px;
+}
+
+.menu-toggle.active .hamburger {
+    background: transparent !important;
+}
+
+.menu-toggle.active .hamburger::before {
+    transform: translateY(7px) rotate(45deg);
+    background: var(--color-dark) !important;
+}
+
+.menu-toggle.active .hamburger::after {
+    transform: translateY(-7px) rotate(-45deg);
+    background: var(--color-dark) !important;
+}
 
 /* ═══════════════════════════════════════════════
    FOOTER — Donker, minimalistisch
@@ -519,7 +575,9 @@ a {
     transition: color var(--transition);
 }
 
-.footer-links a:hover { color: var(--color-white); }
+.footer-links a:hover {
+    color: var(--color-white);
+}
 
 .footer-social {
     display: flex;
@@ -531,7 +589,9 @@ a {
     transition: color var(--transition);
 }
 
-.footer-social a:hover { color: var(--color-white); }
+.footer-social a:hover {
+    color: var(--color-white);
+}
 
 .footer-bottom {
     display: flex;
@@ -593,44 +653,91 @@ a {
 /* ═══════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════ */
-@media (max-width: 768px) {
-    .menu-toggle { display: block; }
+@media (max-width: 1100px) {
+    .menu-toggle {
+        display: block;
+    }
 
     .nav-links {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: 320px;
+        left: 0;
+        width: 100vw;
         height: 100vh;
-        background: linear-gradient(135deg, #EEEDEA 0%, #E8E7E4 100%);
+        background: rgba(238, 237, 234, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
-        padding: 7rem 3rem 3rem;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
         gap: 2.5rem;
-        transition: right var(--transition);
-        box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s var(--ease), visibility 0.5s;
+        box-shadow: none;
     }
 
-    .nav-links.open { right: 0; }
+    .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-links li {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+
+    .nav-links.open li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-links li:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .nav-links li:nth-child(2) {
+        transition-delay: 0.15s;
+    }
+
+    .nav-links li:nth-child(3) {
+        transition-delay: 0.2s;
+    }
+
+    .nav-links li:nth-child(4) {
+        transition-delay: 0.25s;
+    }
 
     .nav-links a {
-        font-size: 0.9rem;
-        color: var(--color-text) !important;
-        font-weight: 500;
-        letter-spacing: 0.18em;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid rgba(132, 131, 116, 0.2);
-        width: 100%;
-        text-align: left;
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        color: var(--color-dark) !important;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        text-transform: none;
+        padding: 0;
+        border-bottom: none;
+        width: auto;
+        text-align: center;
+        display: inline-block;
+        transition: color var(--transition), transform var(--transition);
     }
 
     .nav-links a:hover {
         color: var(--color-primary) !important;
-        padding-left: 1rem;
+        padding-left: 0;
+        transform: scale(1.05);
     }
 
-    .nav-links a::after { display: none; }
+    .nav-links a::after {
+        display: none;
+    }
 
-    .nav-cta-btn { display: none; }
+    .nav-cta-btn {
+        display: none;
+    }
 
     .site-footer .footer-content {
         flex-direction: column;
