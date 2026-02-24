@@ -405,6 +405,11 @@ a {
     color: var(--color-white);
 }
 
+/* Hide mobile menu elements on desktop */
+.mobile-menu-footer {
+    display: none;
+}
+
 /* Nav CTA — Sexier button */
 .nav-cta-btn {
     display: inline-flex;
@@ -800,9 +805,9 @@ a {
 
     .mobile-contact-links {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 0.5rem;
+        gap: 1.5rem;
     }
 
     .mobile-contact-item {
