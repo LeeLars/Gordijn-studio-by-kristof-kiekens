@@ -1,12 +1,12 @@
 // Gordijn Studio by Kristof Kiekens - globale JS
 
 (function () {
-    // Header scroll effect
+    // Header scroll effect is disabled per user request to keep the transparent gradient look everywhere
     const header = document.getElementById('header');
     if (header) {
-        window.addEventListener('scroll', function () {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        // window.addEventListener('scroll', function () {
+        //     header.classList.toggle('scrolled', window.scrollY > 50);
+        // });
     }
 
     // Mobiel menu toggle
