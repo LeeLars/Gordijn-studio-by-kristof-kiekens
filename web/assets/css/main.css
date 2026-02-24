@@ -658,7 +658,7 @@ a {
         display: block;
     }
 
-    .nav-links {
+    .mobile-menu-wrapper {
         position: fixed;
         top: 0;
         left: 0;
@@ -667,21 +667,41 @@ a {
         background: rgba(238, 237, 234, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 0;
-        gap: 2.5rem;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.5s var(--ease), visibility 0.5s;
-        box-shadow: none;
+        z-index: 99;
     }
 
-    .nav-links.open {
+    .mobile-menu-wrapper.open {
         opacity: 1;
         visibility: visible;
     }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        gap: 2.5rem;
+        width: 100%;
+        /* Let the wrapper handle visibility */
+        position: static;
+        background: transparent;
+        height: auto;
+        opacity: 1;
+        visibility: visible;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* Remove the old .nav-links.open since the wrapper handles it now but keep the stagger logic working on the wrapper open state */
 
     .nav-links li {
         opacity: 0;
@@ -689,7 +709,7 @@ a {
         transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
     }
 
-    .nav-links.open li {
+    .mobile-menu-wrapper.open .nav-links li {
         opacity: 1;
         transform: translateY(0);
     }
@@ -722,17 +742,101 @@ a {
         width: auto;
         text-align: center;
         display: inline-block;
-        transition: color var(--transition), transform var(--transition);
+        transition: color var(--transition), transform var(--transition), opacity var(--transition);
+        position: relative;
+    }
+
+    /* Subtiel lijntje onder actieve/hovered elementen */
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 1px;
+        background: var(--color-primary);
+        transition: width var(--transition);
+        display: block;
+    }
+
+    .nav-links:hover a {
+        /* When hovering the list, fade out the others */
+        opacity: 0.4;
     }
 
     .nav-links a:hover {
         color: var(--color-primary) !important;
         padding-left: 0;
         transform: scale(1.05);
+        opacity: 1;
     }
 
-    .nav-links a::after {
-        display: none;
+    .nav-links a:hover::after {
+        width: 50%;
+    }
+
+    /* Mobile Contact Footer */
+    .mobile-menu-footer {
+        position: absolute;
+        bottom: 3rem;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        transition-delay: 0.35s;
+        /* Animates in last */
+    }
+
+    .mobile-menu-wrapper.open .mobile-menu-footer {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mobile-contact-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .mobile-contact-item {
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color var(--transition);
+    }
+
+    .mobile-contact-item:hover {
+        color: var(--color-dark);
+    }
+
+    .mobile-social-links {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .mobile-social-links a {
+        color: var(--color-primary);
+        transition: color var(--transition), transform var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-social-links a:hover {
+        color: var(--color-dark);
+        transform: translateY(-2px);
     }
 
     .nav-cta-btn {
