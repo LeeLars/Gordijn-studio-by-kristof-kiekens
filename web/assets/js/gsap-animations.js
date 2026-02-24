@@ -71,13 +71,13 @@
             duration: 1.2,
             ease: easeSlow
         })
-        .from(content.children, {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: ease
-        }, '-=0.6');
+            .from(content.children, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: ease
+            }, '-=0.6');
     });
 
     // ── COLLECTIE HEADER: elegant reveal ──
@@ -98,11 +98,11 @@
 
     // ── OVER ONS: Zenkai stijl reveal animaties ──
     var aboutTl = gsap.timeline({
-        scrollTrigger: { trigger: '.about-grid', start: 'top 75%' }
+        scrollTrigger: { trigger: '.about-single', start: 'top 75%' }
     });
 
     aboutTl
-        .from('.about-content .section-label', {
+        .from('.about-content-full .section-label', {
             opacity: 0, x: -15, duration: 0.6, ease: ease
         })
         .from('.about-heading .word', {
@@ -119,7 +119,7 @@
         }, '-=0.3');
 
     // Image reveal animaties
-    gsap.utils.toArray('.about-image').forEach(function(img, i) {
+    gsap.utils.toArray('.about-image').forEach(function (img, i) {
         gsap.to(img.querySelector('.image-reveal'), {
             scaleY: 0,
             transformOrigin: 'top',
