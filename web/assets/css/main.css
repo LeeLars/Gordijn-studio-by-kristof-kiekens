@@ -739,12 +739,12 @@ a {
     }
 
     .nav-links a {
-        font-family: var(--font-heading);
-        font-size: 2.2rem;
+        font-family: var(--font-body);
+        font-size: 1.5rem;
         color: var(--color-dark) !important;
         font-weight: 400;
-        letter-spacing: -0.01em;
-        text-transform: none;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
         padding: 0;
         border-bottom: none;
         width: auto;
