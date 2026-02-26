@@ -11,12 +11,12 @@
 
     // Mobiel menu toggle
     const menuToggle = document.getElementById('menuToggle');
-    const navWrapper = document.getElementById('navLinks'); // Dit is nu de wrapper (die ID navLinks behield)
+    const mobileMenu = document.getElementById('mobileMenu');
 
-    if (menuToggle && navWrapper) {
+    if (menuToggle && mobileMenu) {
         menuToggle.addEventListener('click', function () {
             menuToggle.classList.toggle('active');
-            navWrapper.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
             if (menuToggle.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -25,10 +25,10 @@
         });
 
         // Sluit menu bij klik op link
-        navWrapper.querySelectorAll('a').forEach(function (link) {
+        mobileMenu.querySelectorAll('a').forEach(function (link) {
             link.addEventListener('click', function () {
                 menuToggle.classList.remove('active');
-                navWrapper.classList.remove('open');
+                mobileMenu.classList.remove('open');
                 document.body.style.overflow = '';
             });
         });

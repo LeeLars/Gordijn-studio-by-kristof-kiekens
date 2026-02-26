@@ -10,6 +10,8 @@
     /* Grijsgroen */
     --color-primary-dark: #000000;
     /* Zwart */
+    --color-green: #3a5c3a;
+    /* Donkergroen — button hover */
 
     --color-dark: #000000;
     /* Zwart */
@@ -229,9 +231,9 @@ a {
 }
 
 .btn--dark:hover {
-    background: var(--color-text);
+    background: var(--color-green);
     color: var(--color-white);
-    border-color: var(--color-text);
+    border-color: var(--color-green);
 }
 
 /* Light variant (voor donkere achtergronden) */
@@ -254,8 +256,8 @@ a {
 }
 
 .btn--filled:hover {
-    background: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
+    background: var(--color-green);
+    border-color: var(--color-green);
     color: var(--color-white);
 }
 
@@ -441,7 +443,7 @@ a {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: var(--color-text);
+    background: var(--color-green);
     transition: left var(--transition);
     z-index: -1;
 }
@@ -452,7 +454,7 @@ a {
 
 .nav-cta-btn:hover {
     color: var(--color-white);
-    border-color: var(--color-text);
+    border-color: var(--color-green);
 }
 
 .site-header:not(.scrolled) .nav-cta-btn {
