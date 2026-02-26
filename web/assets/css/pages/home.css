@@ -726,7 +726,7 @@
     max-width: 520px;
 }
 
-.about-content-full .section-label {
+.about-content-full > .section-label {
     display: block;
     margin-bottom: 1.5rem;
 }
