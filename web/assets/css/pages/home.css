@@ -1105,7 +1105,7 @@
    ════════════════════════════════════════════ */
 .reveal-section {
     position: relative;
-    height: 180vh;
+    height: 150vh;
     background: var(--color-bg);
     margin-top: var(--section-pad);
     margin-bottom: var(--section-pad);
