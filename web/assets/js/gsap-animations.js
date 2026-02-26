@@ -165,14 +165,14 @@
             .fromTo('.reveal-left', {
                 xPercent: 0
             }, {
-                xPercent: -105,
+                xPercent: -110,
                 duration: 1,
                 ease: 'power2.inOut'
             }, 0)
             .fromTo('.reveal-right', {
                 xPercent: 0
             }, {
-                xPercent: 105,
+                xPercent: 110,
                 duration: 1,
                 ease: 'power2.inOut'
             }, 0)
