@@ -1107,7 +1107,7 @@
     position: relative;
     height: 150vh;
     background: var(--color-bg);
-    margin-top: var(--section-pad);
+    margin-top: 14rem;
     margin-bottom: var(--section-pad);
 }
 

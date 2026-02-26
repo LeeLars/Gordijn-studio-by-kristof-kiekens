@@ -154,7 +154,7 @@
             scrollTrigger: {
                 trigger: revealSection,
                 start: 'top top',
-                end: 'bottom bottom',
+                end: '+=50%',
                 scrub: true,
                 pin: false
             }
