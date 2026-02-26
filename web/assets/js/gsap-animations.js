@@ -155,7 +155,7 @@
                 trigger: revealSection,
                 start: 'top top',
                 end: 'bottom bottom',
-                scrub: 1,
+                scrub: 0.3,
                 pin: false
             }
         });
