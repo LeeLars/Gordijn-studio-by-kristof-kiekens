@@ -89,11 +89,6 @@
 /* ════════════════════════════════════════════
    HERO — Studio 11 Stijl
    ════════════════════════════════════════════ */
-/* Hero section hidden */
-.hero-studio11 {
-    display: none;
-}
-
 .hero-studio11 {
     background: var(--color-bg);
     padding-top: 6rem;
