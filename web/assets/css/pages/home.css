@@ -1123,7 +1123,7 @@
    ════════════════════════════════════════════ */
 .reveal-section {
     position: relative;
-    height: 200vh;
+    height: 300vh;
     background: var(--color-bg);
     margin-top: 14rem;
     margin-bottom: var(--section-pad);
@@ -1290,6 +1290,8 @@
     .hero-image-container {
         margin: -100px auto 0;
         padding: 0 clamp(1.25rem, 4vw, 2rem);
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
     }
 
     /* Circle CTA mobile */
