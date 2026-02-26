@@ -889,7 +889,7 @@ body:has(.loading-screen) {
    HOE WERKT HET — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .werkwijze-section {
-    padding: var(--section-pad) 0;
+    padding-top: var(--section-pad);
     background: var(--color-bg);
 }
 
@@ -905,7 +905,6 @@ body:has(.loading-screen) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-    margin-bottom: 6rem;
 }
 
 .stap {
@@ -947,8 +946,9 @@ body:has(.loading-screen) {
     font-size: clamp(1.1rem, 2vw, 1.3rem);
     line-height: 2;
     color: var(--color-text);
-    margin: 0 0 3rem;
     letter-spacing: -0.01em;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
 }
 
 
