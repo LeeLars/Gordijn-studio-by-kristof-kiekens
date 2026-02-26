@@ -12,6 +12,12 @@
     overflow: hidden;
 }
 
+/* Prevent scrolling during loading screen */
+body:has(.loading-screen) {
+    overflow: hidden;
+    height: 100vh;
+}
+
 .loading-screen.phase-wipe {
     animation: slideOutLeft 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
