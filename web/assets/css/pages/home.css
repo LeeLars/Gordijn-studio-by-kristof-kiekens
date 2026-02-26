@@ -137,7 +137,7 @@ body:has(.loading-screen) {
 }
 
 .heading-indent {
-    padding-left: 0;
+    padding-left: 0.4rem;
     margin-top: 0;
 }
 
