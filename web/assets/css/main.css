@@ -256,8 +256,8 @@ a {
 }
 
 .btn--filled:hover {
-    background: var(--color-green);
-    border-color: var(--color-green);
+    background: #6b7168;
+    border-color: #6b7168;
     color: var(--color-white);
 }
 

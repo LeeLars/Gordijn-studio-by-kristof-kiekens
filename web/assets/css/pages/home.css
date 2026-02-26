@@ -971,7 +971,7 @@
    CONTACT — Luxe, exclusief, verfijnd
    ════════════════════════════════════════════ */
 .contact-section {
-    padding: var(--section-pad) 0;
+    padding: 0 0 var(--section-pad) 0;
     background: var(--color-cream);
 }
 
