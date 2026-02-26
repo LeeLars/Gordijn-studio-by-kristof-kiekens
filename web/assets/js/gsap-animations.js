@@ -147,31 +147,41 @@
         scrollTrigger: { trigger: '.werkwijze-extra', start: 'top 85%' }
     });
 
-    // ── GORDIJN REVEAL: gordijnen schuiven open bij scroll ──
-    var revealSection = document.querySelector('.reveal-section');
-    if (revealSection) {
+    // ── GORDIJN REVEAL: pinned, langzaam gordijn open effect ──
+    var revealPin = document.querySelector('.reveal-pin');
+    if (revealPin) {
         var revealTl = gsap.timeline({
             scrollTrigger: {
-                trigger: revealSection,
+                trigger: revealPin,
                 start: 'top top',
-                end: '+=200vh',
-                scrub: true,
-                pin: false
+                end: '+=150%',
+                scrub: 0.6,
+                pin: true,
+                anticipatePin: 1
             }
         });
 
         revealTl
-            .to('.reveal-curtain.left', {
+            .fromTo('.reveal-left', {
+                xPercent: 0
+            }, {
                 xPercent: -100,
-                ease: 'none'
+                duration: 1,
+                ease: 'power2.inOut'
             }, 0)
-            .to('.reveal-curtain.right', {
+            .fromTo('.reveal-right', {
+                xPercent: 0
+            }, {
                 xPercent: 100,
-                ease: 'none'
+                duration: 1,
+                ease: 'power2.inOut'
             }, 0)
-            .to('.reveal-image', {
+            .fromTo('.reveal-img', {
+                scale: 1.15
+            }, {
                 scale: 1,
-                ease: 'none'
+                duration: 1,
+                ease: 'power1.out'
             }, 0);
     }
 

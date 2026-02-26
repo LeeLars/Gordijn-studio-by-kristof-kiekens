@@ -111,12 +111,12 @@
         </section>
 
         <!-- GORDIJN REVEAL — Beeld sectie -->
-        <section class="reveal-section" id="reveal">
-            <div class="reveal-wrapper">
-                <div class="reveal-curtain left"></div>
-                <div class="reveal-curtain right"></div>
-                <div class="reveal-image-wrap">
-                    <img src="web/assets/images/reveal-image.jpg" alt="Stijlvolle interieur inspiratie" class="reveal-image" />
+        <section class="reveal-pin" id="reveal">
+            <div class="reveal-stage">
+                <div class="reveal-left"></div>
+                <div class="reveal-right"></div>
+                <div class="reveal-photo">
+                    <img src="web/assets/images/reveal-image.jpg" alt="Stijlvolle interieur inspiratie" class="reveal-img" />
                 </div>
             </div>
         </section>
@@ -451,7 +451,7 @@
           
           // Sticky/Circle Reveal image
           if (images.stickyCircle) {
-            document.querySelector('.reveal-image').src = images.stickyCircle;
+            document.querySelector('.reveal-img').src = images.stickyCircle;
           }
           
           // Over Ons images - find by data-cms-key attribute
