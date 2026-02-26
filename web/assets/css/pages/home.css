@@ -1404,6 +1404,11 @@ body:has(.loading-screen) {
 
     .hero-quote {
         font-size: clamp(1rem, 4.5vw, 1.5rem);
+        padding-left: 1.5rem;
+    }
+    
+    .hero-quote::before {
+        left: 0;
     }
 
     .circle-cta-right {
