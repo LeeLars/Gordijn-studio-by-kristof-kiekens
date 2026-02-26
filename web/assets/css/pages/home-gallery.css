@@ -2,7 +2,7 @@
    GALERIJ - Auto-scroll slider
    ════════════════════════════════════════════════════════════ */
 .gallery-section {
-    padding: 4rem 0;
+    padding: 15rem 0;
     background: var(--color-bg);
     overflow: hidden;
 }
@@ -40,7 +40,7 @@
 .gallery-item {
     flex-shrink: 0;
     width: 400px;
-    height: 300px;
+    height: 555px;
     scroll-snap-align: start;
 }
 
