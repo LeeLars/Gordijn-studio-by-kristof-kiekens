@@ -1005,6 +1005,19 @@ body {
   text-overflow: ellipsis;
 }
 
+.inquiry-preview::before {
+  content: 'Gewenst afspraak moment: ';
+  background: var(--cms-primary);
+  color: var(--cms-white);
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.3rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+}
+
 .inquiry-detail {
   display: none;
   margin-top: 1.5rem;
