@@ -741,12 +741,12 @@ a {
     }
 
     .nav-links a {
-        font-family: var(--font-body);
-        font-size: 1.5rem;
+        font-family: var(--font-heading);
+        font-size: 2rem;
         color: var(--color-dark) !important;
         font-weight: 400;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-transform: none;
         padding: 0;
         border-bottom: none;
         width: auto;
@@ -912,6 +912,11 @@ a {
     }
 
     .nav-cta-btn {
+        display: none;
+    }
+
+    /* Hide desktop nav-links on mobile — mobile-menu-wrapper takes over */
+    .nav > .nav-links {
         display: none;
     }
 
