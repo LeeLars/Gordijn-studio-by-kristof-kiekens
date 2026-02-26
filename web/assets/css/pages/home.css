@@ -103,6 +103,7 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    gap: clamp(3rem, 6vw, 6rem);
 }
 
 .hero-title {
@@ -628,7 +629,7 @@
    OVER ONS — Zenkai Stijl
    ════════════════════════════════════════════ */
 .about-section {
-    padding: var(--section-pad) 0;
+    padding-top: 0;
     background: var(--color-cream);
 }
 
@@ -1121,7 +1122,7 @@
    ════════════════════════════════════════════ */
 .reveal-section {
     position: relative;
-    height: 150vh;
+    height: 200vh;
     background: var(--color-bg);
     margin-top: 14rem;
     margin-bottom: var(--section-pad);
