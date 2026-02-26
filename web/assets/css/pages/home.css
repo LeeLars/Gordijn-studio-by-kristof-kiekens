@@ -55,7 +55,7 @@ body:has(.loading-screen) {
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.5rem;
     width: 80%;
     max-width: 600px;
 }
@@ -975,7 +975,6 @@ body:has(.loading-screen) {
     color: rgba(255, 255, 255, 0.5);
     font-size: 1rem;
     line-height: 2;
-    margin: 0 0 3.5rem;
 }
 
 .cta-section .btn {
@@ -1200,7 +1199,7 @@ body:has(.loading-screen) {
     /* Collectie studio responsive tablet */
     .collectie-studio {
         padding: 0 clamp(1.5rem, 4vw, 3rem);
-        gap: 4rem;
+        gap: 10rem;
     }
 
     .studio-item,
