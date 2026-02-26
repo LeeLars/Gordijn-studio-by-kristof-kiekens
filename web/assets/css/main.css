@@ -333,8 +333,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    max-width: var(--max-width);
+    padding: 1.25rem clamp(1.5rem, 6vw, 5rem);    max-width: var(--max-width);
     margin: 0 auto;
 }
 
