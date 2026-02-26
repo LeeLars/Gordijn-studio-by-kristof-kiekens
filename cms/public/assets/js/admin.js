@@ -802,7 +802,8 @@
 
       var preview = document.createElement('div');
       preview.className = 'inquiry-preview';
-      preview.textContent = inquiry.voorkeur || 'Geen voorkeurmoment opgegeven';
+      var voorkeurText = inquiry.voorkeur || 'Geen voorkeur opgegeven';
+      preview.textContent = 'Gewenst afspraak moment: ' + voorkeurText;
 
       var detail = document.createElement('div');
       detail.className = 'inquiry-detail';
@@ -824,7 +825,7 @@
       var emailLink = document.createElement('a');
       emailLink.href = 'mailto:' + inquiry.email;
       emailLink.textContent = inquiry.email;
-      detail.appendChild(makeField('E-mail', emailLink));
+      detail.appendChild(makeField('E-mailadres', emailLink));
 
       var telEl;
       if (inquiry.telefoon) {
@@ -835,11 +836,11 @@
         telEl = document.createElement('span');
         telEl.textContent = 'Niet opgegeven';
       }
-      detail.appendChild(makeField('Telefoon', telEl));
+      detail.appendChild(makeField('Telefoonnummer', telEl));
 
       var voorkeurSpan = document.createElement('span');
       voorkeurSpan.textContent = inquiry.voorkeur || 'Niet opgegeven';
-      detail.appendChild(makeField('Voorkeurmoment', voorkeurSpan));
+      detail.appendChild(makeField('Gewenst afspraak moment', voorkeurSpan));
 
       item.appendChild(header);
       item.appendChild(preview);
