@@ -1394,7 +1394,7 @@ body:has(.loading-screen) {
 
 @media (max-width: 480px) {
     .display-heading {
-        font-size: clamp(2.25rem, 10vw, 3rem);
+        font-size: clamp(3.75rem, 10vw, 3rem);    
     }
 
     .display-heading.heading-indent {
