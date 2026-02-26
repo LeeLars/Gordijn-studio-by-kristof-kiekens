@@ -1068,6 +1068,37 @@
     margin-top: 0.5rem;
 }
 
+/* Form Messages */
+.form-message {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    border-left: 3px solid;
+    animation: fadeIn 0.3s ease;
+}
+
+.form-message.visible {
+    display: block;
+}
+
+.form-message-success {
+    color: #3a5c3a;
+    border-color: #3a5c3a;
+    background: rgba(58, 92, 58, 0.08);
+}
+
+.form-message-error {
+    color: #c0392b;
+    border-color: #c0392b;
+    background: rgba(192, 57, 43, 0.08);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* ════════════════════════════════════════════
    GORDIJN REVEAL — Lecrance: gordijn effect bij scroll

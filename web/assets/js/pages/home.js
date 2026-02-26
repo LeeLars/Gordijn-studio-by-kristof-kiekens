@@ -246,9 +246,18 @@
 
     // Contact formulier met API integratie
     var form = document.getElementById('contactForm');
+    var formSuccess = document.getElementById('formSuccess');
+    var formError = document.getElementById('formError');
+
+    function hideMessages() {
+        if (formSuccess) formSuccess.classList.remove('visible');
+        if (formError) formError.classList.remove('visible');
+    }
+
     if (form) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
+            hideMessages();
 
             var btn = form.querySelector('.btn-submit');
             var originalText = btn.textContent;
@@ -279,6 +288,7 @@
                     btn.textContent = 'Verzonden!';
                     btn.style.background = 'var(--color-primary)';
                     form.reset();
+                    if (formSuccess) formSuccess.classList.add('visible');
                 } else {
                     throw new Error(result.error || 'Er ging iets mis');
                 }
@@ -286,6 +296,7 @@
                 console.error(err);
                 btn.textContent = 'Fout - probeer opnieuw';
                 btn.style.background = '#c0392b';
+                if (formError) formError.classList.add('visible');
             }
 
             setTimeout(function () {
