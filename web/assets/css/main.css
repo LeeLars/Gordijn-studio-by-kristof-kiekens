@@ -685,11 +685,13 @@ a {
         visibility: hidden;
         transition: opacity 0.5s var(--ease), visibility 0.5s;
         z-index: 99;
+        pointer-events: none;
     }
 
     .mobile-menu-wrapper.open {
         opacity: 1;
         visibility: visible;
+        pointer-events: auto;
     }
 
     .nav-links {
