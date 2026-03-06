@@ -12,9 +12,9 @@
     overflow: hidden;
 }
 
-/* Allow scrolling during loading - keep scrollbar space reserved to prevent layout shift */
+/* Block scrolling during loading - html scrollbar-gutter prevents layout shift */
 body:has(.loading-screen) {
-    scrollbar-gutter: stable;
+    overflow: hidden;
 }
 
 .loading-screen.phase-wipe {

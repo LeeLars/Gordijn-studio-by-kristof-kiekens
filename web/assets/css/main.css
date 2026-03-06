@@ -4,6 +4,10 @@
    Geïnspireerd door exclusiviteit, vakmanschap, tijdloze elegantie
    ═══════════════════════════════════════════════ */
 
+html {
+    scrollbar-gutter: stable;
+}
+
 :root {
     /* ── Kleuren — Nieuw minimalistisch palet ── */
     --color-primary: #848374;
