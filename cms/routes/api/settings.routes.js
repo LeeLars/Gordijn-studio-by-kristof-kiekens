@@ -5,51 +5,7 @@ const router = Router();
 
 const SETTINGS_PUBLIC_ID = 'gordijnstudio/settings/data';
 
-// Helper function to optimize Cloudinary URLs
-function optimizeCloudinaryUrl(url) {
-  if (!url || typeof url !== 'string') return url;
-  if (!url.includes('res.cloudinary.com')) return url;
-  
-  // Already optimized?
-  if (url.includes('/f_auto,') || url.includes('/q_auto,')) return url;
-  
-  // Insert f_auto,q_auto after /upload/
-  return url.replace(/\/upload\/v\d+\//, '/upload/f_auto,q_auto/');
-}
-
-// Recursively optimize all image URLs in settings
-function optimizeImages(data) {
-  const optimized = { ...data };
-  
-  if (data.images) {
-    optimized.images = { ...data.images };
-    
-    // Optimize simple image fields
-    ['hero', 'stickyCircle', 'overOns', 'cta'].forEach(key => {
-      if (optimized.images[key]) {
-        optimized.images[key] = optimizeCloudinaryUrl(optimized.images[key]);
-      }
-    });
-    
-    // Optimize aanbod images
-    if (optimized.images.aanbod) {
-      optimized.images.aanbod = { ...optimized.images.aanbod };
-      Object.keys(optimized.images.aanbod).forEach(key => {
-        optimized.images.aanbod[key] = optimizeCloudinaryUrl(optimized.images.aanbod[key]);
-      });
-    }
-  }
-  
-  // Optimize gallery images
-  if (data.gallery && Array.isArray(data.gallery)) {
-    optimized.gallery = data.gallery.map(item => ({
-      ...item,
-      url: optimizeCloudinaryUrl(item.url)
-    }));
-  }
-  
-  return optimized;
-}
+// Default settings
 const DEFAULT_SETTINGS = {
   contact: {
     telefoon: '0473 62 53 13',
@@ -131,8 +87,7 @@ async function writeSettings(data) {
 router.get('/settings', async (req, res) => {
   try {
     const settings = await readSettings();
-    const optimized = optimizeImages(settings);
-    res.json({ success: true, data: optimized });
+    res.json({ success: true, data: settings });
   } catch (error) {
     console.error('Settings read error:', error);
     res.status(500).json({ success: false, error: 'Kon instellingen niet laden' });
