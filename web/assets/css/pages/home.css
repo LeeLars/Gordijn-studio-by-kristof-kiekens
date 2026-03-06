@@ -12,10 +12,10 @@
     overflow: hidden;
 }
 
-/* Prevent scrolling during loading screen */
+/* Prevent scrolling during loading screen - reserve scrollbar space */
 body:has(.loading-screen) {
     overflow: hidden;
-    height: 100vh;
+    scrollbar-gutter: stable;
 }
 
 .loading-screen.phase-wipe {
