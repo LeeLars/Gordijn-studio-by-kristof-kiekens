@@ -100,14 +100,18 @@
     function renderGallery(images) {
         galleryTrack.innerHTML = '';
         var allImages = images.concat(images);
-        allImages.forEach(function (img, idx) {
+        allImages.forEach(function(img, idx) {
             var item = document.createElement('div');
             item.className = 'gallery-item';
             var imgEl = document.createElement('img');
-            imgEl.src = img;
+            // Handle both string URLs and objects
+            var imgUrl = typeof img === 'string' ? img : (img.url || img.secure_url || '');
+            imgEl.src = imgUrl;
             imgEl.alt = 'Gordijn project ' + ((idx % images.length) + 1);
             imgEl.addEventListener('click', function() {
-                openLightbox(img, images);
+                openLightbox(imgUrl, images.map(function(i) { 
+                    return typeof i === 'string' ? i : (i.url || i.secure_url || ''); 
+                }));
             });
             item.appendChild(imgEl);
             galleryTrack.appendChild(item);
