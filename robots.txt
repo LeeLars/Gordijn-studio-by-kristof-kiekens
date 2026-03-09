@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /cms/
 
-Sitemap: https://leelars.github.io/Gordijn-studio-by-kristof-kiekens/sitemap.xml
+Sitemap: https://www.kristofkiekens.be/sitemap.xml
