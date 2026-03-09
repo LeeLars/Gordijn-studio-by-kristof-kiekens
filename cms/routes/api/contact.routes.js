@@ -53,10 +53,19 @@ router.post('/contact', async (req, res) => {
     inquiries.unshift(inquiry);
     await writeInquiries(inquiries);
 
+    const emailFrom = process.env.EMAIL_FROM
+      ? `Gordijn Studio <${process.env.EMAIL_FROM}>`
+      : 'Gordijn Studio <onboarding@resend.dev>';
+
+    const notifyRecipients = (process.env.EMAIL_TO || 'info@kristofkiekens.be')
+      .split(/[\s,;]+/)
+      .map(e => e.trim())
+      .filter(e => e.length > 0);
+
     try {
       await resend.emails.send({
-        from: process.env.EMAIL_FROM || 'Gordijn Studio <onboarding@resend.dev>',
-        to: [process.env.EMAIL_TO || 'klantenleads@grafixstudio.be', 'info@kristofkiekens.be'],
+        from: emailFrom,
+        to: notifyRecipients,
         replyTo: email,
         subject: `Nieuwe aanvraag van ${naam}`,
         html: `
@@ -77,7 +86,7 @@ router.post('/contact', async (req, res) => {
 
     try {
       await resend.emails.send({
-        from: process.env.EMAIL_FROM || 'Gordijn Studio <onboarding@resend.dev>',
+        from: emailFrom,
         to: email,
         subject: 'Bevestiging van uw aanvraag — Gordijn Studio by Kristof Kiekens',
         html: `
