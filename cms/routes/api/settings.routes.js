@@ -23,7 +23,7 @@ const DEFAULT_SETTINGS = {
       rolgordijnen: '',
       houtenJaloezieen: '',
       lamellen: '',
-      duoRoll: ''
+      plisseHoneycell: ''
     }
   },
   gallery: []
@@ -44,6 +44,14 @@ async function readSettings() {
       const response = await fetch(result.secure_url);
       const data = await response.json();
       
+      // Migratie: hernoem duoRoll naar plisseHoneycell
+      if (data.images && data.images.aanbod && data.images.aanbod.duoRoll && !data.images.aanbod.plisseHoneycell) {
+        data.images.aanbod.plisseHoneycell = data.images.aanbod.duoRoll;
+        delete data.images.aanbod.duoRoll;
+        await writeSettings(data);
+        console.log('Migrated duoRoll -> plisseHoneycell');
+      }
+
       console.log('Settings loaded from Cloudinary, gallery count:', data.gallery ? data.gallery.length : 0);
       return data;
     } catch (err) {

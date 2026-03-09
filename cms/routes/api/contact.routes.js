@@ -139,6 +139,15 @@ router.get('/inquiries', async (req, res) => {
   }
 });
 
+router.delete('/inquiries', async (req, res) => {
+  try {
+    await writeInquiries([]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Kon aanvragen niet wissen' });
+  }
+});
+
 router.put('/inquiries/:id/read', async (req, res) => {
   try {
     const inquiries = await readInquiries();
