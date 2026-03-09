@@ -1,0 +1,12 @@
+[service]
+name = "gordijn-studio-cms"
+root = "."
+start = "npm start"
+
+[build]
+builder = "railpack"
+
+# Persistent volume voor data
+[[mounts]]
+source = "/data"
+destination = "./data"

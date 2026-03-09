@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://res.cloudinary.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+    <title>CMS – Gordijn Studio by Kristof Kiekens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/cms/assets/css/admin.css" />
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h1>Gordijn Studio</h1>
+            <p class="login-sub">Content Management</p>
+            <form id="loginForm">
+                <div class="form-field password-field">
+                    <label for="password">Wachtwoord</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" name="password" required autocomplete="current-password" />
+                        <button type="button" class="toggle-password" id="togglePassword" aria-label="Toon wachtwoord">
+                            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                <line x1="1" y1="1" x2="23" y2="23"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-cms">Inloggen</button>
+                <p class="login-error" id="loginError"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- CMS DASHBOARD -->
+    <div class="cms-app" id="cmsApp" style="display:none;">
+
+        <!-- HEADER -->
+        <header class="cms-header">
+            <div class="cms-header-inner">
+                <div class="cms-brand">
+                    <h2>Gordijn Studio</h2>
+                    <span>CMS</span>
+                </div>
+                <button class="btn-logout" id="btnLogout">Uitloggen</button>
+            </div>
+        </header>
+
+        <main class="cms-main">
+
+            <!-- CONTACTGEGEVENS -->
+            <section class="cms-section">
+                <div class="cms-section-header">
+                    <span class="cms-label">Contactgegevens</span>
+                    <h3>Bedrijfsinformatie</h3>
+                </div>
+                <form id="contactSettingsForm" class="cms-form">
+                    <div class="cms-form-grid">
+                        <div class="form-field">
+                            <label for="settTelefoon">Telefoon</label>
+                            <input type="text" id="settTelefoon" name="telefoon" />
+                        </div>
+                        <div class="form-field">
+                            <label for="settEmail">E-mail</label>
+                            <input type="email" id="settEmail" name="email" />
+                        </div>
+                        <div class="form-field">
+                            <label for="settOndernemingsnummer">Ondernemingsnummer</label>
+                            <input type="text" id="settOndernemingsnummer" name="ondernemingsnummer" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-cms">Opslaan</button>
+                    <span class="save-status" id="contactStatus"></span>
+                </form>
+            </section>
+
+            <!-- INQUIRIES / AANVRAGEN -->
+            <section class="cms-section">
+                <div class="cms-section-header">
+                    <span class="cms-label">Aanvragen</span>
+                    <h3>Contactformulier Overzicht</h3>
+                </div>
+                
+                <div class="inquiry-stats" id="inquiryStats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="statTotal">0</span>
+                        <span class="stat-label">Totaal</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statMonth">0</span>
+                        <span class="stat-label">Deze maand</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statUnread">0</span>
+                        <span class="stat-label">Ongelezen</span>
+                    </div>
+                </div>
+
+                <div class="inquiry-list" id="inquiryList">
+                    <p class="inquiry-empty">Geen aanvragen gevonden</p>
+                </div>
+            </section>
+
+            <!-- AFBEELDINGEN -->
+            <section class="cms-section">
+                <div class="cms-section-header">
+                    <span class="cms-label">Afbeeldingen</span>
+                    <h3>Website foto's beheren</h3>
+                    <p class="cms-hint">Klik op een afbeelding om deze te wijzigen. Aanbevolen formaat: minimaal 1600px breed, JPG.</p>
+                </div>
+
+                <div class="cms-images-grid">
+                    <div class="cms-image-card" data-key="hero">
+                        <div class="cms-image-preview" id="preview-hero">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Hero</strong>
+                            <span>Hoofdafbeelding bovenaan</span>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="stickyCircle">
+                        <div class="cms-image-preview" id="preview-stickyCircle">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Cirkel Reveal</strong>
+                            <span>Sfeerbeeld na intro</span>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="overOns">
+                        <div class="cms-image-preview" id="preview-overOns">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Over Ons</strong>
+                            <span>Portret / vakmanschap</span>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="overOnsSecondary">
+                        <div class="cms-image-preview" id="preview-overOnsSecondary">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Over Ons Extra</strong>
+                            <span>Tweede afbeelding</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="cms-section-header cms-mt">
+                    <h4>Aanbod afbeeldingen</h4>
+                </div>
+
+                <div class="cms-images-grid">
+                    <div class="cms-image-card" data-key="aanbod.overgordijnen">
+                        <div class="cms-image-preview" id="preview-aanbod-overgordijnen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Overgordijnen</strong>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.vouwgordijnen">
+                        <div class="cms-image-preview" id="preview-aanbod-vouwgordijnen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Vouwgordijnen</strong>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.rolgordijnen">
+                        <div class="cms-image-preview" id="preview-aanbod-rolgordijnen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Rolgordijnen</strong>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.houtenJaloezieen">
+                        <div class="cms-image-preview" id="preview-aanbod-houtenJaloezieen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Houten Jaloezieën</strong>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.lamellen">
+                        <div class="cms-image-preview" id="preview-aanbod-lamellen">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Lamellen</strong>
+                        </div>
+                    </div>
+
+                    <div class="cms-image-card" data-key="aanbod.duoRoll">
+                        <div class="cms-image-preview" id="preview-aanbod-duoRoll">
+                            <span class="cms-image-empty">Geen afbeelding</span>
+                        </div>
+                        <button class="cms-image-delete" title="Afbeelding verwijderen">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                        <div class="cms-image-info">
+                            <strong>Duo-Roll</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GALLERY AFBEELDINGEN -->
+            <section class="cms-section">
+                <h2>Gallery Slider</h2>
+                <p class="cms-section-desc">Afbeeldingen voor de gallery slider (max 10)</p>
+                
+                <div class="gallery-manager" id="galleryManager">
+                    <div class="gallery-list" id="galleryList">
+                        <!-- Gallery items komen hier -->
+                    </div>
+                    <button class="btn btn--secondary" id="addGalleryImage">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Afbeelding toevoegen
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- MEDIA LIBRARY MODAL -->
+        <div id="mediaLibraryModal" class="media-library-modal">
+            <div class="media-library-overlay"></div>
+            <div class="media-library-content">
+                <div class="media-library-header">
+                    <h3>Media Bibliotheek</h3>
+                    <button class="media-library-close" id="closeMediaLibrary">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="media-library-upload">
+                    <div class="upload-zone" id="uploadZone">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <p>Sleep afbeeldingen hierheen of klik om te uploaden</p>
+                        <input type="file" accept="image/*" multiple id="libraryUploadInput" />
+                    </div>
+                </div>
+                
+                <div class="media-library-grid" id="mediaLibraryGrid">
+                    <!-- Library images will be loaded here -->
+                </div>
+                
+                <div class="media-library-actions">
+                    <button class="btn btn--secondary" id="cancelMediaLibrary">Annuleren</button>
+                    <button class="btn btn--primary" id="selectMediaLibrary">Selecteren</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="cms-footer">
+            <p>Gordijn Studio CMS &mdash; Gemaakt door <a href="https://grafixstudio.io/" target="_blank" rel="noopener">Grafix Studio</a></p>
+        </footer>
+    </div>
+
+    <script src="/cms/assets/js/admin.js"></script>
+</body>
+</html>
