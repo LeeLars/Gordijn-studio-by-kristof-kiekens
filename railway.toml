@@ -4,7 +4,7 @@ root = "."
 start = "npm start"
 
 [build]
-builder = "railpack"
+builder = "nixpacks"
 
 # Persistent volume voor data
 [[mounts]]

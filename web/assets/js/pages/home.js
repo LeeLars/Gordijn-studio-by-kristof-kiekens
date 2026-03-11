@@ -70,30 +70,57 @@
     // ════════════════════════════════════════════════════════════
     // GALLERY - Dynamisch laden uit CMS + Swipe functionaliteit
     // ════════════════════════════════════════════════════════════
-    var API_BASE = window.location.hostname === 'localhost'
+    var isLocalGallery = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    var isRailwayGallery = window.location.hostname.includes('kristofkiekens.be') || window.location.hostname.includes('railway.app');
+    var API_BASE = isLocalGallery
         ? 'http://localhost:3000/api'
-        : 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api';
+        : isRailwayGallery
+            ? '/api'
+            : 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api';
     
     var galleryTrack = document.getElementById('galleryTrack');
     var galleryWrapper = document.getElementById('galleryWrapper');
     
+    // Laad CMS afbeeldingen (data-cms-key) uit settings
+    function loadCmsImages(settings) {
+        if (!settings || !settings.images) return;
+        var images = settings.images;
+        document.querySelectorAll('[data-cms-key]').forEach(function (el) {
+            var key = el.getAttribute('data-cms-key');
+            var parts = key.split('.');
+            var value = images;
+            for (var i = 0; i < parts.length; i++) {
+                if (value && value[parts[i]]) {
+                    value = value[parts[i]];
+                } else {
+                    value = null;
+                    break;
+                }
+            }
+            if (value && typeof value === 'string') {
+                el.src = value;
+            }
+        });
+    }
+
     // Laad gallery afbeeldingen uit CMS
     function loadGallery() {
-        if (!galleryTrack) return;
-        
         fetch(API_BASE + '/settings')
             .then(function (r) { return r.json(); })
             .then(function (res) {
-                if (res.success && res.data && res.data.gallery && res.data.gallery.length > 0) {
-                    var images = res.data.gallery;
-                    renderGallery(images);
-                } else {
-                    // Fallback: standaard afbeeldingen
+                if (res.success && res.data) {
+                    loadCmsImages(res.data);
+                    if (galleryTrack && res.data.gallery && res.data.gallery.length > 0) {
+                        renderGallery(res.data.gallery);
+                    } else if (galleryTrack) {
+                        renderGalleryFallback();
+                    }
+                } else if (galleryTrack) {
                     renderGalleryFallback();
                 }
             })
             .catch(function () {
-                renderGalleryFallback();
+                if (galleryTrack) renderGalleryFallback();
             });
     }
     
