@@ -57,4 +57,6 @@ app.use(errorHandler);
 
 app.listen(env.port, () => {
   console.log(`CMS draait op poort ${env.port}`);
+  console.log(`__dirname: ${__dirname}`);
+  console.log(`rootDir: ${rootDir}`);
 });

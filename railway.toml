@@ -1,10 +1,11 @@
 [service]
 name = "gordijn-studio-cms"
 root = "."
-start = "npm start"
+start = "node cms/server.js"
 
 [build]
 builder = "railpack"
+installCommand = "cd cms && npm install"
 
 # Persistent volume voor data
 [[mounts]]
