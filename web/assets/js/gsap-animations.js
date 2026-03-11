@@ -105,7 +105,7 @@
             var tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: item,
-                    start: 'top 60%'
+                    start: '20% bottom'
                 }
             });
 
@@ -157,7 +157,7 @@
             ease: 'power4.inOut',
             scrollTrigger: {
                 trigger: img,
-                start: 'top 65%'
+                start: '20% bottom'
             }
         });
     });
