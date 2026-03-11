@@ -842,6 +842,10 @@
       voorkeurSpan.textContent = inquiry.voorkeur || 'Niet opgegeven';
       detail.appendChild(makeField('Gewenst afspraak moment', voorkeurSpan));
 
+      var berichtSpan = document.createElement('span');
+      berichtSpan.textContent = inquiry.bericht || 'Geen bericht';
+      detail.appendChild(makeField('Bericht', berichtSpan));
+
       item.appendChild(header);
       item.appendChild(preview);
       item.appendChild(detail);

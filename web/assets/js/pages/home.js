@@ -300,7 +300,8 @@
                     naam: document.getElementById('naam').value,
                     telefoon: document.getElementById('telefoon').value,
                     email: document.getElementById('email').value,
-                    voorkeur: document.getElementById('voorkeur') ? document.getElementById('voorkeur').value : ''
+                    voorkeur: document.getElementById('voorkeur') ? document.getElementById('voorkeur').value : '',
+                    bericht: document.getElementById('bericht') ? document.getElementById('bericht').value : ''
                 };
 
                 var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';

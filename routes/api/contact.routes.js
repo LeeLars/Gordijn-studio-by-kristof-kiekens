@@ -30,7 +30,7 @@ async function writeInquiries(data) {
 
 router.post('/contact', async (req, res) => {
   try {
-    const { naam, email, telefoon, voorkeur } = req.body;
+    const { naam, email, telefoon, voorkeur, bericht } = req.body;
 
     if (!naam || !email) {
       return res.status(400).json({
@@ -45,6 +45,7 @@ router.post('/contact', async (req, res) => {
       email,
       telefoon: telefoon || '',
       voorkeur: voorkeur || '',
+      bericht: bericht || '',
       datum: new Date().toISOString(),
       gelezen: false
     };
@@ -75,10 +76,11 @@ router.post('/contact', async (req, res) => {
             <tr><td style="padding:8px 0;color:#848374;font-size:12px;text-transform:uppercase;letter-spacing:1px;">E-mail</td><td style="padding:8px 0;"><a href="mailto:${email}">${email}</a></td></tr>
             <tr><td style="padding:8px 0;color:#848374;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Telefoon</td><td style="padding:8px 0;">${telefoon || 'Niet opgegeven'}</td></tr>
             <tr><td style="padding:8px 0;color:#848374;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Voorkeurmoment</td><td style="padding:8px 0;">${voorkeur || 'Niet opgegeven'}</td></tr>
+            <tr><td style="padding:8px 0;color:#848374;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Bericht</td><td style="padding:8px 0;">${bericht || 'Geen bericht'}</td></tr>
           </table>
           <p style="margin-top:2rem;color:#999;font-size:12px;">Via gordijnstudio.be contactformulier</p>
         `,
-        text: `Nieuwe aanvraag via website\n\nNaam: ${naam}\nE-mail: ${email}\nTelefoon: ${telefoon || 'Niet opgegeven'}\nVoorkeurmoment: ${voorkeur || 'Niet opgegeven'}`
+        text: `Nieuwe aanvraag via website\n\nNaam: ${naam}\nE-mail: ${email}\nTelefoon: ${telefoon || 'Niet opgegeven'}\nVoorkeurmoment: ${voorkeur || 'Niet opgegeven'}\nBericht: ${bericht || 'Geen bericht'}`
       });
     } catch (emailErr) {
       console.error('Email send error (inquiry still saved):', emailErr);
@@ -104,6 +106,7 @@ router.post('/contact', async (req, res) => {
                 <p style="margin:6px 0;font-size:14px;color:#4a4a4a;"><strong>E-mail:</strong> ${email}</p>
                 <p style="margin:6px 0;font-size:14px;color:#4a4a4a;"><strong>Telefoon:</strong> ${telefoon || 'Niet opgegeven'}</p>
                 <p style="margin:6px 0;font-size:14px;color:#4a4a4a;"><strong>Voorkeurmoment:</strong> ${voorkeur || 'Niet opgegeven'}</p>
+                <p style="margin:6px 0;font-size:14px;color:#4a4a4a;"><strong>Bericht:</strong> ${bericht || 'Geen bericht'}</p>
               </div>
               <p style="font-size:15px;line-height:1.7;color:#4a4a4a;">Met warme groet,<br>Kristof Kiekens</p>
             </div>
@@ -113,7 +116,7 @@ router.post('/contact', async (req, res) => {
             </div>
           </div>
         `,
-        text: `Beste ${naam},\n\nBedankt voor uw aanvraag. Wij hebben deze goed ontvangen. Kristof neemt zo snel mogelijk contact met u op.\n\nUw gegevens:\nNaam: ${naam}\nE-mail: ${email}\nTelefoon: ${telefoon || 'Niet opgegeven'}\nVoorkeurmoment: ${voorkeur || 'Niet opgegeven'}\n\nMet warme groet,\nKristof Kiekens\nGordijn Studio by Kristof Kiekens\n0473 62 53 13`
+        text: `Beste ${naam},\n\nBedankt voor uw aanvraag. Wij hebben deze goed ontvangen. Kristof neemt zo snel mogelijk contact met u op.\n\nUw gegevens:\nNaam: ${naam}\nE-mail: ${email}\nTelefoon: ${telefoon || 'Niet opgegeven'}\nVoorkeurmoment: ${voorkeur || 'Niet opgegeven'}\nBericht: ${bericht || 'Geen bericht'}\n\nMet warme groet,\nKristof Kiekens\nGordijn Studio by Kristof Kiekens\n0473 62 53 13`
       });
     } catch (confirmErr) {
       console.error('Confirmation email error:', confirmErr);

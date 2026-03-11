@@ -42,6 +42,9 @@
       "image": "https://kristofkiekens.be/web/assets/images/image-aalter.jpg",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Koffiestraat 1",
+        "addressLocality": "Knesselare",
+        "postalCode": "9910",
         "addressCountry": "BE",
         "addressRegion": "Oost-Vlaanderen"
       },
@@ -433,9 +436,13 @@
                                 <span class="contact-label">E-mail</span>
                                 <a href="mailto:info@kristofkiekens.be">info@kristofkiekens.be</a>
                             </div>
+                            <div class="contact-item">
+                                <span class="contact-label">BTW</span>
+                                <span>BE 0600.782.960</span>
+                            </div>
                             <div class="contact-item contact-service-area">
                                 <span class="contact-label">Werkgebied</span>
-                                <span>Persoonlijk advies bij u thuis in heel Oost-Vlaanderen</span>
+                                <span>Persoonlijk advies bij u thuis in heel Vlaanderen</span>
                             </div>
                         </div>
                     </div>
@@ -456,6 +463,10 @@
                         <div class="form-field">
                             <label for="voorkeur">Voorkeurmoment</label>
                             <input type="text" id="voorkeur" name="voorkeur" placeholder="Bv. weekdag voormiddag" />
+                        </div>
+                        <div class="form-field">
+                            <label for="bericht">Bericht <span style="font-weight:300;color:#999;">(optioneel)</span></label>
+                            <textarea id="bericht" name="bericht" rows="4" placeholder="Vertel ons meer over uw project of stel een vraag"></textarea>
                         </div>
                         <button type="submit" class="btn btn--filled btn-submit">Verstuur aanvraag <span class="arrow"></span></button>
                         <div class="form-message form-message-success" id="formSuccess">Uw aanvraag is succesvol verzonden</div>
@@ -498,6 +509,8 @@
                         <a href="#ervaring">Over</a>
                         <span class="separator">•</span>
                         <a href="#contact">Contact</a>
+                        <span class="separator">•</span>
+                        <a href="/privacy">Privacybeleid</a>
                     </div>
                 </div>
 
