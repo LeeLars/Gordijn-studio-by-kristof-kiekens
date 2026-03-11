@@ -168,7 +168,7 @@
             <div class="hero-overlap-content">
                 <div class="hero-underlap"></div>
                 <div class="hero-image-container">
-                    <img src="web/assets/images/image-aalter.jpg" alt="Exclusieve raamdecoratie in interieur" class="hero-image-main" />
+                    <img data-cms-key="hero" src="web/assets/images/image-aalter.jpg" alt="Exclusieve raamdecoratie in interieur" class="hero-image-main" />
                     <a href="#contact" class="circle-cta-right">
                         <span>Neem<br>contact op</span>
                     </a>
@@ -192,7 +192,7 @@
                 <div class="reveal-left"></div>
                 <div class="reveal-right"></div>
                 <div class="reveal-photo">
-                    <img src="web/assets/images/reveal-image.jpg" alt="Stijlvolle interieur inspiratie" class="reveal-img" />
+                    <img data-cms-key="stickyCircle" src="web/assets/images/reveal-image.jpg" alt="Stijlvolle interieur inspiratie" class="reveal-img" />
                 </div>
             </div>
         </section>
@@ -510,50 +510,6 @@
     <script src="web/assets/js/pages/home.js"></script>
     <script src="web/assets/js/gsap-animations.js"></script>
     <script>
-    // Load CMS images dynamically
-    (async function loadCMSImages() {
-      try {
-        const API_URL = 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api/settings';
-        const response = await fetch(API_URL);
-        const result = await response.json();
-        
-        if (result.success && result.data && result.data.images) {
-          const images = result.data.images;
-          
-          // Hero image
-          if (images.hero) {
-            document.querySelector('.hero-image-main').src = images.hero;
-          }
-          
-          // Sticky/Circle Reveal image
-          if (images.stickyCircle) {
-            document.querySelector('.reveal-img').src = images.stickyCircle;
-          }
-          
-          // Over Ons images - find by data-cms-key attribute
-          const overOnsImages = document.querySelectorAll('.about-images-stack img[data-cms-key]');
-          overOnsImages.forEach(img => {
-            const key = img.getAttribute('data-cms-key');
-            if (images[key]) {
-              img.src = images[key];
-            }
-          });
-          
-          // Aanbod images - find by data-cms-key attribute
-          const collectieImages = document.querySelectorAll('.collectie-studio .studio-item img[data-cms-key]');
-          collectieImages.forEach(img => {
-            const key = img.getAttribute('data-cms-key');
-            const parts = key.split('.');
-            if (parts.length === 2 && images.aanbod && images.aanbod[parts[1]]) {
-              img.src = images.aanbod[parts[1]];
-            }
-          });
-        }
-      } catch (error) {
-        console.log('CMS images not loaded, using defaults:', error);
-      }
-    })();
-    
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
