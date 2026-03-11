@@ -447,16 +447,14 @@ body:has(.loading-screen) {
     transform: scale(1.05);
 }
 
-/* Overlay */
+/* Overlay — gordijn reveal */
 .studio-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(26, 26, 24, 0.1) 0%,
-        transparent 50%
-    );
+    background: var(--color-cream);
     pointer-events: none;
+    z-index: 2;
+    transform-origin: left;
 }
 
 /* Content */
@@ -676,7 +674,6 @@ body:has(.loading-screen) {
     font-size: clamp(2.2rem, 4vw, 3.5rem);
     line-height: 1.15;
     letter-spacing: -0.03em;
-    margin: 0 0 2rem;
 }
 
 .about-heading .word {
@@ -803,12 +800,13 @@ body:has(.loading-screen) {
     margin: 0 auto;
 }
 
-/* Image reveal overlay */
+/* Image reveal overlay — gordijn reveal */
 .image-reveal {
     position: absolute;
     inset: 0;
     background: var(--color-cream);
     z-index: 2;
+    transform-origin: left;
 }
 
 /* Responsive */
@@ -1009,13 +1007,13 @@ body:has(.loading-screen) {
 .contact-sub {
     font-size: 0.95rem;
     line-height: 2;
-    margin: 0 0 4rem;
+    margin: 0 0 2rem;
 }
 
 .contact-details {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 0.5rem;
 }
 
 .contact-item {

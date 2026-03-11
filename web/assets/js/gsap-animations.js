@@ -96,6 +96,35 @@
         });
     }
 
+    // ── DIENSTEN: gordijn reveal van links naar rechts ──
+    gsap.utils.toArray('.studio-item').forEach(function (item, i) {
+        var overlay = item.querySelector('.studio-overlay');
+        var content = item.querySelector('.studio-content');
+
+        if (overlay) {
+            var tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%'
+                }
+            });
+
+            tl.to(overlay, {
+                scaleX: 0,
+                transformOrigin: 'right',
+                duration: 1.4,
+                ease: 'power4.inOut'
+            })
+            .from(content.children, {
+                opacity: 0,
+                y: 25,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: ease
+            }, '-=0.6');
+        }
+    });
+
     // ── OVER ONS: Zenkai stijl reveal animaties ──
     var aboutTl = gsap.timeline({
         scrollTrigger: { trigger: '.about-single', start: 'top 75%' }
@@ -118,14 +147,14 @@
             opacity: 0, y: 15, duration: 0.6, ease: ease
         }, '-=0.3');
 
-    // Image reveal animaties
+    // Image reveal animaties — gordijn van links naar rechts
     gsap.utils.toArray('.about-image').forEach(function (img, i) {
         gsap.to(img.querySelector('.image-reveal'), {
-            scaleY: 0,
-            transformOrigin: 'top',
-            duration: 1.2,
+            scaleX: 0,
+            transformOrigin: 'right',
+            duration: 1.4,
             delay: i * 0.2,
-            ease: easeSlow,
+            ease: 'power4.inOut',
             scrollTrigger: {
                 trigger: img,
                 start: 'top 80%'
