@@ -13,15 +13,6 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Redirect non-www to www (canonical URL)
-app.use((req, res, next) => {
-  const host = req.headers.host;
-  if (host && host === 'kristofkiekens.be') {
-    return res.redirect(301, 'https://www.kristofkiekens.be' + req.url);
-  }
-  next();
-});
-
 // Configure helmet with CSP allowing Cloudinary images
 app.use(helmet({
   contentSecurityPolicy: {
@@ -35,9 +26,9 @@ app.use(helmet({
     },
   },
 }));
-// Configure CORS to allow GitHub Pages, www.kristofkiekens.be and local development
+// Configure CORS to allow GitHub Pages, kristofkiekens.be and local development
 app.use(cors({
-  origin: ['https://leelars.github.io', 'https://www.kristofkiekens.be', 'http://localhost:3000', 'http://127.0.0.1:5500'],
+  origin: ['https://leelars.github.io', 'https://www.kristofkiekens.be', 'https://kristofkiekens.be', 'http://localhost:3000', 'http://127.0.0.1:5500'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
