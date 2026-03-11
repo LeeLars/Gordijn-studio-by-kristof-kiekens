@@ -19,15 +19,16 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://cloud.umami.is"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      connectSrc: ["'self'", "https://cloud.umami.is"],
     },
   },
 }));
-// Configure CORS to allow GitHub Pages and local development
+// Configure CORS to allow GitHub Pages, kristofkiekens.be and local development
 app.use(cors({
-  origin: ['https://leelars.github.io', 'http://localhost:3000', 'http://127.0.0.1:5500'],
+  origin: ['https://leelars.github.io', 'https://www.kristofkiekens.be', 'https://kristofkiekens.be', 'http://localhost:3000', 'http://127.0.0.1:5500'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -41,9 +42,15 @@ app.use('/api', apiRoutes);
 // Admin static files
 app.use('/cms', express.static(path.join(__dirname, 'public')));
 
-// Root test route
+// Statische website bestanden (root level)
+const rootDir = path.resolve(__dirname, '..');
+app.use('/web', express.static(path.join(rootDir, 'web')));
+app.use('/robots.txt', express.static(path.join(rootDir, 'robots.txt')));
+app.use('/sitemap.xml', express.static(path.join(rootDir, 'sitemap.xml')));
+
+// Homepage
 app.get('/', (req, res) => {
-  res.json({ message: 'Grafix CMS starter draait' });
+  res.sendFile(path.join(rootDir, 'index.html'));
 });
 
 app.use(errorHandler);

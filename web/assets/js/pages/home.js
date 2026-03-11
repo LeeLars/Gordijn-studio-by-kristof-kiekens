@@ -276,9 +276,13 @@
                     voorkeur: document.getElementById('voorkeur') ? document.getElementById('voorkeur').value : ''
                 };
 
-                var API_BASE = window.location.hostname === 'localhost'
+                var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                var isRailway = window.location.hostname.includes('kristofkiekens.be') || window.location.hostname.includes('railway.app');
+                var API_BASE = isLocal
                     ? 'http://localhost:3000/api'
-                    : 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api';
+                    : isRailway
+                        ? '/api'
+                        : 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api';
 
                 var response = await fetch(API_BASE + '/contact', {
                     method: 'POST',

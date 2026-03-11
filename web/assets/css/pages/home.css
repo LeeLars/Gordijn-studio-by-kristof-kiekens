@@ -260,8 +260,8 @@ body:has(.loading-screen) {
 .intro-accent {
     font-size: 0.7rem;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+    text-transform: none;
+    letter-spacing: 0.05em;
     color: var(--color-primary);
     margin: 0;
 }

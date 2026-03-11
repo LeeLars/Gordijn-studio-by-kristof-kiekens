@@ -1,7 +1,11 @@
 // API client voor Gordijn Studio CMS
-const API_BASE_URL = window.location.hostname === 'localhost'
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const isRailway = window.location.hostname.includes('kristofkiekens.be') || window.location.hostname.includes('railway.app');
+const API_BASE_URL = isLocal
   ? 'http://localhost:3000/api'
-  : 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api';
+  : isRailway
+    ? '/api'
+    : 'https://gordijn-studio-by-kristof-kiekens-production.up.railway.app/api';
 
 export async function fetchJson(path, options = {}) {
     const res = await fetch(`${API_BASE_URL}${path}`, options);
