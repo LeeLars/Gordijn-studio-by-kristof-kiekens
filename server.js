@@ -28,7 +28,7 @@ app.use(helmet({
 }));
 // Configure CORS to allow GitHub Pages, kristofkiekens.be and local development
 app.use(cors({
-  origin: ['https://leelars.github.io', 'https://www.kristofkiekens.be', 'https://kristofkiekens.be', 'http://localhost:3000', 'http://127.0.0.1:5500'],
+  origin: ['https://leelars.github.io', 'https://kristofkiekens.be', 'http://localhost:3000', 'http://127.0.0.1:5500'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

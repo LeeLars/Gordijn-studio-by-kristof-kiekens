@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /cms/
 
-Sitemap: https://www.kristofkiekens.be/sitemap.xml
+Sitemap: https://kristofkiekens.be/sitemap.xml
