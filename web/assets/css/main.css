@@ -823,10 +823,7 @@ a {
 
     /* Mobile Contact Footer */
     .mobile-menu-footer {
-        position: absolute;
-        bottom: 3rem;
-        left: 0;
-        width: 100%;
+        margin-top: 3rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -835,7 +832,6 @@ a {
         transform: translateY(20px);
         transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
         transition-delay: 0.35s;
-        /* Animates in last */
     }
 
     .mobile-menu-wrapper.open .mobile-menu-footer {
