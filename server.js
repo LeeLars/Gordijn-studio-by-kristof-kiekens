@@ -47,6 +47,38 @@ app.use('/web', express.static(path.join(__dirname, 'web')));
 app.use('/robots.txt', express.static(path.join(__dirname, 'robots.txt')));
 app.use('/sitemap.xml', express.static(path.join(__dirname, 'sitemap.xml')));
 
+// 301 Redirects
+app.get('/contact.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be/#contact');
+});
+app.get('/carpets.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be');
+});
+app.get('/diensten-en-producten.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be/#aanbod');
+});
+app.get('/info-partners.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be/#ervaring');
+});
+app.get('/interieur-en-kleuradvies.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be');
+});
+app.get('/muurbekleding.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be');
+});
+app.get('/raamdecoratie.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be/#aanbod');
+});
+app.get('/rails.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be');
+});
+app.get('/verf.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be');
+});
+app.get('/vloerbekleding.php', (req, res) => {
+  res.redirect(301, 'https://kristofkiekens.be');
+});
+
 // Homepage
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
