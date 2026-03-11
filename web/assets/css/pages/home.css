@@ -1015,7 +1015,7 @@ body:has(.loading-screen) {
 .contact-details {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1em;
 }
 
 .contact-item {
@@ -1075,13 +1075,30 @@ body:has(.loading-screen) {
     transition: border-color var(--transition);
 }
 
-.form-field input:focus {
+.form-field input:focus,
+.form-field textarea:focus {
     border-color: var(--color-primary);
 }
 
-.form-field input::placeholder {
+.form-field input::placeholder,
+.form-field textarea::placeholder {
     color: var(--color-text-muted);
     font-weight: 300;
+}
+
+.form-field textarea {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 1rem 0;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text);
+    outline: none;
+    resize: none;
+    transition: border-color var(--transition);
+    line-height: 1.7;
 }
 
 .contact-form .btn-submit {
