@@ -42,15 +42,15 @@ app.use('/api', apiRoutes);
 // Admin static files
 app.use('/cms', express.static(path.join(__dirname, 'public')));
 
-// Statische website bestanden (root level)
-const rootDir = path.resolve(__dirname, '..');
-app.use('/web', express.static(path.join(rootDir, 'web')));
-app.use('/robots.txt', express.static(path.join(rootDir, 'robots.txt')));
-app.use('/sitemap.xml', express.static(path.join(rootDir, 'sitemap.xml')));
+// Statische website bestanden vanuit site/
+const siteDir = path.join(__dirname, 'site');
+app.use('/web', express.static(path.join(siteDir, 'web')));
+app.use('/robots.txt', express.static(path.join(siteDir, 'robots.txt')));
+app.use('/sitemap.xml', express.static(path.join(siteDir, 'sitemap.xml')));
 
 // Homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.join(rootDir, 'index.html'));
+  res.sendFile(path.join(siteDir, 'index.html'));
 });
 
 app.use(errorHandler);
@@ -58,5 +58,5 @@ app.use(errorHandler);
 app.listen(env.port, () => {
   console.log(`CMS draait op poort ${env.port}`);
   console.log(`__dirname: ${__dirname}`);
-  console.log(`rootDir: ${rootDir}`);
+  console.log(`siteDir: ${siteDir}`);
 });
